@@ -1,0 +1,12 @@
+use_frameworks!
+
+target 'Analytical_Example' do
+  pod 'Analytical', :path => '../'
+
+  target 'Analytical_Tests' do
+    inherit! :search_paths
+
+    pod 'Quick', '~> 0.8'
+    pod 'Nimble', '~> 3.0'
+  end
+end

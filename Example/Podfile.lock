@@ -1,0 +1,22 @@
+PODS:
+  - Analytical (0.1.0)
+  - Nimble (3.2.0)
+  - Quick (0.9.2)
+
+DEPENDENCIES:
+  - Analytical (from `../`)
+  - Nimble (~> 3.0)
+  - Quick (~> 0.8)
+
+EXTERNAL SOURCES:
+  Analytical:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Analytical: 38a84909fb90da32f0cfc8ee734b66b18c1b71c6
+  Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
+  Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
+
+PODFILE CHECKSUM: 7b76c90d283e2849532fc8345145751b49d95d64
+
+COCOAPODS: 1.1.0.beta.1

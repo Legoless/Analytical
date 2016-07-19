@@ -1,0 +1,39 @@
+{
+  "name": "Analytical",
+  "version": "0.1.0",
+  "summary": "Analytical is a lightweight analytics library wrapper.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/Analytical",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Dal Rupnik": "legoless@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/Analytical.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": "Analytical/Classes/Core/**/*.{swift}"
+    },
+    {
+      "name": "Google",
+      "source_files": "Analytical/Classes/Provider/GoogleProvider.swift",
+      "dependencies": {
+        "Analytical/Core": [
+
+        ],
+        "Google/Analytics": [
+
+        ]
+      }
+    }
+  ]
+}
