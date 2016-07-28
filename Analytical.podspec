@@ -37,7 +37,6 @@ TODO: Add long description of the pod here.
   s.subspec 'Google' do |subspec|
     subspec.source_files = 'Analytical/Classes/Provider/GoogleProvider.swift'
     subspec.dependency 'Analytical/Core'
-    subspec.dependency 'Google/Analytics'
   end
 
 #s.source_files = 'Analytical/Classes/**/*'

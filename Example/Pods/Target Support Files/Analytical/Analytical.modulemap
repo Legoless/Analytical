@@ -1,0 +1,6 @@
+framework module Analytical {
+  umbrella header "Analytical-umbrella.h"
+
+  export *
+  module * { export * }
+}

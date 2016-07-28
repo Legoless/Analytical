@@ -29,9 +29,6 @@
       "dependencies": {
         "Analytical/Core": [
 
-        ],
-        "Google/Analytics": [
-
         ]
       }
     }

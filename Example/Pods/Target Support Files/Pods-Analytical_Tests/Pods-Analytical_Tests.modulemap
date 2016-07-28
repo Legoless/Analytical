@@ -1,0 +1,6 @@
+framework module Pods_Analytical_Tests {
+  umbrella header "Pods-Analytical_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

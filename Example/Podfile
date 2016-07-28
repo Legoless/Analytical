@@ -1,7 +1,11 @@
+platform :ios, '8.0'
+
+inhibit_all_warnings!
 use_frameworks!
 
 target 'Analytical_Example' do
   pod 'Analytical', :path => '../'
+  pod 'Google/Analytics'
 
   target 'Analytical_Tests' do
     inherit! :search_paths

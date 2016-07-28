@@ -6,11 +6,36 @@
 //  Copyright © 2016 Blub Blub. All rights reserved.
 //
 
+import Saystack
+import UIKit
+
 ///
 /// Serves as a bounce wrapper for Analytics providers
 ///
 public class Analytics : Analytical {
+    private static let DeviceKey = "AnalyticsDeviceKey"
+    
+    private var userDefaults = NSUserDefaults.standardUserDefaults()
+    
     public var providers : [Analytical] = []
+    
+    public var deviceId : String {
+        if let id = userDefaults.stringForKey(Analytics.DeviceKey) {
+            return id
+        }
+        
+        if let id = UIDevice.currentDevice().identifierForVendor?.UUIDString {
+            userDefaults.setObject(id, forKey: Analytics.DeviceKey)
+            
+            return id
+        }
+        
+        let id = String.random(128)
+        
+        userDefaults.setObject(id, forKey: Analytics.DeviceKey)
+        
+        return id
+    }
     
     //
     // MARK: Public Methods
@@ -49,19 +74,19 @@ public class Analytics : Analytical {
     public func reset() {
         providers.forEach { $0.reset() }
     }
-    public func event(name: EventName, properties: Properties?) {
+    public func event(name: EventName, properties: Properties? = nil) {
         providers.forEach { $0.event(name, properties: properties) }
     }
-    public func screen(name: EventName, properties: Properties?) {
+    public func screen(name: EventName, properties: Properties? = nil) {
         providers.forEach { $0.screen(name, properties: properties) }
     }
-    public func time (name: EventName, properties: Properties?) {
+    public func time (name: EventName, properties: Properties? = nil) {
         providers.forEach { $0.time(name, properties: properties) }
     }
-    public func finish (name: EventName, properties: Properties?) {
+    public func finish (name: EventName, properties: Properties? = nil) {
         providers.forEach { $0.finish(name, properties: properties) }
     }
-    public func identify(userId: String, properties: Properties?) {
+    public func identify(userId: String, properties: Properties? = nil) {
         providers.forEach { $0.identify(userId, properties: properties) }
     }
     public func alias(userId: String, forId: String) {

@@ -34,7 +34,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         
         gai = GAI.sharedInstance()
         gai.trackUncaughtExceptions = false
-        gai.logger.logLevel = GAILogLevel.Verbose
+        //gai.logger.logLevel = GAILogLevel.Verbose
         
         if let trackingId = properties?[GoogleProvider.TrackingId] as? String {
             self.trackingId = trackingId
