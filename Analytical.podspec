@@ -26,11 +26,18 @@ Pod::Spec.new do |s|
   #s.subspec 'Google' do |subspec|
   #   subspec.source_files = 'Analytical/Classes/Provider/GoogleProvider.swift'
   #   subspec.dependency 'Analytical/Core'
+  #   subspec.dependency 'Google/Analytics'
   #end
 
   s.subspec 'Mixpanel' do |subspec|
     subspec.source_files = 'Analytical/Classes/Provider/MixpanelProvider.swift'
     subspec.dependency 'Analytical/Core'
     subspec.dependency 'Mixpanel'
+  end
+
+  s.subspec 'Facebook' do |subspec|
+    subspec.source_files = 'Analytical/Classes/Provider/FacebookProvider.swift'
+    subspec.dependency 'Analytical/Core'
+    subspec.dependency 'FBSDKCoreKit'
   end
 end

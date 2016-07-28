@@ -6,7 +6,6 @@
 //  Copyright © 2016 Blub Blub. All rights reserved.
 //
 
-import Saystack
 import UIKit
 
 ///
@@ -30,7 +29,7 @@ public class Analytics : Analytical {
             return id
         }
         
-        let id = String.random(128)
+        let id = Analytics.randomId()
         
         userDefaults.setObject(id, forKey: Analytics.DeviceKey)
         
@@ -54,7 +53,7 @@ public class Analytics : Analytical {
         if let launchOptions = launchOptions {
             properties = [Property.Launch.Options.rawValue : launchOptions]
         }
-            
+        
         setup(properties)
     }
     
@@ -100,6 +99,27 @@ public class Analytics : Analytical {
     }
     public func purchase(amount: NSDecimalNumber, properties: Properties?) {
         providers.forEach { $0.purchase(amount, properties: properties) }
+    }
+    
+    //
+    // MARK: Private Methods
+    //
+    
+    private static func randomId(length: Int = 64) -> String {
+        let charactersString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let charactersArray : [Character] = Array(charactersString.characters)
+        
+        let count = UInt32(charactersArray.count)
+        
+        var string = ""
+        
+        for _ in 0..<length {
+            let rand = Int(arc4random_uniform(count))
+            
+            string.append(charactersArray[rand])
+        }
+        
+        return string
     }
 }
 
