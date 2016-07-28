@@ -21,7 +21,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         }
     }
     
-    init(trackingId: String? = nil) {
+    public init(trackingId: String? = nil) {
         self.trackingId = trackingId
         
         super.init()
@@ -40,7 +40,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         if let trackingId = properties?[GoogleProvider.TrackingId] as? String {
             self.trackingId = trackingId
         }
-            
+        
         if let trackingId = trackingId {
             instance = gai.trackerWithTrackingId(trackingId)
         }

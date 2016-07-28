@@ -9,6 +9,9 @@
 import FBSDKCoreKit
 
 public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
+    public override init () {
+        
+    }
     
     //
     // MARK: Analyical

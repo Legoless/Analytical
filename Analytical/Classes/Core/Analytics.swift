@@ -36,6 +36,9 @@ public class Analytics : Analytical {
         return id
     }
     
+    public init () {
+    }
+    
     //
     // MARK: Public Methods
     //

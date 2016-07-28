@@ -9,10 +9,14 @@
 import Foundation
 
 public class Provider <T> : NSObject {
-    var events : [EventName : NSDate] = [:]
-    var properties : [EventName : Properties] = [:]
+    public var events : [EventName : NSDate] = [:]
+    public var properties : [EventName : Properties] = [:]
     
-    public internal(set) var instance : T! = nil
+    public var instance : T! = nil
+    
+    public override init () {
+        super.init()
+    }
     
     public func activate() {
         
@@ -44,7 +48,7 @@ public class Provider <T> : NSObject {
         if let time = events[name] {
             properties![Property.Time.rawValue] = time.timeIntervalSinceNow
         }
-                
+        
         event(name, properties: properties)
     }
 }
