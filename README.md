@@ -108,10 +108,17 @@ If your application has identified user, you should call `identify` method. If y
 analytics.identify(analytics.deviceId)
 ```
 
-## Author
 
-Dal Rupnik, legoless@gmail.com
+Contact
+======
 
-## License
+Dal Rupnik
 
-Analytical is available under the MIT license. See the LICENSE file for more info.
+- [legoless](https://github.com/legoless) on **GitHub**
+- [@thelegoless](https://twitter.com/thelegoless) on **Twitter**
+- [dal@unifiedsense.com](mailto:dal@unifiedsense.com)
+
+License
+======
+
+**Analytical** is available under the **MIT** license. See [LICENSE](https://github.com/Legoless/Analytical/blob/master/LICENSE) file for more information.
