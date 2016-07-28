@@ -131,9 +131,9 @@ public class Analytics : Analytical {
 // Analytics operator
 //
 
-infix operator <<~ { associativity left precedence 160 }
+public infix operator <<~ { associativity left precedence 160 }
 
-func <<~ (left: Analytics, right: Analytical) -> Analytics {
+public func <<~ (left: Analytics, right: Analytical) -> Analytics {
     left.providers.append(right)
     
     return left

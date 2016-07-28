@@ -6,6 +6,7 @@
 //  Copyright © 2016 Blub Blub. All rights reserved.
 //
 
+import Analytical
 import Foundation
 
 public class GoogleProvider : Provider<GAITracker>, Analytical {
