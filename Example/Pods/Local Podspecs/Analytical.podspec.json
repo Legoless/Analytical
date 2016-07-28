@@ -1,9 +1,9 @@
 {
   "name": "Analytical",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "summary": "Analytical is a lightweight analytics library wrapper.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/Analytical",
+  "description": "A simple, lightweight Swift analytics abstraction layer.",
+  "homepage": "https://github.com/legoless/Analytical",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,9 +12,10 @@
     "Dal Rupnik": "legoless@gmail.com"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/Analytical.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/legoless/Analytical.git",
+    "tag": "0.1.1"
   },
+  "social_media_url": "https://twitter.com/thelegoless",
   "platforms": {
     "ios": "8.0"
   },
@@ -24,10 +25,25 @@
       "source_files": "Analytical/Classes/Core/**/*.{swift}"
     },
     {
-      "name": "Google",
-      "source_files": "Analytical/Classes/Provider/GoogleProvider.swift",
+      "name": "Mixpanel",
+      "source_files": "Analytical/Classes/Provider/MixpanelProvider.swift",
       "dependencies": {
         "Analytical/Core": [
+
+        ],
+        "Mixpanel": [
+
+        ]
+      }
+    },
+    {
+      "name": "Facebook",
+      "source_files": "Analytical/Classes/Provider/FacebookProvider.swift",
+      "dependencies": {
+        "Analytical/Core": [
+
+        ],
+        "FBSDKCoreKit": [
 
         ]
       }

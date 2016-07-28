@@ -1,9 +1,9 @@
 //
 //  DebugProvider.swift
-//  Application
+//  Analytical
 //
 //  Created by Dal Rupnik on 19/07/16.
-//  Copyright © 2016 Blub Blub. All rights reserved.
+//  Copyright © 2016 Unified Sense. All rights reserved.
 //
 
 import XCGLogger

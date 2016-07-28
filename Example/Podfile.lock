@@ -1,10 +1,23 @@
 PODS:
-  - Analytical (0.1.0):
-    - Analytical/Core (= 0.1.0)
-    - Analytical/Google (= 0.1.0)
-  - Analytical/Core (0.1.0)
-  - Analytical/Google (0.1.0):
+  - Analytical (0.1.1):
+    - Analytical/Core (= 0.1.1)
+    - Analytical/Facebook (= 0.1.1)
+    - Analytical/Mixpanel (= 0.1.1)
+  - Analytical/Core (0.1.1)
+  - Analytical/Facebook (0.1.1):
     - Analytical/Core
+    - FBSDKCoreKit
+  - Analytical/Mixpanel (0.1.1):
+    - Analytical/Core
+    - Mixpanel
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.8.4)
+  - FBSDKCoreKit (4.14.0):
+    - Bolts (~> 1.7)
   - FirebaseAnalytics (3.2.1):
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
@@ -22,6 +35,9 @@ PODS:
   - GoogleSymbolUtilities (1.1.1)
   - GoogleUtilities (1.3.1):
     - GoogleSymbolUtilities (~> 1.0)
+  - Mixpanel (3.0.0):
+    - Mixpanel/Mixpanel (= 3.0.0)
+  - Mixpanel/Mixpanel (3.0.0)
   - Nimble (3.2.0)
   - Quick (0.9.2)
 
@@ -36,7 +52,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Analytical: f57f6cb456e3e66868865d4c0c54d6855c5a27f6
+  Analytical: 1b5a64ce13ad1373cc36d82838b31f1cb1a4b038
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  FBSDKCoreKit: 6e020b5db0b5bd1e01f5fb0902131befd129a502
   FirebaseAnalytics: 0fd6532cb2c3d03cd5cf26ad295ccb091efd3104
   FirebaseInstanceID: a9d923f3d0b6fbf9fac89310860357aaadc34be5
   Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
@@ -44,6 +62,7 @@ SPEC CHECKSUMS:
   GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
+  Mixpanel: ac92056ee35a961362513ba11049e67cffcaa1f1
   Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
   Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
 
