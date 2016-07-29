@@ -93,8 +93,12 @@ analytics.setup(application, launchOptions: launchOptions)
 ### Tracking events and screens:
 
 ```swift
+// Calls using above wrapper
 analytics.track(.FirstButtonTap)
 analytics.track(.FirstScreen)
+
+// Original call with a string
+analytics.screen(Track.Screen.rawValue)
 ```
 
 ### Tracking properties
