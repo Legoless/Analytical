@@ -15,25 +15,29 @@ Analytical is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
+!use_frameworks
+
 pod "Analytical"
 ```
 
-Specify the providers you wish to use.
+The complete Podspec will install all providers, but you may specify the providers you wish to use.
 
 ```ruby
+!use_frameworks
+
 pod "Analytical/Facebook"
 pod "Analytical/Mixpanel"
 ```
 
 ## Google Analytics
 
-Analytical provides Google Analytics provider, but due to it's incompatibility with Swift frameworks, it must be installed manually. To do this there are 3 steps required:
+Analytical provides Google Analytics provider, but due to it's incompatibility with Swift frameworks, it must be installed manually. To do this there are 5 steps required:
 
-1. Add `pod "Google/Analytics"` and pod `"Analytical/Core"` to your targets's podfile.
+1. Add `pod "Google/Analytics"` and `pod "Analytical/Core"` to your targets's podfile.
 2. Run `pod install`
 3. Add `#import <Google/Analytics.h>` to your Application Bridging Header.
-3. Drag & drop `GoogleProvider.swift` to your project.
-4. Normally instantiate `GoogleProvider` from Analytical with Google Tracking ID.
+4. Drag & drop `GoogleProvider.swift` to your project.
+5. Normally instantiate `GoogleProvider` from Analytical with Google Tracking ID.
 
 ## Configuration
 
