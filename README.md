@@ -103,7 +103,7 @@ analytics.activate()
 analytics.track(.FirstButtonTap)
 analytics.track(.FirstScreen)
 
-// Original call with a string
+// Original call with String
 analytics.screen(Track.Screen.rawValue)
 ```
 
