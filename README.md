@@ -84,10 +84,16 @@ extension Analytical {
 
 ## Usage
 
-Some analytics providers require to be setup when application finishes launching. Add this code to your didFinishLaunchingWithOptions method:
+Some analytics providers require to be setup when application finishes launching. Add this code to your `application:didFinishLaunchingWithOptions` method:
 
 ```swift
 analytics.setup(application, launchOptions: launchOptions)
+```
+
+Some analytics providers require to log application activation (Facebook for example), so you must add the code below to your `applicationDidBecomeActive:` method.
+
+```swift
+analytics.activate()
 ```
 
 ### Tracking events and screens:
@@ -115,7 +121,6 @@ If your application has identified user, you should call `identify` method. If y
 ```swift
 analytics.identify(analytics.deviceId)
 ```
-
 
 Contact
 ======
