@@ -1,0 +1,4 @@
+osx_image: xcode7.3
+language: swift
+xcode_workspacet: Example/Analytical.xcworkspace # path to your xcodeproj folder
+xcode_scheme: Analytical-Example
