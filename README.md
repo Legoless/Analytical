@@ -1,9 +1,9 @@
 # Analytical
 
-Analytical is a simple lightweight abstract analytics wrapper for Swift. Similar to [ARAnalytics](https://github.com/orta/ARAnalytics), but for Swift.
+Analytical is a simple light-weight analytics wrapper for iOS Swift projects. Inspired by [ARAnalytics](https://github.com/orta/ARAnalytics), which is a powerful Objective-C library. Analytical does not support all advanced functionalities of it's providers, but it allows to directly access each instance for specific configuration.
 
 
-[![CI Status](http://img.shields.io/travis/Dal Rupnik/Analytical.svg?style=flat)](https://travis-ci.org/Dal Rupnik/Analytical)
+[![CI Status](https://travis-ci.org/Legoless/Analytical.svg?branch=master)](https://travis-ci.org/legoless/Analytical)
 [![Version](https://img.shields.io/cocoapods/v/Analytical.svg?style=flat)](http://cocoapods.org/pods/Analytical)
 [![License](https://img.shields.io/cocoapods/l/Analytical.svg?style=flat)](http://cocoapods.org/pods/Analytical)
 [![Platform](https://img.shields.io/cocoapods/p/Analytical.svg?style=flat)](http://cocoapods.org/pods/Analytical)
@@ -15,25 +15,29 @@ Analytical is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
+!use_frameworks
+
 pod "Analytical"
 ```
 
-Specify the providers you wish to use.
+The complete Podspec will install all providers, but you may specify the providers you wish to use.
 
 ```ruby
+!use_frameworks
+
 pod "Analytical/Facebook"
 pod "Analytical/Mixpanel"
 ```
 
 ## Google Analytics
 
-Analytical provides Google Analytics provider, but due to it's incompatibility with Swift frameworks, it must be installed manually. To do this there are 3 steps required:
+Analytical provides Google Analytics provider, but due to it's incompatibility with Swift frameworks, it must be installed manually. To do this there are 5 steps required:
 
-1. Add `pod "Google/Analytics"` and pod `"Analytical/Core"` to your targets's podfile.
+1. Add `pod "Google/Analytics"` and `pod "Analytical/Core"` to your targets's podfile.
 2. Run `pod install`
 3. Add `#import <Google/Analytics.h>` to your Application Bridging Header.
-3. Drag & drop `GoogleProvider.swift` to your project.
-4. Normally instantiate `GoogleProvider` from Analytical with Google Tracking ID.
+4. Drag & drop `GoogleProvider.swift` to your project.
+5. Normally instantiate `GoogleProvider` from Analytical with Google Tracking ID.
 
 ## Configuration
 
@@ -80,17 +84,27 @@ extension Analytical {
 
 ## Usage
 
-Some analytics providers require to be setup when application finishes launching. Add this code to your didFinishLaunchingWithOptions method:
+Some analytics providers require to be setup when application finishes launching. Add this code to your `application:didFinishLaunchingWithOptions` method:
 
 ```swift
 analytics.setup(application, launchOptions: launchOptions)
 ```
 
+Some analytics providers require to log application activation (Facebook for example), so you must add the code below to your `applicationDidBecomeActive:` method.
+
+```swift
+analytics.activate()
+```
+
 ### Tracking events and screens:
 
 ```swift
+// Calls using above wrapper
 analytics.track(.FirstButtonTap)
 analytics.track(.FirstScreen)
+
+// Original call with String
+analytics.screen(Track.Screen.rawValue)
 ```
 
 ### Tracking properties
@@ -107,7 +121,6 @@ If your application has identified user, you should call `identify` method. If y
 ```swift
 analytics.identify(analytics.deviceId)
 ```
-
 
 Contact
 ======
