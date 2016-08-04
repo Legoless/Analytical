@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Analytical'
-  s.version          = '0.1.2'
+  s.version          = '0.1.3'
   s.summary          = 'Analytical is a lightweight analytics library wrapper.'
 
   s.description      = <<-DESC
@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
   s.subspec 'Mixpanel' do |subspec|
     subspec.source_files = 'Analytical/Classes/Provider/MixpanelProvider.swift'
     subspec.dependency 'Analytical/Core'
-    subspec.dependency 'Mixpanel'
+    subspec.dependency 'Mixpanel-swift'
   end
 
   s.subspec 'Facebook' do |subspec|

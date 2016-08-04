@@ -8,7 +8,7 @@
 
 import Mixpanel
 
-public class MixpanelProvider : Provider<Mixpanel>, Analytical {
+public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
     private var token : String
     
     public static let ApiToken = "ApiToken"
@@ -29,7 +29,7 @@ public class MixpanelProvider : Provider<Mixpanel>, Analytical {
             self.token = token
         }
         
-        instance = Mixpanel.sharedInstanceWithToken(token)
+        instance = Mixpanel.initialize(token: token)
     }
     
     public func flush() {
@@ -41,25 +41,25 @@ public class MixpanelProvider : Provider<Mixpanel>, Analytical {
     }
     
     public override func event(name: EventName, properties: Properties? = nil) {
-        instance.track(name, properties: properties)
+        instance.track(event: name, properties: properties)
     }
     
     public func screen(name: EventName, properties: Properties? = nil) {
         //
         // Mixpanel does not specifically track screens, so just send out an event.
         //
-        instance.track(name, properties: properties)
+        instance.track(event: name, properties: properties)
     }
     
     public override func time(name: EventName, properties: Properties? = nil) {
         super.time(name, properties: properties)
         
-        instance.timeEvent(name)
+        instance.time(event: name)
     }
     
     public func identify(userId: String, properties: Properties? = nil) {
         
-        instance.identify(userId)
+        instance.identify(distinctId: userId)
         
         if let properties = properties {
             instance.registerSuperProperties(properties)
@@ -67,19 +67,19 @@ public class MixpanelProvider : Provider<Mixpanel>, Analytical {
     }
     
     public func alias(userId: String, forId: String) {
-        instance.createAlias(userId, forDistinctID: forId)
-        instance.identify(forId)
+        instance.createAlias(userId, distinctId: forId)
+        instance.identify(distinctId: forId)
     }
     
     public func set(properties: Properties) {
-        instance.people.set(properties)
+        instance.people.set(properties: properties)
     }
     
     public func increment(property: String, by number: NSDecimalNumber) {
-        instance.people.increment(property, by: number)
+        instance.people.increment(property: property, by: number.doubleValue)
     }
     
     public func purchase(amount: NSDecimalNumber, properties: Properties?) {
-        instance.people.trackCharge(amount, withProperties: properties)
+        instance.people.trackCharge(amount: amount.doubleValue, properties: properties)
     }
 }

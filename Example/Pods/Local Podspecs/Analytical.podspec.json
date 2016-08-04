@@ -1,6 +1,6 @@
 {
   "name": "Analytical",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "summary": "Analytical is a lightweight analytics library wrapper.",
   "description": "A simple, lightweight Swift analytics abstraction layer.",
   "homepage": "https://github.com/legoless/Analytical",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/legoless/Analytical.git",
-    "tag": "0.1.1"
+    "tag": "0.1.3"
   },
   "social_media_url": "https://twitter.com/thelegoless",
   "platforms": {
@@ -31,7 +31,7 @@
         "Analytical/Core": [
 
         ],
-        "Mixpanel": [
+        "Mixpanel-swift": [
 
         ]
       }
