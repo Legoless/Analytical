@@ -1,6 +1,6 @@
 {
   "name": "Analytical",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "summary": "Analytical is a lightweight analytics library wrapper.",
   "description": "A simple, lightweight Swift analytics abstraction layer.",
   "homepage": "https://github.com/legoless/Analytical",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/legoless/Analytical.git",
-    "tag": "0.1.3"
+    "tag": "0.1.4"
   },
   "social_media_url": "https://twitter.com/thelegoless",
   "platforms": {
@@ -44,6 +44,39 @@
 
         ],
         "FBSDKCoreKit": [
+
+        ]
+      }
+    },
+    {
+      "name": "Flurry",
+      "source_files": "Analytical/Classes/Provider/FlurryProvider.swift",
+      "dependencies": {
+        "Analytical/Core": [
+
+        ],
+        "Flurry-iOS-SDK/FlurrySDK": [
+
+        ]
+      }
+    },
+    {
+      "name": "Log",
+      "source_files": "Analytical/Classes/Provider/LogProvider.swift",
+      "dependencies": {
+        "Analytical/Core": [
+
+        ]
+      }
+    },
+    {
+      "name": "Segment",
+      "source_files": "Analytical/Classes/Provider/SegmentProvider.swift",
+      "dependencies": {
+        "Analytical/Core": [
+
+        ],
+        "Analytics": [
 
         ]
       }

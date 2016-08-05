@@ -85,13 +85,17 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Analytical/Analytical.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Analytics/Analytics.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Bolts/Bolts.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FBSDKCoreKit/FBSDKCoreKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Flurry-iOS-SDK/Flurry_iOS_SDK.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Mixpanel-swift/Mixpanel.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Analytical/Analytical.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Analytics/Analytics.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Bolts/Bolts.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FBSDKCoreKit/FBSDKCoreKit.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Flurry-iOS-SDK/Flurry_iOS_SDK.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Mixpanel-swift/Mixpanel.framework"
 fi
