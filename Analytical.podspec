@@ -40,4 +40,22 @@ Pod::Spec.new do |s|
     subspec.dependency 'Analytical/Core'
     subspec.dependency 'FBSDKCoreKit'
   end
+
+  s.subspec 'Flurry' do |subspec|
+    subspec.source_files = 'Analytical/Classes/Provider/FlurryProvider.swift'
+    subspec.dependency 'Analytical/Core'
+    subspec.dependency 'Flurry-iOS-SDK/FlurrySDK'
+  end
+
+  s.subspec 'Log' do |subspec|
+    subspec.source_files = 'Analytical/Classes/Provider/LogProvider.swift'
+    subspec.dependency 'Analytical/Core'
+  end
+
+  s.subspec 'Segment' do |subspec|
+    subspec.source_files = 'Analytical/Classes/Provider/SegmentProvider.swift'
+    subspec.dependency 'Analytical/Core'
+    subspec.dependency 'Analytics'
+  end
+
 end
