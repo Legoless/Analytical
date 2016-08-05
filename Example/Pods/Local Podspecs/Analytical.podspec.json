@@ -1,6 +1,6 @@
 {
   "name": "Analytical",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "summary": "Analytical is a lightweight analytics library wrapper.",
   "description": "A simple, lightweight Swift analytics abstraction layer.",
   "homepage": "https://github.com/legoless/Analytical",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/legoless/Analytical.git",
-    "tag": "0.1.4"
+    "tag": "0.2.0"
   },
   "social_media_url": "https://twitter.com/thelegoless",
   "platforms": {
@@ -65,6 +65,9 @@
       "source_files": "Analytical/Classes/Provider/LogProvider.swift",
       "dependencies": {
         "Analytical/Core": [
+
+        ],
+        "XCGLogger": [
 
         ]
       }

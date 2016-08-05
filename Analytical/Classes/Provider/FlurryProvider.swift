@@ -28,7 +28,7 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
         
     }
     
-    public func event(name: EventName, properties: Properties?) {
+    public override func event(name: EventName, properties: Properties?) {
         Flurry.logEvent(name, withParameters: properties)
     }
     

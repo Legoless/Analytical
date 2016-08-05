@@ -46,7 +46,7 @@ public class SegmentProvider : Provider <SEGAnalytics>, Analytical {
         instance.reset()
     }
     
-    public func event(name: EventName, properties: Properties?) {
+    public override func event(name: EventName, properties: Properties?) {
         instance.track(name, properties: properties)
     }
     

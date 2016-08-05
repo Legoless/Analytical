@@ -1,24 +1,25 @@
 PODS:
-  - Analytical (0.1.4):
-    - Analytical/Core (= 0.1.4)
-    - Analytical/Facebook (= 0.1.4)
-    - Analytical/Flurry (= 0.1.4)
-    - Analytical/Log (= 0.1.4)
-    - Analytical/Mixpanel (= 0.1.4)
-    - Analytical/Segment (= 0.1.4)
-  - Analytical/Core (0.1.4)
-  - Analytical/Facebook (0.1.4):
+  - Analytical (0.2.0):
+    - Analytical/Core (= 0.2.0)
+    - Analytical/Facebook (= 0.2.0)
+    - Analytical/Flurry (= 0.2.0)
+    - Analytical/Log (= 0.2.0)
+    - Analytical/Mixpanel (= 0.2.0)
+    - Analytical/Segment (= 0.2.0)
+  - Analytical/Core (0.2.0)
+  - Analytical/Facebook (0.2.0):
     - Analytical/Core
     - FBSDKCoreKit
-  - Analytical/Flurry (0.1.4):
+  - Analytical/Flurry (0.2.0):
     - Analytical/Core
     - Flurry-iOS-SDK/FlurrySDK
-  - Analytical/Log (0.1.4):
+  - Analytical/Log (0.2.0):
     - Analytical/Core
-  - Analytical/Mixpanel (0.1.4):
+    - XCGLogger
+  - Analytical/Mixpanel (0.2.0):
     - Analytical/Core
     - Mixpanel-swift
-  - Analytical/Segment (0.1.4):
+  - Analytical/Segment (0.2.0):
     - Analytical/Core
     - Analytics
   - Analytics (3.2.6)
@@ -51,6 +52,7 @@ PODS:
   - Mixpanel-swift (1.0.0)
   - Nimble (3.2.0)
   - Quick (0.9.3)
+  - XCGLogger (3.3)
 
 DEPENDENCIES:
   - Analytical (from `../`)
@@ -63,7 +65,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Analytical: f799b788d02c1eefe4a95a9924c1c6f0a64cb9b9
+  Analytical: 9de70e1f6cd1026549cfe3945136eec5d37b6a2e
   Analytics: ad1c5bdc169866d72afdbc918084d0695010e35a
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   FBSDKCoreKit: 6e020b5db0b5bd1e01f5fb0902131befd129a502
@@ -78,6 +80,7 @@ SPEC CHECKSUMS:
   Mixpanel-swift: f35c35756e2122a8dbd9bd2f0e27441fc7a02e33
   Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
   Quick: 13a2a2b19a5d8e3ed4fd0c36ee46597fd77ebf71
+  XCGLogger: d6e196e78940ff6daab17d6917107876f973fa31
 
 PODFILE CHECKSUM: 5c52fd0c5e6af8de9974efe1e7bb8be186e1e942
 

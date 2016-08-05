@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Analytical'
-  s.version          = '0.1.4'
+  s.version          = '0.2.0'
   s.summary          = 'Analytical is a lightweight analytics library wrapper.'
 
   s.description      = <<-DESC
@@ -50,6 +50,7 @@ Pod::Spec.new do |s|
   s.subspec 'Log' do |subspec|
     subspec.source_files = 'Analytical/Classes/Provider/LogProvider.swift'
     subspec.dependency 'Analytical/Core'
+    subspec.dependency 'XCGLogger'
   end
 
   s.subspec 'Segment' do |subspec|
