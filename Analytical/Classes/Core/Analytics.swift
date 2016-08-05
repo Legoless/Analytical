@@ -60,6 +60,10 @@ public class Analytics : Analytical {
         setup(properties)
     }
     
+    public func provider<T : Analytical>(type: T.Type) -> T? {
+        return providers.filter { return ($0 is T) }.first as? T
+    }
+    
     //
     // MARK: Analytical
     //
