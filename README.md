@@ -8,6 +8,13 @@ Analytical is a simple light-weight analytics wrapper for iOS Swift projects. In
 [![License](https://img.shields.io/cocoapods/l/Analytical.svg?style=flat)](http://cocoapods.org/pods/Analytical)
 [![Platform](https://img.shields.io/cocoapods/p/Analytical.svg?style=flat)](http://cocoapods.org/pods/Analytical)
 
+Currently available providers:
+
+- Facebook Analytics
+- Flurry
+- Google Analytics
+- Mixpanel
+- Segment.io
 
 ## Installation
 
@@ -26,8 +33,12 @@ The complete Podspec will install all providers, but you may specify the provide
 !use_frameworks
 
 pod "Analytical/Facebook"
+pod "Analytical/Flurry"
+pod "Analytical/Log"
 pod "Analytical/Mixpanel"
+pod "Analytical/Segment"
 ```
+The `Log` podspec will install a simple logger to output tracking calls to Xcode.
 
 ## Google Analytics
 
