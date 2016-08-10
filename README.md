@@ -15,7 +15,7 @@ Currently available providers:
 - Facebook Analytics
 - Flurry
 - [Google Analytics](https://developers.google.com/analytics/devguides/collection/ios/v3/)
-- Mixpanel
+- [Mixpanel](https://mixpanel.com/help/reference/ios)
 - Segment.io
 
 ## Installation
