@@ -16,7 +16,7 @@ Currently available providers:
 - [Flurry](https://github.com/flurry/flurry-ios-sdk)
 - [Google Analytics](https://developers.google.com/analytics/devguides/collection/ios/v3/)
 - [Mixpanel](https://mixpanel.com/help/reference/ios)
-- Segment.io
+- [Segment.io](https://segment.com/docs/sources/mobile/ios/)
 
 ## Installation
 
