@@ -44,13 +44,15 @@ The `Log` podspec will install a simple logger to output tracking calls to Xcode
 
 ## Google Analytics
 
-Analytical provides Google Analytics provider, but due to it's incompatibility with Swift frameworks, it must be installed manually. To do this there are 5 steps required:
+Analytical provides Google Analytics provider, but due to it's incompatibility between static libraries and CocoaPods Swift frameworks, it must be installed manually. To do this there are 5 steps required:
 
 1. Add `pod "Google/Analytics"` and `pod "Analytical/Core"` to your targets's podfile.
 2. Run `pod install`
 3. Add `#import <Google/Analytics.h>` to your Application Bridging Header.
 4. Drag & drop `GoogleProvider.swift` to your project.
 5. Normally instantiate `GoogleProvider` from Analytical with Google Tracking ID.
+
+*Google Analytics takes 4 parameters for each event: Category, Action, Label and Value. Category will be set to "default", when called from Analytical and Action will be the event name passed to the call. Label and Value are optional.*
 
 ## Configuration
 
