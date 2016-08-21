@@ -29,7 +29,7 @@ it, simply add the following line to your Podfile:
 pod "Analytical"
 ```
 
-The complete Podspec will install all providers, but you may specify the providers you wish to use.
+The complete Podspec will install all available providers, but you may specify the providers you wish to use.
 
 ```ruby
 !use_frameworks
