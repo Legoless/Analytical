@@ -56,7 +56,7 @@ Analytical provides Google Analytics provider, but due to it's incompatibility b
 
 ## Configuration
 
-To separate analytics initialization code, a new Swift file is recommended:
+To separate analytics code, a new separate Swift file is recommended:
 
 ```swift
 // Define Providers and create a global variable
@@ -76,7 +76,7 @@ public enum Track {
 }
 
 //
-// Add simple wrapper to use Enums with Analytical
+// Add simple wrapper to use defined Enums with Analytical
 //
 extension Analytical {
     func track(track: Track.Event, properties: Properties? = nil) {
@@ -110,6 +110,8 @@ Some analytics providers require to log application activation (Facebook for exa
 ```swift
 analytics.activate()
 ```
+
+*In both cases ensure that analytics providers are initialized before calling this method.*
 
 ### Tracking events and screens:
 
