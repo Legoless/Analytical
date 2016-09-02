@@ -32,7 +32,7 @@ pod "Analytical"
 The complete Podspec will install all available providers, but you may specify the providers you wish to use.
 
 ```ruby
-!use_frameworks
+!use_frameworks # Required for Swift libraries
 
 pod "Analytical/Facebook"
 pod "Analytical/Flurry"
