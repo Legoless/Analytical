@@ -133,7 +133,7 @@ analytics.track(.FirstScreen, ["property" : 12.00])
 
 ### Identification
 
-If your application has identified user, you should call `identify` method. If your user is anonymous, you may use `analytics.deviceId` property to retrieve UUID. After first retrieval, it is stored to `NSUserDefaults`.
+If your application has identified user, you should call `identify` method. If your user is anonymous, you may use `analytics.deviceId` property to retrieve UUID. After first retrieval, it is stored to `NSUserDefaults` and used in all next calls.
 
 ```swift
 analytics.identify(analytics.deviceId)
