@@ -11,19 +11,19 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         Class class = [self class];
-        
+
         SEL originalSelector = @selector(viewDidAppear:);
         SEL swizzledSelector = @selector(seg_viewDidAppear:);
-        
+
         Method originalMethod = class_getInstanceMethod(class, originalSelector);
         Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-        
+
         BOOL didAddMethod =
-        class_addMethod(class,
-                        originalSelector,
-                        method_getImplementation(swizzledMethod),
-                        method_getTypeEncoding(swizzledMethod));
-        
+            class_addMethod(class,
+                            originalSelector,
+                            method_getImplementation(swizzledMethod),
+                            method_getTypeEncoding(swizzledMethod));
+
         if (didAddMethod) {
             class_replaceMethod(class,
                                 swizzledSelector,
@@ -44,29 +44,29 @@
 
 + (UIViewController *)seg_topViewController:(UIViewController *)rootViewController
 {
-    if (rootViewController.presentedViewController == nil) {
-        return rootViewController;
+    UIViewController *presentedViewController = rootViewController.presentedViewController;
+    if (presentedViewController != nil) {
+        return [self seg_topViewController:presentedViewController];
     }
-    
-    if ([rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *navigationController = (UINavigationController *)rootViewController.presentedViewController;
-        UIViewController *lastViewController = [[navigationController viewControllers] lastObject];
+
+    if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        UIViewController *lastViewController = [[(UINavigationController *)rootViewController viewControllers] lastObject];
         return [self seg_topViewController:lastViewController];
     }
-    
-    UIViewController *presentedViewController = (UIViewController *)rootViewController.presentedViewController;
-    return [self seg_topViewController:presentedViewController];
+
+    return rootViewController;
 }
 
 - (void)seg_viewDidAppear:(BOOL)animated
 {
     UIViewController *top = [UIViewController seg_topViewController];
     if (!top) {
+        SEGLog(@"Could not infer screen.");
         return;
     }
-    
+
     NSString *name = [top title];
-    if (name.length == 0) {
+    if (!name) {
         name = [[[top class] description] stringByReplacingOccurrencesOfString:@"ViewController" withString:@""];
         // Class name could be just "ViewController".
         if (name.length == 0) {
@@ -75,7 +75,7 @@
         }
     }
     [[SEGAnalytics sharedAnalytics] screen:name properties:nil options:nil];
-    
+
     [self seg_viewDidAppear:animated];
 }
 

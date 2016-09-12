@@ -12,14 +12,15 @@ import Foundation
 struct BasePath {
     static var MixpanelAPI = "https://api.mixpanel.com"
 
-    static func buildURL(base base: String, path: String) -> NSURL? {
-        guard let url = NSURL(string: base)?.URLByAppendingPathComponent(path) else {
+    static func buildURL(base: String, path: String, queryItems: [URLQueryItem]?) -> URL? {
+        guard let url = URL(string: base) else {
             return nil
         }
-
-        return url
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        components?.path = path
+        components?.queryItems = queryItems
+        return components?.url
     }
-
 }
 
 enum Method: String {
@@ -30,31 +31,32 @@ enum Method: String {
 struct Resource<A> {
     let path: String
     let method: Method
-    let requestBody: NSData?
+    let requestBody: Data?
+    let queryItems: [URLQueryItem]?
     let headers: [String:String]
-    let parse: (NSData) -> A?
+    let parse: (Data) -> A?
 }
 
 enum Reason {
     case ParseError
     case NoData
     case NotOKStatusCode(statusCode: Int)
-    case Other(NSError)
+    case Other(Error)
 }
 
 class Network {
 
-    class func apiRequest<A>(base base: String,
+    class func apiRequest<A>(base: String,
                           resource: Resource<A>,
-                          failure: (Reason, NSData?, NSURLResponse?) -> (),
-                          success: (A, NSURLResponse?) -> ()) {
+                          failure: @escaping (Reason, Data?, URLResponse?) -> (),
+                          success: @escaping (A, URLResponse?) -> ()) {
         guard let request = buildURLRequest(base, resource: resource) else {
             return
         }
 
-        let session = NSURLSession.sharedSession()
-        session.dataTaskWithRequest(request) { (data, response, error) -> Void in
-            guard let httpResponse = response as? NSHTTPURLResponse else {
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) -> Void in
+            guard let httpResponse = response as? HTTPURLResponse else {
                 failure(Reason.Other(error!), data, response)
                 return
             }
@@ -75,38 +77,46 @@ class Network {
         }.resume()
     }
 
-    private class func buildURLRequest<A>(base: String, resource: Resource<A>) -> NSURLRequest? {
-        guard let url = BasePath.buildURL(base: base, path: resource.path) else {
+    private class func buildURLRequest<A>(_ base: String, resource: Resource<A>) -> URLRequest? {
+        guard let url = BasePath.buildURL(base: base,
+                                          path: resource.path,
+                                          queryItems: resource.queryItems) else {
             return nil
         }
 
-        let request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = resource.method.rawValue
-        request.HTTPBody = resource.requestBody
+        var request = URLRequest(url: url)
+        request.httpMethod = resource.method.rawValue
+        request.httpBody = resource.requestBody
 
         for (k, v) in resource.headers {
             request.setValue(v, forHTTPHeaderField: k)
         }
-        return request as NSURLRequest
+        return request as URLRequest
     }
 
-    class func buildResource<A>(path path: String,
+    class func buildResource<A>(path: String,
                              method: Method,
-                             requestBody: NSData?,
+                             requestBody: Data? = nil,
+                             queryItems: [URLQueryItem]? = nil,
                              headers: [String: String],
-                             parse: (NSData) -> A?) -> Resource<A> {
-        return Resource(path: path, method: method, requestBody: requestBody, headers: headers, parse: parse)
+                             parse: @escaping (Data) -> A?) -> Resource<A> {
+        return Resource(path: path,
+                        method: method,
+                        requestBody: requestBody,
+                        queryItems: queryItems,
+                        headers: headers,
+                        parse: parse)
     }
 
-    class func trackIntegration(apiToken apiToken: String, completion: (Bool) -> ()) {
+    class func trackIntegration(apiToken: String, completion: @escaping (Bool) -> ()) {
         let requestData = JSONHandler.encodeAPIData([["event": "Integration",
-            "properties": ["token": "85053bf24bba75239b16a601d9387e17",
-                "mp_lib": "swift",
-                "version": "2.3",
-                "distinct_id": apiToken]]])
+                                                      "properties": ["token": "85053bf24bba75239b16a601d9387e17",
+                                                                     "mp_lib": "swift",
+                                                                     "version": "3.0",
+                                                                     "distinct_id": apiToken]]])
 
-        let responseParser: (NSData) -> Int? = { data in
-            let response = String(data: data, encoding: NSUTF8StringEncoding)
+        let responseParser: (Data) -> Int? = { data in
+            let response = String(data: data, encoding: String.Encoding.utf8)
             if let response = response {
                 return Int(response) ?? 0
             }
@@ -115,7 +125,7 @@ class Network {
 
         if let requestData = requestData {
             let requestBody = "ip=1&data=\(requestData)"
-                .dataUsingEncoding(NSUTF8StringEncoding)
+                .data(using: String.Encoding.utf8)
 
             let resource = Network.buildResource(path: FlushType.Events.rawValue,
                                                  method: Method.POST,

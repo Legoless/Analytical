@@ -8,36 +8,36 @@
 
 import Foundation
 
-public class Provider <T> : NSObject {
-    public var events : [EventName : NSDate] = [:]
-    public var properties : [EventName : Properties] = [:]
+open class Provider <T> : NSObject {
+    open var events : [EventName : Date] = [:]
+    open var properties : [EventName : Properties] = [:]
     
-    public var instance : T! = nil
+    open var instance : T! = nil
     
     public override init () {
         super.init()
     }
     
-    public func activate() {
+    open func activate() {
         
     }
     
-    public func event(name: EventName, properties: Properties? = nil) {
+    open func event(_ name: EventName, properties: Properties? = nil) {
         //
         // A Generic Provider has no way to know how to send events.
         //
         assert(false)
     }
     
-    public func time(name: EventName, properties: Properties? = nil) {
-        events[name] = NSDate()
+    open func time(_ name: EventName, properties: Properties? = nil) {
+        events[name] = Date()
         
         if let properties = properties {
             self.properties[name] = properties
         }
     }
     
-    public func finish(name: EventName, properties: Properties?) {
+    open func finish(_ name: EventName, properties: Properties?) {
         
         var properties = properties
         
@@ -46,7 +46,7 @@ public class Provider <T> : NSObject {
         }
         
         if let time = events[name] {
-            properties![Property.Time.rawValue] = time.timeIntervalSinceNow
+            properties![Property.Time.rawValue] = time.timeIntervalSinceNow as AnyObject?
         }
         
         event(name, properties: properties)

@@ -1,16 +1,17 @@
 #import <UIKit/UIKit.h>
 #import "SEGAnalyticsUtils.h"
-#import "SEGAnalyticsRequest.h"
 #import "SEGAnalytics.h"
 #import "SEGIntegrationFactory.h"
 #import "SEGIntegration.h"
 #import "SEGSegmentIntegrationFactory.h"
 #import "UIViewController+SEGScreen.h"
 #import "SEGStoreKitTracker.h"
+#import "SEGHTTPClient.h"
 #import <objc/runtime.h>
 
 static SEGAnalytics *__sharedInstance = nil;
 NSString *SEGAnalyticsIntegrationDidStart = @"io.segment.analytics.integration.did.start";
+NSString *const SEGAnonymousIdKey = @"SEGAnonymousId";
 
 
 @interface SEGAnalyticsConfiguration ()
@@ -67,13 +68,15 @@ NSString *SEGAnalyticsIntegrationDidStart = @"io.segment.analytics.integration.d
 @property (nonatomic, strong) SEGAnalyticsConfiguration *configuration;
 @property (nonatomic, strong) dispatch_queue_t serialQueue;
 @property (nonatomic, strong) NSMutableArray *messageQueue;
-@property (nonatomic, strong) SEGAnalyticsRequest *settingsRequest;
 @property (nonatomic, assign) BOOL enabled;
 @property (nonatomic, strong) NSArray *factories;
 @property (nonatomic, strong) NSMutableDictionary *integrations;
 @property (nonatomic, strong) NSMutableDictionary *registeredIntegrations;
 @property (nonatomic) volatile BOOL initialized;
 @property (nonatomic, strong) SEGStoreKitTracker *storeKitTracker;
+@property (nonatomic, copy) NSString *cachedAnonymousId;
+@property (nonatomic, strong) SEGHTTPClient *httpClient;
+@property (nonatomic, strong) NSURLSessionDataTask *settingsRequest;
 
 @end
 
@@ -103,6 +106,12 @@ NSString *SEGAnalyticsIntegrationDidStart = @"io.segment.analytics.integration.d
         self.integrations = [NSMutableDictionary dictionaryWithCapacity:self.factories.count];
         self.registeredIntegrations = [NSMutableDictionary dictionaryWithCapacity:self.factories.count];
         self.configuration = configuration;
+        self.cachedAnonymousId = [self loadOrGenerateAnonymousID:NO];
+        self.httpClient = [[SEGHTTPClient alloc] initWithRequestFactory:configuration.requestFactory];
+
+#if !TARGET_OS_TV
+        [self addSkipBackupAttributeToItemAtPath:self.anonymousIDURL];
+#endif
 
         // Update settings on each integration immediately
         [self refreshSettings];
@@ -129,7 +138,17 @@ NSString *SEGAnalyticsIntegrationDidStart = @"io.segment.analytics.integration.d
         if (configuration.trackInAppPurchases) {
             _storeKitTracker = [SEGStoreKitTracker trackTransactionsForAnalytics:self];
         }
+
         [self trackApplicationLifecycleEvents:configuration.trackApplicationLifecycleEvents];
+
+#if !TARGET_OS_TV
+        if (configuration.trackPushNotifications && configuration.launchOptions) {
+            NSDictionary *remoteNotification = configuration.launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+            if (remoteNotification) {
+                [self trackPushNotification:remoteNotification fromLaunch:YES];
+            }
+        }
+#endif
     }
     return self;
 }
@@ -159,23 +178,23 @@ NSString *const SEGBuildKey = @"SEGBuildKey";
 
     if (!previousBuild) {
         [self track:@"Application Installed" properties:@{
-                                                          @"version" : currentVersion,
-                                                          @"build" : @(currentBuild)
-                                                          }];
+            @"version" : currentVersion,
+            @"build" : @(currentBuild)
+        }];
     } else if (currentBuild != previousBuild) {
         [self track:@"Application Updated" properties:@{
-                                                        @"previous_version" : previousVersion,
-                                                        @"previous_build" : @(previousBuild),
-                                                        @"version" : currentVersion,
-                                                        @"build" : @(currentBuild)
-                                                        }];
+            @"previous_version" : previousVersion,
+            @"previous_build" : @(previousBuild),
+            @"version" : currentVersion,
+            @"build" : @(currentBuild)
+        }];
     }
 
 
     [self track:@"Application Opened" properties:@{
-                                                   @"version" : currentVersion,
-                                                   @"build" : @(currentBuild)
-                                                   }];
+        @"version" : currentVersion,
+        @"build" : @(currentBuild)
+    }];
 
     [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:SEGVersionKey];
     [[NSUserDefaults standardUserDefaults] setInteger:currentBuild forKey:SEGBuildKey];
@@ -194,19 +213,19 @@ NSString *const SEGBuildKey = @"SEGBuildKey";
     static dispatch_once_t selectorMappingOnce;
     dispatch_once(&selectorMappingOnce, ^{
         selectorMapping = @{
-                            UIApplicationDidFinishLaunchingNotification :
-                                NSStringFromSelector(@selector(applicationDidFinishLaunching:)),
-                            UIApplicationDidEnterBackgroundNotification :
-                                NSStringFromSelector(@selector(applicationDidEnterBackground)),
-                            UIApplicationWillEnterForegroundNotification :
-                                NSStringFromSelector(@selector(applicationWillEnterForeground)),
-                            UIApplicationWillTerminateNotification :
-                                NSStringFromSelector(@selector(applicationWillTerminate)),
-                            UIApplicationWillResignActiveNotification :
-                                NSStringFromSelector(@selector(applicationWillResignActive)),
-                            UIApplicationDidBecomeActiveNotification :
-                                NSStringFromSelector(@selector(applicationDidBecomeActive))
-                            };
+            UIApplicationDidFinishLaunchingNotification :
+                NSStringFromSelector(@selector(applicationDidFinishLaunching:)),
+            UIApplicationDidEnterBackgroundNotification :
+                NSStringFromSelector(@selector(applicationDidEnterBackground)),
+            UIApplicationWillEnterForegroundNotification :
+                NSStringFromSelector(@selector(applicationWillEnterForeground)),
+            UIApplicationWillTerminateNotification :
+                NSStringFromSelector(@selector(applicationWillTerminate)),
+            UIApplicationWillResignActiveNotification :
+                NSStringFromSelector(@selector(applicationWillResignActive)),
+            UIApplicationDidBecomeActiveNotification :
+                NSStringFromSelector(@selector(applicationDidBecomeActive))
+        };
     });
     SEL selector = NSSelectorFromString(selectorMapping[note.name]);
     if (selector) {
@@ -237,10 +256,17 @@ NSString *const SEGBuildKey = @"SEGBuildKey";
 
 - (void)identify:(NSString *)userId traits:(NSDictionary *)traits options:(NSDictionary *)options
 {
-    NSCParameterAssert(userId.length > 0 || traits.count > 0);
+    NSCAssert2(userId.length > 0 || traits.count > 0, @"either userId (%@) or traits (%@) must be provided.", userId, traits);
+
+    NSString *anonymousId = [options objectForKey:@"anonymousId"];
+    if (anonymousId) {
+        [self saveAnonymousId:anonymousId];
+    } else {
+        anonymousId = self.cachedAnonymousId;
+    }
 
     SEGIdentifyPayload *payload = [[SEGIdentifyPayload alloc] initWithUserId:userId
-                                                                 anonymousId:[options objectForKey:@"anonymousId"]
+                                                                 anonymousId:anonymousId
                                                                       traits:SEGCoerceDictionary(traits)
                                                                      context:SEGCoerceDictionary([options objectForKey:@"context"])
                                                                 integrations:[options objectForKey:@"integrations"]];
@@ -265,7 +291,7 @@ NSString *const SEGBuildKey = @"SEGBuildKey";
 
 - (void)track:(NSString *)event properties:(NSDictionary *)properties options:(NSDictionary *)options
 {
-    NSCParameterAssert(event.length > 0);
+    NSCAssert1(event.length > 0, @"event (%@) must not be empty.", event);
 
     SEGTrackPayload *payload = [[SEGTrackPayload alloc] initWithEvent:event
                                                            properties:SEGCoerceDictionary(properties)
@@ -292,7 +318,7 @@ NSString *const SEGBuildKey = @"SEGBuildKey";
 
 - (void)screen:(NSString *)screenTitle properties:(NSDictionary *)properties options:(NSDictionary *)options
 {
-    NSCParameterAssert(screenTitle.length > 0);
+    NSCAssert1(screenTitle.length > 0, @"screen name (%@) must not be empty.", screenTitle);
 
     SEGScreenPayload *payload = [[SEGScreenPayload alloc] initWithName:screenTitle
                                                             properties:SEGCoerceDictionary(properties)
@@ -349,8 +375,20 @@ NSString *const SEGBuildKey = @"SEGBuildKey";
                                   sync:false];
 }
 
+- (void)trackPushNotification:(NSDictionary *)properties fromLaunch:(BOOL)launch
+{
+    if (launch) {
+        [self track:@"Push Notification Tapped" properties:properties];
+    } else {
+        [self track:@"Push Notification Received" properties:properties];
+    }
+}
+
 - (void)receivedRemoteNotification:(NSDictionary *)userInfo
 {
+    if (self.configuration.trackPushNotifications) {
+        [self trackPushNotification:userInfo fromLaunch:NO];
+    }
     [self callIntegrationsWithSelector:_cmd arguments:@[ userInfo ] options:nil sync:true];
 }
 
@@ -371,9 +409,107 @@ NSString *const SEGBuildKey = @"SEGBuildKey";
     [self callIntegrationsWithSelector:_cmd arguments:@[ identifier, userInfo ] options:nil sync:true];
 }
 
+- (void)continueUserActivity:(NSUserActivity *)activity
+{
+    [self callIntegrationsWithSelector:_cmd arguments:@[ activity ] options:nil sync:true];
+
+    if (!self.configuration.trackDeepLinks) {
+        return;
+    }
+
+    if ([activity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+        NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithCapacity:activity.userInfo.count + 2];
+        [properties addEntriesFromDictionary:activity.userInfo];
+        properties[@"url"] = activity.webpageURL;
+        properties[@"title"] = activity.title ?: @"";
+        [self track:@"Deep Link Opened" properties:[properties copy]];
+    }
+}
+
+- (void)openURL:(NSURL *)url options:(NSDictionary *)options
+{
+    [self callIntegrationsWithSelector:_cmd arguments:@[ url, options ] options:nil sync:true];
+
+    if (!self.configuration.trackDeepLinks) {
+        return;
+    }
+
+    NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithCapacity:options.count + 2];
+    [properties addEntriesFromDictionary:options];
+    properties[@"url"] = url.absoluteString;
+    [self track:@"Deep Link Opened" properties:[properties copy]];
+}
+
 - (void)reset
 {
+    [self resetAnonymousId];
     [self callIntegrationsWithSelector:_cmd arguments:nil options:nil sync:false];
+}
+
+- (void)resetAnonymousId
+{
+    self.cachedAnonymousId = [self loadOrGenerateAnonymousID:YES];
+}
+
+- (NSString *)getAnonymousId;
+{
+    return self.cachedAnonymousId;
+}
+
+- (NSURL *)anonymousIDURL
+{
+    return SEGAnalyticsURLForFilename(@"segment.anonymousId");
+}
+
+- (void)addSkipBackupAttributeToItemAtPath:(NSURL *)url
+{
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:[url path]];
+    if (!exists) {
+        return;
+    }
+
+    NSError *error = nil;
+    BOOL success = [url setResourceValue:[NSNumber numberWithBool:YES]
+                                  forKey:NSURLIsExcludedFromBackupKey
+                                   error:&error];
+    if (!success) {
+        SEGLog(@"Error excluding %@ from backup %@", [url lastPathComponent], error);
+    }
+    return;
+}
+
+- (NSString *)loadOrGenerateAnonymousID:(BOOL)reset
+{
+#if TARGET_OS_TV
+    NSString *anonymousId = [[NSUserDefaults standardUserDefaults] valueForKey:SEGAnonymousIdKey];
+#else
+    NSURL *url = self.anonymousIDURL;
+    NSString *anonymousId = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:NULL];
+#endif
+
+    if (!anonymousId || reset) {
+        // We've chosen to generate a UUID rather than use the UDID (deprecated in iOS 5),
+        // identifierForVendor (iOS6 and later, can't be changed on logout),
+        // or MAC address (blocked in iOS 7). For more info see https://segment.io/libraries/ios#ids
+        anonymousId = GenerateUUIDString();
+        SEGLog(@"New anonymousId: %@", anonymousId);
+#if TARGET_OS_TV
+        [[NSUserDefaults standardUserDefaults] setObject:anonymousId forKey:SEGAnonymousIdKey];
+#else
+        [anonymousId writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+#endif
+    }
+    return anonymousId;
+}
+
+- (void)saveAnonymousId:(NSString *)anonymousId
+{
+    self.cachedAnonymousId = anonymousId;
+#if TARGET_OS_TV
+    [[NSUserDefaults standardUserDefaults] setValue:anonymousId forKey:SEGAnonymousIdKey];
+#else
+    [self.cachedAnonymousId writeToURL:self.anonymousIDURL atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+#endif
 }
 
 - (void)flush
@@ -441,34 +577,24 @@ NSString *const SEGBuildKey = @"SEGBuildKey";
 
 - (void)refreshSettings
 {
-    if (_settingsRequest)
+    if (self.settingsRequest) {
         return;
+    }
 
-    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://cdn.segment.com/v1/projects/%@/settings", self.configuration.writeKey]]];
-    [urlRequest setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
-    [urlRequest setHTTPMethod:@"GET"];
+    self.settingsRequest = [self.httpClient settingsForWriteKey:self.configuration.writeKey completionHandler:^(BOOL success, NSDictionary *settings) {
+        if (success) {
+            [self setCachedSettings:settings];
+        }
 
-    SEGLog(@"%@ Sending API settings request: %@", self, urlRequest);
-
-    _settingsRequest = [SEGAnalyticsRequest startWithURLRequest:urlRequest
-                                                     completion:^{
-                                                         seg_dispatch_specific_async(_serialQueue, ^{
-                                                             SEGLog(@"%@ Received API settings response: %@", self, _settingsRequest.responseJSON);
-
-                                                             if (_settingsRequest.error == nil) {
-                                                                 [self setCachedSettings:_settingsRequest.responseJSON];
-                                                             }
-
-                                                             _settingsRequest = nil;
-                                                         });
-                                                     }];
+        self.settingsRequest = nil;
+    }];
 }
 
 #pragma mark - Class Methods
 
 + (instancetype)sharedAnalytics
 {
-    NSCParameterAssert(__sharedInstance != nil);
+    NSCAssert(__sharedInstance != nil, @"library must be initialized before calling this method.");
     return __sharedInstance;
 }
 
@@ -479,7 +605,7 @@ NSString *const SEGBuildKey = @"SEGBuildKey";
 
 + (NSString *)version
 {
-    return @"3.2.6";
+    return @"3.4.0";
 }
 
 #pragma mark - Private

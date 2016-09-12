@@ -1,37 +1,37 @@
 PODS:
-  - Analytical (0.2.0):
-    - Analytical/Core (= 0.2.0)
-    - Analytical/Facebook (= 0.2.0)
-    - Analytical/Flurry (= 0.2.0)
-    - Analytical/Log (= 0.2.0)
-    - Analytical/Mixpanel (= 0.2.0)
-    - Analytical/Segment (= 0.2.0)
-  - Analytical/Core (0.2.0)
-  - Analytical/Facebook (0.2.0):
+  - Analytical (0.3.0):
+    - Analytical/Core (= 0.3.0)
+    - Analytical/Facebook (= 0.3.0)
+    - Analytical/Flurry (= 0.3.0)
+    - Analytical/Log (= 0.3.0)
+    - Analytical/Mixpanel (= 0.3.0)
+    - Analytical/Segment (= 0.3.0)
+  - Analytical/Core (0.3.0)
+  - Analytical/Facebook (0.3.0):
     - Analytical/Core
     - FBSDKCoreKit
-  - Analytical/Flurry (0.2.0):
+  - Analytical/Flurry (0.3.0):
     - Analytical/Core
     - Flurry-iOS-SDK/FlurrySDK
-  - Analytical/Log (0.2.0):
+  - Analytical/Log (0.3.0):
     - Analytical/Core
     - XCGLogger
-  - Analytical/Mixpanel (0.2.0):
+  - Analytical/Mixpanel (0.3.0):
     - Analytical/Core
     - Mixpanel-swift
-  - Analytical/Segment (0.2.0):
+  - Analytical/Segment (0.3.0):
     - Analytical/Core
     - Analytics
-  - Analytics (3.2.6)
+  - Analytics (3.4.0)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - FBSDKCoreKit (4.14.0):
+  - FBSDKCoreKit (4.15.1):
     - Bolts (~> 1.7)
-  - FirebaseAnalytics (3.3.0):
+  - FirebaseAnalytics (3.3.1):
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleSymbolUtilities (~> 1.1)
@@ -43,45 +43,73 @@ PODS:
     - GoogleAnalytics (~> 3.12)
   - Google/Core (3.0.3):
     - FirebaseAnalytics (~> 3.2)
-  - GoogleAnalytics (3.14.0)
+  - GoogleAnalytics (3.17.0)
   - GoogleInterchangeUtilities (1.2.1):
     - GoogleSymbolUtilities (~> 1.0)
   - GoogleSymbolUtilities (1.1.1)
   - GoogleUtilities (1.3.1):
     - GoogleSymbolUtilities (~> 1.0)
-  - Mixpanel-swift (1.0.0)
-  - Nimble (3.2.0)
+  - Mixpanel-swift (1.0.3)
+  - Nimble (5.0.0-alpha.30p1)
   - Quick (0.9.3)
-  - XCGLogger (3.3)
+  - XCGLogger (4.0.0-beta.3)
 
 DEPENDENCIES:
   - Analytical (from `../`)
   - Google/Analytics
-  - Nimble (~> 3.0)
-  - Quick (~> 0.8)
+  - Mixpanel-swift (from `https://github.com/mixpanel/mixpanel-swift`, branch `swift3`)
+  - Nimble (from `https://github.com/Quick/Nimble`, branch `swift-3.0`)
+  - Quick (from `https://github.com/Quick/Quick`, branch `swift-3.0`)
+  - XCGLogger (from `https://github.com/DaveWoodCom/XCGLogger`, branch `swift_3.0`)
 
 EXTERNAL SOURCES:
   Analytical:
     :path: "../"
+  Mixpanel-swift:
+    :branch: swift3
+    :git: https://github.com/mixpanel/mixpanel-swift
+  Nimble:
+    :branch: swift-3.0
+    :git: https://github.com/Quick/Nimble
+  Quick:
+    :branch: swift-3.0
+    :git: https://github.com/Quick/Quick
+  XCGLogger:
+    :branch: swift_3.0
+    :git: https://github.com/DaveWoodCom/XCGLogger
+
+CHECKOUT OPTIONS:
+  Mixpanel-swift:
+    :commit: 1e21e1aa35374debb87f3a3d22e3f90b3fd0e6b7
+    :git: https://github.com/mixpanel/mixpanel-swift
+  Nimble:
+    :commit: 9dc342cdffef660414d17f27aec897d0cacfffea
+    :git: https://github.com/Quick/Nimble
+  Quick:
+    :commit: 8f2bc636ecfa2cc20696f62548b38d4ab943e299
+    :git: https://github.com/Quick/Quick
+  XCGLogger:
+    :commit: 31aa5c1dd068f6550772e34ba01d667a1b5ff2de
+    :git: https://github.com/DaveWoodCom/XCGLogger
 
 SPEC CHECKSUMS:
-  Analytical: 9de70e1f6cd1026549cfe3945136eec5d37b6a2e
-  Analytics: ad1c5bdc169866d72afdbc918084d0695010e35a
+  Analytical: 6a4a6500d2b3e7aaeede597742959a81ee540e7c
+  Analytics: 51192a4d51f02144816ad68959020e090c047da8
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  FBSDKCoreKit: 6e020b5db0b5bd1e01f5fb0902131befd129a502
-  FirebaseAnalytics: 228be2991cb28efb96cdafc4d62f64680e615c69
+  FBSDKCoreKit: fc7fa53d16b095ee3fd53f0cd59f1df8bcbb634d
+  FirebaseAnalytics: d968d4d5f6aeb795cd64144337bcd233e530efc6
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   Flurry-iOS-SDK: 97bbeec09cca666c2f1772f6e161c4f8ccff611e
   Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
-  GoogleAnalytics: 9be1afdb8deeac4bb5f13ca7f7d3b9db2a1f43dc
+  GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
-  Mixpanel-swift: f35c35756e2122a8dbd9bd2f0e27441fc7a02e33
-  Nimble: 703854335d181df169bbca9c97117b5cf8c47c1d
-  Quick: 13a2a2b19a5d8e3ed4fd0c36ee46597fd77ebf71
-  XCGLogger: d6e196e78940ff6daab17d6917107876f973fa31
+  Mixpanel-swift: a10ae5e6965c4ae6267313f24fde9e6be31b4931
+  Nimble: c5b995b4cd57789ec44b0cfb79640fc00e61a8c7
+  Quick: 31fb576b6cbb6b028cc5e0016e4366accbb346f5
+  XCGLogger: '07183e4727cd4dba984456721e949b1663d6dc22'
 
-PODFILE CHECKSUM: 5c52fd0c5e6af8de9974efe1e7bb8be186e1e942
+PODFILE CHECKSUM: 2650906607c055e3dbe200f529606d85b1de575e
 
-COCOAPODS: 1.1.0.beta.1
+COCOAPODS: 1.1.0.rc.1

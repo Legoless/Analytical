@@ -17,7 +17,7 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
         }
     }
     
-    public func setup(properties: Properties?) {
+    public func setup(_ properties: Properties?) {
         Flurry.startSession(properties?[FlurryProvider.ApiKey] as? String)
     }
     
@@ -28,26 +28,26 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
         
     }
     
-    public override func event(name: EventName, properties: Properties?) {
+    public override func event(_ name: EventName, properties: Properties?) {
         Flurry.logEvent(name, withParameters: properties)
     }
     
-    public func screen(name: EventName, properties: Properties?) {
+    public func screen(_ name: EventName, properties: Properties?) {
         Flurry.logEvent(name, withParameters: properties)
         Flurry.logPageView()
     }
     
-    public override func time(name: EventName, properties: Properties?) {
+    public override func time(_ name: EventName, properties: Properties?) {
         super.time(name, properties: properties)
         
         Flurry.logEvent(name, withParameters: properties, timed: true)
     }
     
-    public func finishTime(name: EventName, properties: Properties?) {
+    public func finishTime(_ name: EventName, properties: Properties?) {
         Flurry.endTimedEvent(name, withParameters: properties)
     }
     
-    public func identify(userId: String, properties: Properties?) {
+    public func identify(_ userId: String, properties: Properties?) {
         Flurry.setUserID(userId)
         
         if let properties = properties {
@@ -55,14 +55,14 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
         }
     }
     
-    public func alias(userId: String, forId: String) {
+    public func alias(_ userId: String, forId: String) {
         //
         // Flurry has no specific Alias mechanism, so just set the forId.
         //
         Flurry.setUserID(forId)
     }
     
-    public func set(properties: Properties) {
+    open func set(_ properties: Properties) {
         if let age = properties[Property.User.Age.rawValue] as? Int32 {
             Flurry.setAge(age)
         }
@@ -78,11 +78,11 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
         //
     }
     
-    public func increment(property: String, by number: NSDecimalNumber) {
+    public func increment(_ property: String, by number: NSDecimalNumber) {
         
     }
     
-    public func purchase(amount: NSDecimalNumber, properties: Properties?) {
+    public func purchase(_ amount: NSDecimalNumber, properties: Properties?) {
         event(DefaultEvent.Purchase.rawValue, properties: properties)
     }    
 }

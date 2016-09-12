@@ -11,27 +11,27 @@ import UIKit
 ///
 /// Serves as a bounce wrapper for Analytics providers
 ///
-public class Analytics : Analytical {
-    private static let DeviceKey = "AnalyticsDeviceKey"
+open class Analytics : Analytical {
+    fileprivate static let DeviceKey = "AnalyticsDeviceKey"
     
-    private var userDefaults = NSUserDefaults.standardUserDefaults()
+    fileprivate var userDefaults = UserDefaults.standard
     
-    public var providers : [Analytical] = []
+    open var providers : [Analytical] = []
     
-    public var deviceId : String {
-        if let id = userDefaults.stringForKey(Analytics.DeviceKey) {
+    open var deviceId : String {
+        if let id = userDefaults.string(forKey: Analytics.DeviceKey) {
             return id
         }
         
-        if let id = UIDevice.currentDevice().identifierForVendor?.UUIDString {
-            userDefaults.setObject(id, forKey: Analytics.DeviceKey)
+        if let id = UIDevice.current.identifierForVendor?.uuidString {
+            userDefaults.set(id, forKey: Analytics.DeviceKey)
             
             return id
         }
         
         let id = Analytics.randomId()
         
-        userDefaults.setObject(id, forKey: Analytics.DeviceKey)
+        userDefaults.set(id, forKey: Analytics.DeviceKey)
         
         return id
     }
@@ -50,17 +50,17 @@ public class Analytics : Analytical {
      - parameter application:   UIApplication instance
      - parameter launchOptions: launch options
      */
-    public func setup(application: UIApplication?, launchOptions: [NSObject : AnyObject]?) {
+    open func setup(_ application: UIApplication?, launchOptions: [AnyHashable: Any]?) {
         var properties : Properties = [:]
         
         if let launchOptions = launchOptions {
-            properties = [Property.Launch.Options.rawValue : launchOptions]
+            properties = [Property.Launch.Options.rawValue : launchOptions as AnyObject]
         }
         
         setup(properties)
     }
     
-    public func provider<T : Analytical>(type: T.Type) -> T? {
+    open func provider<T : Analytical>(_ type: T.Type) -> T? {
         return providers.filter { return ($0 is T) }.first as? T
     }
     
@@ -68,43 +68,43 @@ public class Analytics : Analytical {
     // MARK: Analytical
     //
     
-    public func setup(properties: Properties? = nil) {
+    open func setup(_ properties: Properties? = nil) {
         providers.forEach { $0.setup(properties) }
     }
-    public func activate() {
+    open func activate() {
         providers.forEach { $0.activate() }
     }
-    public func flush() {
+    open func flush() {
         providers.forEach { $0.flush() }
     }
-    public func reset() {
+    open func reset() {
         providers.forEach { $0.reset() }
     }
-    public func event(name: EventName, properties: Properties? = nil) {
+    open func event(_ name: EventName, properties: Properties? = nil) {
         providers.forEach { $0.event(name, properties: properties) }
     }
-    public func screen(name: EventName, properties: Properties? = nil) {
+    open func screen(_ name: EventName, properties: Properties? = nil) {
         providers.forEach { $0.screen(name, properties: properties) }
     }
-    public func time (name: EventName, properties: Properties? = nil) {
+    open func time (_ name: EventName, properties: Properties? = nil) {
         providers.forEach { $0.time(name, properties: properties) }
     }
-    public func finish (name: EventName, properties: Properties? = nil) {
+    open func finish (_ name: EventName, properties: Properties? = nil) {
         providers.forEach { $0.finish(name, properties: properties) }
     }
-    public func identify(userId: String, properties: Properties? = nil) {
+    open func identify(_ userId: String, properties: Properties? = nil) {
         providers.forEach { $0.identify(userId, properties: properties) }
     }
-    public func alias(userId: String, forId: String) {
+    open func alias(_ userId: String, forId: String) {
         providers.forEach { $0.alias(userId, forId: forId) }
     }
-    public func set(properties: Properties) {
+    open func set(_ properties: Properties) {
         providers.forEach { $0.set(properties) }
     }
-    public func increment(property: String, by number: NSDecimalNumber) {
+    open func increment(_ property: String, by number: NSDecimalNumber) {
         providers.forEach { $0.increment(property, by: number) }
     }
-    public func purchase(amount: NSDecimalNumber, properties: Properties?) {
+    open func purchase(_ amount: NSDecimalNumber, properties: Properties?) {
         providers.forEach { $0.purchase(amount, properties: properties) }
     }
     
@@ -112,7 +112,7 @@ public class Analytics : Analytical {
     // MARK: Private Methods
     //
     
-    private static func randomId(length: Int = 64) -> String {
+    fileprivate static func randomId(_ length: Int = 64) -> String {
         let charactersString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let charactersArray : [Character] = Array(charactersString.characters)
         
