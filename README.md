@@ -2,10 +2,10 @@
 
 [![Issues on Waffle](https://img.shields.io/badge/issues on-Waffle-blue.svg)](http://waffle.io/legoless/Analytical)
 [![Built by Dominus](https://img.shields.io/badge/built by-Dominus-brightgreen.svg)](http://github.com/legoless/Dominus)
-[![Build Status](https://travis-ci.org/Legoless/Analytical.svg)](https://travis-ci.org/legoless/Alpha)
-[![Swift Code](https://img.shields.io/badge/code in-Swift-orange.svg)](http://github.com/legoless/Alpha)
-[![Pod Version](http://img.shields.io/cocoapods/v/Analytical.svg?style=flat)](http://cocoadocs.org/docsets/Alpha/)
-[![Pod Platform](http://img.shields.io/cocoapods/p/Analytical.svg?style=flat)](http://cocoadocs.org/docsets/Alpha/)
+[![Build Status](https://travis-ci.org/Legoless/Analytical.svg)](https://travis-ci.org/legoless/Saystack)
+[![Swift Code](https://img.shields.io/badge/code in-Swift-orange.svg)](http://github.com/legoless/Saystack)
+[![Pod Version](http://img.shields.io/cocoapods/v/Analytical.svg?style=flat)](http://cocoadocs.org/docsets/Saystack/)
+[![Pod Platform](http://img.shields.io/cocoapods/p/Analytical.svg?style=flat)](http://cocoadocs.org/docsets/Saystack/)
 [![Pod License](http://img.shields.io/cocoapods/l/Analytical.svg?style=flat)](http://opensource.org/licenses/MIT)
 
 Analytical is a simple light-weight analytics wrapper for iOS Swift projects. Inspired by [ARAnalytics](https://github.com/orta/ARAnalytics), which is a powerful Objective-C library. Analytical does not support all advanced functionalities of it's providers, but it allows to directly access each instance for specific configuration.
