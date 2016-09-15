@@ -138,7 +138,13 @@ open class Analytics : Analytical {
 // Analytics operator
 //
 
-infix operator <<~ { associativity left precedence 160 }
+precedencegroup AnalyticalPrecedence {
+    associativity: left
+    higherThan: LogicalConjunctionPrecedence
+}
+
+
+infix operator <<~: AnalyticalPrecedence
 
 public func <<~ (left: Analytics, right: Analytical) -> Analytics {
     left.providers.append(right)
