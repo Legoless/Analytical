@@ -17,7 +17,7 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
         }
     }
     
-    public func setup(_ properties: Properties?) {
+    public func setup(with properties: Properties?) {
         Flurry.startSession(properties?[FlurryProvider.ApiKey] as? String)
     }
     
@@ -63,11 +63,11 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
     }
     
     open func set(_ properties: Properties) {
-        if let age = properties[Property.User.Age.rawValue] as? Int32 {
+        if let age = properties[Property.User.age.rawValue] as? Int32 {
             Flurry.setAge(age)
         }
         
-        if let gender = properties[Property.User.Gender.rawValue] as? String {
+        if let gender = properties[Property.User.gender.rawValue] as? String {
             Flurry.setGender(gender)
         }
         
@@ -83,6 +83,6 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
     }
     
     public func purchase(_ amount: NSDecimalNumber, properties: Properties?) {
-        event(DefaultEvent.Purchase.rawValue, properties: properties)
+        event(DefaultEvent.purchase.rawValue, properties: properties)
     }    
 }

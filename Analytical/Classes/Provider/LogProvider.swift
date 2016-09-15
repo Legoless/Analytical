@@ -9,7 +9,7 @@
 import XCGLogger
 
 open class DebugProvider : Provider<XCGLogger>, Analytical {
-    open func setup(_ properties: Properties?) {
+    open func setup(with properties: Properties?) {
         instance = XCGLogger(identifier: "com.unifiedsense.analytical.logger", includeDefaultDestinations: true)
         instance.setup(level: .verbose, showLogIdentifier: false, showFunctionName: false, showThreadName: false, showLevel: false, showFileNames: false, showLineNumbers: false)
         

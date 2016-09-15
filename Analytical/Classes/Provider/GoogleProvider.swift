@@ -31,7 +31,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
     // MARK: Analytical
     //
     
-    public func setup(_ properties: Properties?) {
+    public func setup(with properties: Properties?) {
         
         gai = GAI.sharedInstance()
         gai.trackUncaughtExceptions = false
@@ -138,18 +138,18 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
     public func purchase(_ amount: NSDecimalNumber, properties: Properties? = nil) {
         let properties = prepareProperties(properties: properties)
         
-        let transactionId = properties[Property.Purchase.TransactionId.rawValue] as? String
-        let affilation = properties[Property.Purchase.Affiliation.rawValue] as? String
-        let tax = properties[Property.Purchase.Tax.rawValue] as? NSNumber
-        let shipping = properties[Property.Purchase.Shipping.rawValue] as? NSNumber
-        let currency = properties[Property.Purchase.Currency.rawValue] as? String
+        let transactionId = properties[Property.Purchase.transactionId.rawValue] as? String
+        let affilation = properties[Property.Purchase.affiliation.rawValue] as? String
+        let tax = properties[Property.Purchase.tax.rawValue] as? NSNumber
+        let shipping = properties[Property.Purchase.shipping.rawValue] as? NSNumber
+        let currency = properties[Property.Purchase.currency.rawValue] as? String
         
         let transaction = GAIDictionaryBuilder.createTransaction(withId: transactionId, affiliation: affilation, revenue: amount, tax: tax, shipping: shipping, currencyCode: currency)!
         
-        let item = properties[Property.Purchase.Item.rawValue] as? String
-        let category = properties[Property.Category.rawValue] as? String
-        let sku = properties[Property.Purchase.Sku.rawValue] as? String
-        let quantity = properties[Property.Purchase.Quantity.rawValue] as? NSNumber
+        let item = properties[Property.Purchase.item.rawValue] as? String
+        let category = properties[Property.category.rawValue] as? String
+        let sku = properties[Property.Purchase.sku.rawValue] as? String
+        let quantity = properties[Property.Purchase.quantity.rawValue] as? NSNumber
         
         let itemTransaction = GAIDictionaryBuilder.createItem(withTransactionId: transactionId, name: item, sku: sku, category: category, price: amount, quantity: quantity, currencyCode: currency)!
         

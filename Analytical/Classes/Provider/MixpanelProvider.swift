@@ -23,7 +23,7 @@ public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
     // MARK: Analytical
     //
     
-    public func setup(_ properties: Properties?) {
+    public func setup(with properties: Properties?) {
         
         if let token = properties?[MixpanelProvider.ApiToken] as? String {
             self.token = token

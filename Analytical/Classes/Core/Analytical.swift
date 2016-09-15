@@ -12,30 +12,30 @@ public typealias Properties = [String : Any]
 public typealias EventName = String
 
 public enum Property : String {
-    case Category       = "category"
-    case Time           = "time"
+    case category       = "category"
+    case time           = "time"
     
     public enum Launch : String {
-        case Application    = "application"
-        case Options        = "launchOptions"
+        case application    = "application"
+        case options        = "launchOptions"
     }
     
     public enum Purchase : String {
-        case Affiliation    = "affiliation"
-        case Country        = "country"
-        case Currency       = "currency"
-        case Item           = "item"
-        case Price          = "price"
-        case Sku            = "sku"
-        case Shipping       = "shipping"
-        case Quantity       = "quantity"
-        case Tax            = "tax"
-        case TransactionId  = "transactionId"
+        case affiliation    = "affiliation"
+        case country        = "country"
+        case currency       = "currency"
+        case item           = "item"
+        case price          = "price"
+        case sku            = "sku"
+        case shipping       = "shipping"
+        case quantity       = "quantity"
+        case tax            = "tax"
+        case transactionId  = "transactionId"
     }
     
     public enum User : String {
-        case Age        = "age"
-        case Gender     = "gender"
+        case age        = "age"
+        case gender     = "gender"
     }
 }
 
@@ -47,8 +47,8 @@ public enum Property : String {
  - ScreenView: Log a screen view
  */
 public enum DefaultEvent : String {
-    case Purchase       = "AnalyticalEventPurchase"
-    case ScreenView     = "AnalyticalEventScreenView"
+    case purchase       = "AnalyticalEventPurchase"
+    case screenView     = "AnalyticalEventScreenView"
 }
 
 public protocol Analytical {
@@ -61,7 +61,7 @@ public protocol Analytical {
      
      - parameter properties: properties of analytics.
      */
-    func setup(_ properties: Properties?)
+    func setup(with properties: Properties?)
     
     /*!
      Called when app is activated.

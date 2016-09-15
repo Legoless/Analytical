@@ -25,7 +25,7 @@ open class SegmentProvider : Provider <SEGAnalytics>, Analytical {
     
     open var uncaughtExceptions: Bool = false
     
-    open func setup (_ properties : Properties? = nil) {
+    open func setup (with properties : Properties? = nil) {
         if let configuration = properties?[SegmentProvider.Configuration] as? SEGAnalyticsConfiguration {
             SEGAnalytics.setup(with: configuration)
         }
@@ -62,7 +62,7 @@ open class SegmentProvider : Provider <SEGAnalytics>, Analytical {
             properties = [:]
         }
         
-        properties![Property.Time.rawValue] = events[name]
+        properties![Property.time.rawValue] = events[name]
         
         instance.track(name, properties: properties)
     }
@@ -111,8 +111,8 @@ open class SegmentProvider : Provider <SEGAnalytics>, Analytical {
             properties = [:]
         }
         
-        properties![Property.Purchase.Price.rawValue] = amount
+        properties![Property.Purchase.price.rawValue] = amount
         
-        instance.track(DefaultEvent.Purchase.rawValue, properties: properties)
+        instance.track(DefaultEvent.purchase.rawValue, properties: properties)
     }
 }

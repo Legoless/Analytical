@@ -54,10 +54,10 @@ open class Analytics : Analytical {
         var properties : Properties = [:]
         
         if let launchOptions = launchOptions {
-            properties = [Property.Launch.Options.rawValue : launchOptions as AnyObject]
+            properties = [Property.Launch.options.rawValue : launchOptions as AnyObject]
         }
         
-        setup(properties)
+        setup(with: properties)
     }
     
     open func provider<T : Analytical>(_ type: T.Type) -> T? {
@@ -68,8 +68,8 @@ open class Analytics : Analytical {
     // MARK: Analytical
     //
     
-    open func setup(_ properties: Properties? = nil) {
-        providers.forEach { $0.setup(properties) }
+    open func setup(with properties: Properties? = nil) {
+        providers.forEach { $0.setup(with: properties) }
     }
     open func activate() {
         providers.forEach { $0.activate() }

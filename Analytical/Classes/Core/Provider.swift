@@ -46,7 +46,7 @@ open class Provider <T> : NSObject {
         }
         
         if let time = events[name] {
-            properties![Property.Time.rawValue] = time.timeIntervalSinceNow as AnyObject?
+            properties![Property.time.rawValue] = time.timeIntervalSinceNow as AnyObject?
         }
         
         event(name, properties: properties)

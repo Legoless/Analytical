@@ -17,10 +17,10 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
     // MARK: Analyical
     //
     
-    public func setup(_ properties: Properties?) {
+    public func setup(with properties: Properties?) {
         instance = FBSDKApplicationDelegate.sharedInstance()
         
-        if let launchOptions = properties?[Property.Launch.Options.rawValue] as? [AnyHashable: Any], let application = properties?[Property.Launch.Application.rawValue] as? UIApplication {
+        if let launchOptions = properties?[Property.Launch.options.rawValue] as? [AnyHashable: Any], let application = properties?[Property.Launch.application.rawValue] as? UIApplication {
             instance.application(application, didFinishLaunchingWithOptions: launchOptions)
         }
     }
@@ -72,11 +72,11 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
     public func purchase(_ amount: NSDecimalNumber, properties: Properties?) {
         let properties = prepareProperties(properties)
         
-        let currency = properties[Property.Purchase.Currency.rawValue] as? String
+        let currency = properties[Property.Purchase.currency.rawValue] as? String
         
         var finalParameters : [String : AnyObject] = [:]
-        finalParameters[FBSDKAppEventParameterNameContentType] = properties[Property.Category.rawValue] as? String as AnyObject?
-        finalParameters[FBSDKAppEventParameterNameContentID] = properties[Property.Purchase.Sku.rawValue] as? String as AnyObject?
+        finalParameters[FBSDKAppEventParameterNameContentType] = properties[Property.category.rawValue] as? String as AnyObject?
+        finalParameters[FBSDKAppEventParameterNameContentID] = properties[Property.Purchase.sku.rawValue] as? String as AnyObject?
         finalParameters[FBSDKAppEventParameterNameCurrency] = currency as AnyObject?
         
         FBSDKAppEvents.logPurchase(amount.doubleValue, currency: currency, parameters: finalParameters)
