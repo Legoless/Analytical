@@ -13,7 +13,7 @@ target 'Analytical_Example' do
     inherit! :search_paths
 
     #
-    # Quick will not install due to 410 error, will re-add when Swift3 version is released to CocoaPods.
+    # Workaround for Swift3 versions
     #
 
     pod 'Quick', :git => 'https://github.com/Quick/Quick', :branch => 'swift-3.0'

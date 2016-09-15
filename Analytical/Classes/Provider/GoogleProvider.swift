@@ -31,7 +31,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
     // MARK: Analytical
     //
     
-    public func setup(properties: Properties?) {
+    public func setup(_ properties: Properties?) {
         
         gai = GAI.sharedInstance()
         gai.trackUncaughtExceptions = false
@@ -42,7 +42,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         }
         
         if let trackingId = trackingId {
-            instance = gai.trackerWithTrackingId(trackingId)
+            instance = gai.tracker(withTrackingId: trackingId)
         }
         else {
             var configureError:NSError?
@@ -65,18 +65,18 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         //
     }
     
-    public override func event(name: EventName, properties: Properties? = nil) {
+    public override func event(_ name: EventName, properties: Properties? = nil) {
         //
         // Google Analytics works with Category, Action, Label and Value,
         // where both Category and Action are required.
         //
         
-        let properties = prepareProperties(properties)
+        let properties = prepareProperties(properties: properties)
         
-        instance.send(GAIDictionaryBuilder.createEventWithCategory(properties["category"] as? String, action: name, label: properties["label"] as? String, value: properties["value"] as? NSNumber).parsed)
+        instance.send(GAIDictionaryBuilder.createEvent(withCategory: properties["category"] as? String, action: name, label: properties["label"] as? String, value: properties["value"] as? NSNumber).parsed)
     }
     
-    public func screen(name: EventName, properties: Properties? = nil) {
+    public func screen(_ name: EventName, properties: Properties? = nil) {
         //
         // Send screen as an event in addition
         //
@@ -86,7 +86,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         instance.send(GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject])
     }
     
-    public override func finish(name: EventName, properties: Properties? = nil) {
+    public override func finish(_ name: EventName, properties: Properties? = nil) {
         
         guard let startDate = events[name] else {
             return
@@ -94,14 +94,14 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         
         event(name, properties: properties)
         
-        let properties = prepareProperties(properties)
+        let properties = prepareProperties(properties: properties)
         
-        let interval = NSNumber(double: NSDate().timeIntervalSinceDate(startDate))
+        let interval = NSNumber(value: NSDate().timeIntervalSince(startDate))
         
-        instance.send(GAIDictionaryBuilder.createTimingWithCategory(properties["category"] as? String, interval: interval, name: name, label: properties["label"] as? String).parsed)
+        instance.send(GAIDictionaryBuilder.createTiming(withCategory: properties["category"] as? String, interval: interval, name: name, label: properties["label"] as? String).parsed)
     }
     
-    public func identify(userId: String, properties: Properties? = nil) {
+    public func identify(_ userId: String, properties: Properties? = nil) {
         instance.set(kGAIUserId, value: userId)
         
         if let properties = properties {
@@ -109,7 +109,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         }
     }
     
-    public func alias(userId: String, forId: String) {
+    public func alias(_ userId: String, forId: String) {
         //
         // No alias power for Google Analytics
         //
@@ -117,8 +117,8 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         identify(forId)
     }
     
-    public func set(properties: Properties) {
-        let properties = prepareProperties(properties)
+    public func set(_ properties: Properties) {
+        let properties = prepareProperties(properties: properties)
         
         for (property, value) in properties {
             guard let value = value as? String else {
@@ -129,14 +129,14 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         }
     }
     
-    public func increment(property: String, by number: NSDecimalNumber) {
+    public func increment(_ property: String, by number: NSDecimalNumber) {
         //
         // No increment for Google Analytics
         //
     }
     
-    public func purchase(amount: NSDecimalNumber, properties: Properties? = nil) {
-        let properties = prepareProperties(properties)
+    public func purchase(_ amount: NSDecimalNumber, properties: Properties? = nil) {
+        let properties = prepareProperties(properties: properties)
         
         let transactionId = properties[Property.Purchase.TransactionId.rawValue] as? String
         let affilation = properties[Property.Purchase.Affiliation.rawValue] as? String
@@ -144,14 +144,14 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         let shipping = properties[Property.Purchase.Shipping.rawValue] as? NSNumber
         let currency = properties[Property.Purchase.Currency.rawValue] as? String
         
-        let transaction = GAIDictionaryBuilder.createTransactionWithId(transactionId, affiliation: affilation, revenue: amount, tax: tax, shipping: shipping, currencyCode: currency)
+        let transaction = GAIDictionaryBuilder.createTransaction(withId: transactionId, affiliation: affilation, revenue: amount, tax: tax, shipping: shipping, currencyCode: currency)!
         
         let item = properties[Property.Purchase.Item.rawValue] as? String
         let category = properties[Property.Category.rawValue] as? String
         let sku = properties[Property.Purchase.Sku.rawValue] as? String
         let quantity = properties[Property.Purchase.Quantity.rawValue] as? NSNumber
         
-        let itemTransaction = GAIDictionaryBuilder.createItemWithTransactionId(transactionId, name: item, sku: sku, category: category, price: amount, quantity: quantity, currencyCode: currency)
+        let itemTransaction = GAIDictionaryBuilder.createItem(withTransactionId: transactionId, name: item, sku: sku, category: category, price: amount, quantity: quantity, currencyCode: currency)!
         
         instance.send(transaction.parsed)
         instance.send(itemTransaction.parsed)
