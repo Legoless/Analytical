@@ -10,7 +10,7 @@
 
 Analytical is a simple light-weight analytics wrapper for iOS Swift projects. Inspired by [ARAnalytics](https://github.com/orta/ARAnalytics), which is a powerful Objective-C library. Analytical does not support all advanced functionalities of it's providers, but it allows to directly access each instance for specific configuration.
 
-Swift3 version is prepared on a separate branch.
+*Swift3 version is available on swift3 branch.*
 
 Currently available providers:
 
