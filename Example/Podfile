@@ -6,11 +6,17 @@ use_frameworks!
 target 'Analytical_Example' do
   pod 'Analytical', :path => '../'
   pod 'Google/Analytics'
+  pod 'Mixpanel-swift', :git => 'https://github.com/mixpanel/mixpanel-swift', :branch => 'swift3'
+  pod 'XCGLogger', :git => 'https://github.com/DaveWoodCom/XCGLogger', :branch => 'swift_3.0'
 
   target 'Analytical_Tests' do
     inherit! :search_paths
 
-    pod 'Quick', '~> 0.8'
-    pod 'Nimble', '~> 3.0'
+    #
+    # Workaround for Swift3 versions
+    #
+
+    pod 'Quick', :git => 'https://github.com/Quick/Quick', :branch => 'swift-3.0'
+    pod 'Nimble', :git => 'https://github.com/Quick/Nimble', :branch => 'swift-3.0'
   end
 end

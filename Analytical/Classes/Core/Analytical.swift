@@ -8,34 +8,34 @@
 
 import Foundation
 
-public typealias Properties = [String : AnyObject]
+public typealias Properties = [String : Any]
 public typealias EventName = String
 
 public enum Property : String {
-    case Category       = "category"
-    case Time           = "time"
+    case category       = "category"
+    case time           = "time"
     
     public enum Launch : String {
-        case Application    = "application"
-        case Options        = "launchOptions"
+        case application    = "application"
+        case options        = "launchOptions"
     }
     
     public enum Purchase : String {
-        case Affiliation    = "affiliation"
-        case Country        = "country"
-        case Currency       = "currency"
-        case Item           = "item"
-        case Price          = "price"
-        case Sku            = "sku"
-        case Shipping       = "shipping"
-        case Quantity       = "quantity"
-        case Tax            = "tax"
-        case TransactionId  = "transactionId"
+        case affiliation    = "affiliation"
+        case country        = "country"
+        case currency       = "currency"
+        case item           = "item"
+        case price          = "price"
+        case sku            = "sku"
+        case shipping       = "shipping"
+        case quantity       = "quantity"
+        case tax            = "tax"
+        case transactionId  = "transactionId"
     }
     
     public enum User : String {
-        case Age        = "age"
-        case Gender     = "gender"
+        case age        = "age"
+        case gender     = "gender"
     }
 }
 
@@ -47,8 +47,8 @@ public enum Property : String {
  - ScreenView: Log a screen view
  */
 public enum DefaultEvent : String {
-    case Purchase       = "AnalyticalEventPurchase"
-    case ScreenView     = "AnalyticalEventScreenView"
+    case purchase       = "AnalyticalEventPurchase"
+    case screenView     = "AnalyticalEventScreenView"
 }
 
 public protocol Analytical {
@@ -61,7 +61,7 @@ public protocol Analytical {
      
      - parameter properties: properties of analytics.
      */
-    func setup(properties: Properties?)
+    func setup(with properties: Properties?)
     
     /*!
      Called when app is activated.
@@ -88,7 +88,7 @@ public protocol Analytical {
      - parameter name:       name of the event
      - parameter properties: additional properties
      */
-    func event(name: EventName, properties: Properties?)
+    func event(_ name: EventName, properties: Properties?)
     
     /*!
      Logs a specific screen to analytics.
@@ -96,7 +96,7 @@ public protocol Analytical {
      - parameter name:       name of the screen
      - parameter properties: additional properties
      */
-    func screen(name: EventName, properties: Properties?)
+    func screen(_ name: EventName, properties: Properties?)
     
     /*!
      Track time for event name
@@ -104,7 +104,7 @@ public protocol Analytical {
      - parameter name:       name of the event
      - parameter properties: properties
      */
-    func time (name: EventName, properties: Properties?)
+    func time (_ name: EventName, properties: Properties?)
     
     /*!
      Finish tracking time for event
@@ -112,7 +112,7 @@ public protocol Analytical {
      - parameter name:       event
      - parameter properties: properties
      */
-    func finish (name: EventName, properties: Properties?)
+    func finish (_ name: EventName, properties: Properties?)
     
     //
     // MARK: User Tracking
@@ -124,7 +124,7 @@ public protocol Analytical {
      - parameter userId:      user id
      - parameter properties:  different traits and properties
      */
-    func identify(userId: String, properties: Properties?)
+    func identify(_ userId: String, properties: Properties?)
     
     /*!
      Connect the existing anonymous user with the alias (for example, after user signs up),
@@ -133,14 +133,14 @@ public protocol Analytical {
      
      - parameter userId: user
      */
-    func alias(userId: String, forId: String)
+    func alias(_ userId: String, forId: String)
     
     /*!
      Sets properties to currently identified user.
      
      - parameter properties: properties
      */
-    func set(properties: Properties)
+    func set(_ properties: Properties)
     
     /*!
      Increments currently set property by a number.
@@ -148,7 +148,7 @@ public protocol Analytical {
      - parameter property: property to increment
      - parameter number:   number to incrememt by
      */
-    func increment(property: String, by number: NSDecimalNumber)
+    func increment(_ property: String, by number: NSDecimalNumber)
     
     /*!
      Make a purchase for the current user.
@@ -156,5 +156,5 @@ public protocol Analytical {
      - parameter amount:     amount
      - parameter properties: properties, such as SKU, Product ID, Tax, etc.
      */
-    func purchase(amount: NSDecimalNumber, properties: Properties?)
+    func purchase(_ amount: NSDecimalNumber, properties: Properties?)
 }

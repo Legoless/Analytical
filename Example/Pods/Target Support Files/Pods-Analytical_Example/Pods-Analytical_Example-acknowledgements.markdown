@@ -121,7 +121,7 @@ Copyright 2016 Google Inc.
 
 ## GoogleAnalytics
 
-Copyright 2015 Google Inc.
+Copyright 2016 Google
 
 ## GoogleInterchangeUtilities
 
