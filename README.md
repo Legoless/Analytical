@@ -10,7 +10,6 @@
 
 Analytical is a simple light-weight analytics wrapper for iOS Swift projects. Inspired by [ARAnalytics](https://github.com/orta/ARAnalytics), which is a powerful Objective-C library. Analytical does not support all advanced functionalities of it's providers, but it allows to directly access each instance for specific configuration.
 
-*Swift3 version is available on swift3 branch.*
 
 Currently available providers:
 
@@ -29,6 +28,9 @@ it, simply add the following line to your Podfile:
 !use_frameworks # Required for Swift libraries
 
 pod "Analytical"
+
+# To use Swift3 version point your CocoaPods installation directly to this repository. 0.2.x will keep Swift2 support
+pod "Analytical", :git => 'https://github.com/Legoless/Analytical.git'
 ```
 
 The complete Podspec will install all available providers, but you may specify the providers you wish to use.
