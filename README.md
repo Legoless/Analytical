@@ -37,7 +37,8 @@ pod "Analytical", :git => 'https://github.com/Legoless/Analytical.git'
 The complete Podspec will install all available providers, but you may specify the providers you wish to use.
 
 ```ruby
-!use_frameworks # Required for Swift libraries
+# Required for Swift libraries
+!use_frameworks
 
 pod "Analytical/Facebook"
 pod "Analytical/Flurry"
