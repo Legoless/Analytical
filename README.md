@@ -25,7 +25,8 @@ Analytical is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-!use_frameworks # Required for Swift libraries
+# Required for Swift libraries
+!use_frameworks
 
 pod "Analytical"
 
