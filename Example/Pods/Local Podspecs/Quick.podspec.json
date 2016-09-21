@@ -18,12 +18,12 @@
     "git": "https://github.com/Quick/Quick.git",
     "tag": "v0.9.3"
   },
-  "source_files": "Sources/**/*.{swift,h,m}",
+  "source_files": "Sources/Quick/**/*.{swift,h,m}",
   "public_header_files": [
-    "Sources/QuickObjectiveC/Configuration/QuickConfiguration.h",
-    "Sources/QuickObjectiveC/DSL/QCKDSL.h",
-    "Sources/QuickObjectiveC/Quick.h",
-    "Sources/QuickObjectiveC/QuickSpec.h"
+    "Sources/Quick/Configuration/QuickConfiguration.h",
+    "Sources/Quick/DSL/QCKDSL.h",
+    "Sources/Quick/Quick.h",
+    "Sources/Quick/QuickSpec.h"
   ],
   "exclude_files": [
     "Sources/Quick/Configuration/QuickConfiguration.swift",

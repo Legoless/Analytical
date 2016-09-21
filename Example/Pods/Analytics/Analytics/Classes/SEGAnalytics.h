@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "SEGIntegrationFactory.h"
+#import "SEGCrypto.h"
 
 /**
  * NSNotification name, that is posted after integrations are loaded.
@@ -30,7 +31,9 @@ typedef NSMutableURLRequest * (^SEGRequestFactory)(NSURL *);
 @property (nonatomic, copy, readonly) NSString *writeKey;
 
 /**
- * Whether the analytics client should use location services. If `YES` and the host app hasn't asked for permission to use location services then the user will be presented with an alert view asking to do so. `NO` by default.
+ * Whether the analytics client should use location services.
+ * If `YES` and the host app hasn't asked for permission to use location services then the user will be presented with an alert view asking to do so. `NO` by default.
+ * If `YES`, please make sure to add a description for `NSLocationAlwaysUsageDescription` in your `Info.plist` explaining why your app is accessing Location APIs.
  */
 @property (nonatomic, assign) BOOL shouldUseLocationServices;
 
@@ -49,6 +52,12 @@ typedef NSMutableURLRequest * (^SEGRequestFactory)(NSURL *);
  * Whether the analytics client should automatically make a track call for application lifecycle events, such as "Application Installed", "Application Updated" and "Application Opened".
  */
 @property (nonatomic, assign) BOOL trackApplicationLifecycleEvents;
+
+
+/**
+ * Whether the analytics client should record bluetooth information. If `YES`, please make sure to add a description for `NSBluetoothPeripheralUsageDescription` in your `Info.plist` explaining explaining why your app is accessing Bluetooth APIs. `NO` by default.
+ */
+@property (nonatomic, assign) BOOL shouldUseBluetooth;
 
 /**
  * Whether the analytics client should automatically make a screen call when a view controller is added to a view hierarchy. Because the underlying implementation uses method swizzling, we recommend initializing the analytics client as early as possible (before any screens are displayed), ideally during the Application delegate's applicationDidFinishLaunching method.
@@ -71,6 +80,11 @@ typedef NSMutableURLRequest * (^SEGRequestFactory)(NSURL *);
 @property (nonatomic, assign) BOOL trackDeepLinks;
 
 /**
+ * Whether the analytics client should automatically track attribution data from enabled providers using the mobile service.
+ */
+@property (nonatomic, assign) BOOL trackAttributionData;
+
+/**
  * Dictionary indicating the options the app was launched with.
  */
 @property (nonatomic, assign) NSDictionary *launchOptions;
@@ -79,6 +93,11 @@ typedef NSMutableURLRequest * (^SEGRequestFactory)(NSURL *);
  * Set a custom request factory.
  */
 @property (nonatomic, strong) SEGRequestFactory requestFactory;
+
+/**
+ * Set a custom crypto
+ */
+@property (nonatomic, strong) id<SEGCrypto> crypto;
 
 /**
  * Register a factory that can be used to create an integration.
@@ -295,6 +314,7 @@ typedef NSMutableURLRequest * (^SEGRequestFactory)(NSURL *);
 
 /** Returns the configuration used to create the analytics client. */
 - (SEGAnalyticsConfiguration *)configuration;
+
 
 @end
 

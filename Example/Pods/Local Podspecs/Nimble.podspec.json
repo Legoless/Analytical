@@ -1,6 +1,6 @@
 {
   "name": "Nimble",
-  "version": "5.0.0-alpha.30p1",
+  "version": "5.0.0",
   "summary": "A Matcher Framework for Swift and Objective-C",
   "description": "Use Nimble to express the expected outcomes of Swift or Objective-C expressions. Inspired by Cedar.",
   "homepage": "https://github.com/Quick/Nimble",
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/Quick/Nimble.git",
-    "tag": "v5.0.0-alpha.30p1"
+    "tag": "v5.0.0"
   },
   "source_files": "Sources/**/**/*.{swift,h,m}",
   "private_header_files": "Sources/NimbleObjectiveC/CurrentTestCaseTracker.h",

@@ -53,7 +53,7 @@ in your repository folder.
 
 Add the following line to your `Cartfile`.
 
-```github "DaveWoodCom/XCGLogger" ~> 4.0.0-beta.3```
+```github "DaveWoodCom/XCGLogger" ~> 4.0.0```
 
 Then run `carthage update --no-use-binaries` or just `carthage update`. For details of the installation and usage of Carthage, visit [it's project page][carthage].
 
@@ -69,13 +69,18 @@ use_frameworks!
 pod 'XCGLogger', '~> 4.0.0'
 ```
 
+Specifying the pod `XCGLogger` on its own will include the core framework. We're starting to add subspecs to allow you to include optional components as well:
+
+`pod 'XCGLogger/UserInfoHelpers', '~> 4.0.0'`: Include some experimental code to help deal with using UserInfo dictionaries to tag log messages.
+
 Then run `pod install`. For details of the installation and usage of CocoaPods, visit [it's official web site][cocoapods].
 
 ###Backwards Compatibility
 
 Use:
 * XCGLogger version [4.0.0][xcglogger-4.0.0] for Swift 3.0
-* XCGLogger version [3.5.1][xcglogger-3.5.1] for Swift 2.2-2.3
+* XCGLogger version [3.6.0][xcglogger-3.6.0] for Swift 2.3
+* XCGLogger version [3.5.3][xcglogger-3.5.3] for Swift 2.2
 * XCGLogger version [3.2][xcglogger-3.2] for Swift 2.0-2.1
 * XCGLogger version [2.x][xcglogger-2.x] for Swift 1.2
 * XCGLogger version [1.x][xcglogger-1.x] for Swift 1.1 and below.
@@ -96,7 +101,7 @@ import XCGLogger
 In your AppDelegate (or other global file), declare a global constant to the default XCGLogger instance.
 
 ```Swift
-let log = XCGLogger.defaultInstance()
+let log = XCGLogger.default
 ```
 
 In the
@@ -276,69 +281,37 @@ In large projects with multiple developers, you'll probably want to start taggin
 
 While extremely flexible, the `userInfo` dictionary can be a little cumbersome to use. There are a few possible methods you can use to simply things. I'm still testing these out myself so they're not officially part of the library yet (I'd love feedback or other suggestions).
 
-#####Option 1: Custom Operator
+I have created some experimental code to help create the UserInfo dictionaries. (Include the optional `UserInfoHelpers` subspec if using CocoaPods). Check the iOS Demo app to see it in use.
+
+There are two structs that conform to the `UserInfoTaggingProtocol` protocol. `Tag` and `Dev`.
+
+You can create an extension on each of these that suit your project. For example:
 
 ```Swift
-func +<Key: Hashable, Value> (lhs: Dictionary<Key, Value>, rhs: Dictionary<Key, Value>) -> Dictionary<Key, Value> {
-    var merged = lhs
-    rhs.forEach { key, value in
-        merged[key] = value
-    }
-    return merged
+extension Tag {
+    static let sensitive = Tag("sensitive")
+    static let ui = Tag("ui")
+    static let data = Tag("data")
+}
+
+extension Dev {
+    static let dave = Dev("dave")
+    static let sabby = Dev("sabby")
 }
 ```
 
-If you add the above code to your app, you can merge dictionaries together with the `+` operator, giving you the ability to do something like this:
-
-```Swift
-// Globally defined somewhere
-
-struct Tag {
-    static let sensitive = [XCGLogger.Constants.userInfoKeyTags: ["sensitive"]]
-    static let ui = [XCGLogger.Constants.userInfoKeyTags: ["ui"]]
-    static let data = [XCGLogger.Constants.userInfoKeyTags: ["data"]]
-}
-
-struct Dev {
-    static let dave = [XCGLogger.Constants.userInfoKeyDevs: ["dave"]]
-    static let sabby = [XCGLogger.Constants.userInfoKeyDevs: ["sabby"]]
-}
-```
+Along with these types, there's an overloaded operator `|` that can be used to merge them together into a dictionary compatible with the `UserInfo:` parameter of the logging calls.
 
 Then you can log messages like this:
 
 ```Swift
-log.debug("A tagged log message", userInfo: Tag.sensitive + Dev.dave)
+log.debug("A tagged log message", userInfo: Dev.dave | Tag.sensitive)
 ```
 
-I'm not quite satisfied with this solution yet for a couple of reasons. 
+There are some current issues I see with these `UserInfoHelpers`, which is why I've made it optional/experimental for now. I'd love to hear comments/suggestions for improvements.
 
-1. I'm not a fan of overloading operators, especially when there's a good chance the same operator could be added to the standard library.
-2. The `+` method above doesn't merge collections at the key level. `Tag.sensitive + Tag.data = Tag.data`, the sensitive tag is lost.
-
-#####Option 2: Short Variables
-
-Define your tags and devs using short, global variables:
-
-```Swift
-let tags = XCGLogger.Constants.userInfoKeyTags
-let devs = XCGLogger.Constants.userInfoKeyDevs
-
-let sensitive = "sensitive"
-let data = "data"
-let ui = "ui"
-
-let dave = "dave"
-let sabby = "sabby"
-```
-
-Then log your messages:
-
-```Swift
-log.debug("A tagged log message", userInfo: [tags: [sensitive, data], devs: [dave]])
-```
-
-Not a fan of this method either since it still feels like a lot of typing per log message. I'll be experimenting with more options here, please feel free to make a suggestion.
+1. The overloaded operator `|` merges dictionaries so long as there are no `Set`s. If one of the dictionaries contains a `Set`, it'll use one of them, without merging them. Preferring the left hand side if both sides have a set for the same key.
+2. Since the `userInfo:` parameter needs a dictionary, you can't pass in a single Dev or Tag object. You need to use at least two with the `|` operator to have it automatically convert to a compatible dictionary. If you only want one Tag for example, you must access the `.dictionary` parameter manually: `userInfo: Tag("Blah").dictionary`.
 
 ###Selectively Executing Code
 
@@ -378,7 +351,7 @@ log.dateFormatter = dateFormatter
 
 ###Enhancing Log Messages With Colour
 
-XCGLogger supports adding formatting codes to your log messages to enable colour in various places. The original option was to use the [XcodeColors plug-in][XcodeColors]. However, Xcode 8 no longer supports plug-ins. You can still view your logs in colour, just not in Xcode 8 at the moment. You can still use Xcode 7 if desired (after adding the Swift 3 toolchain), or you can use the new ANSI colour support to add colour to your fileDestination objects and view your logs via a terminal window. This gives you some extra options such as adding Bold, Italics, or (please don't) Blinking!
+XCGLogger supports adding formatting codes to your log messages to enable colour in various places. The original option was to use the [XcodeColors plug-in][XcodeColors]. However, Xcode 8 no longer officially supports plug-ins. You can still view your logs in colour, just not in Xcode 8 at the moment ([see note below](#restore-plug-in-support)). You can still use Xcode 7 if desired (after adding the Swift 3 toolchain), or you can use the new ANSI colour support to add colour to your fileDestination objects and view your logs via a terminal window. This gives you some extra options such as adding Bold, Italics, or (please don't) Blinking!
 
 Once enabled, each log level can have its own colour. These colours can be customized as desired. If using multiple loggers, you could alternatively set each logger to its own colour.
 
@@ -470,7 +443,7 @@ You can also create custom filters or formatters. Take a look at the provided ve
 
 ##Third Party Tools That Work With XCGLogger
 
-**Note**: These plug-ins no longer work in Xcode 8. File a [bug report](http://openradar.appspot.com/27447585) if you'd like to see plug-ins return to Xcode.
+**Note**: These plug-ins no longer 'officially' work in Xcode 8. File a [bug report](http://openradar.appspot.com/27447585) if you'd like to see plug-ins return to Xcode. See [below](#xcode_8_tips) for a workaround...
 
 [**XcodeColors:**][XcodeColors] Enable colour in the Xcode console
 <br />
@@ -479,8 +452,46 @@ You can also create custom filters or formatters. Take a look at the provided ve
 **Note**: These may not yet work with the Swift 3 version of XCGLogger.
 
 [**XCGLoggerNSLoggerConnector:**][XCGLoggerNSLoggerConnector] Send your logs to [NSLogger][NSLogger]
-<br />
-[**firelog:**][Firelog] Send your logs to [Firebase][Firebase]
+
+##Xcode 8 Tips
+
+###Restore Plug-In Support
+
+One of the biggest issues you'll notice when using Xcode 8, is that by default it will no longer load plug-ins. Personally, I really like the benefits the plug-ins add to Xcode, especially XcodeColors. With so many other frameworks, or even Xcode itself spewing messages into the debug console, it's really helpful to be able to have your logs stand out with colour. It is currently possible to re-enable plug-ins in Xcode 8. If you do so, you'll be able to use the new `XcodeColorsLogFormatter` class to colour your log messages again. See the demo apps for example code.
+
+**Be Warned**: If you follow these instructions to re-enable plug-ins, there could be unforeseen consequences. I would definitely only do this on a development machine, with the assumption that you have another machine (or at least an unmodified version of Xcode) to do your App Store/Distribution builds. **Do not** attempt to upload a binary to Apple that was built with a modified version of Xcode. **I take no responsibility for anything that happens if you follow these instructions. You have been warned**.
+
+Now, assuming you've read the above warning, and you have a development only machine, and you really want to use your awesome plug-ins, here's my recommended method to re-enable plug-ins.
+
+1. Clone the [unsign](https://github.com/steakknife/unsign) repository.
+2. Build it following their dead-simple instructions (`make`).
+3. Close Xcode if it's open.
+4. In your favourite shell/terminal, execute the following commands (may need to be root, or just `sudo`):
+
+
+	`cd /Applications/Xcode.app/Contents/MacOS` *Substitute another Xcode path if you like*
+	
+	`/path/to/unsign Xcode` *Creates a new `Xcode.unsigned` binary*
+	
+	`mv Xcode Xcode.signed` *Move the original file*
+	
+	`ln -sf Xcode.unsigned Xcode` *Link the unsigned version to the original filename*
+
+5. Launch Xcode and use your favourite plug-ins. You may have to reauthorize access to your keychain, but it should be a one time task.
+6. You can flip back and forth between the signed and unsigned versions by repeating the `ln -sf Xcode.unsigned Xcode` command, just changing `.unsigned` to `.signed` etc.
+7. Do not use this version of Xcode to submit apps!
+8. Pray Apple doesn't disable this workaround.
+9. File a radar requesting official plug-in support again. You can dup this [radar](http://openradar.appspot.com/27447585).
+
+Thanks to [@inket](https://github.com/inket/update_xcode_plugins) and [@steakknife](https://github.com/steakknife/unsign) for providing the knowledge and tools for this tip!
+
+###Disable Xcode's Log Noise
+
+For some reason, the simulators in the final version of Xcode 8 are printing lots of their own debug messages to the console. These messages make reading your own debug logs cumbersome. You can prevent those logs from being displayed by adding the environment variable `OS_ACTIVITY_MODE` to your debug scheme, and setting the value to `disable`.
+
+<img src="https://raw.githubusercontent.com/DaveWoodCom/XCGLogger/swift_3.0/ReadMeImages/OSActivityMode.png" alt="Environment Variable" style="width: 690px; height: 401px;" />
+
+Thanks to [@rustyshelf](https://twitter.com/rustyshelf/status/775505191160328194) and [@bersaelor](https://twitter.com/bersaelor/status/776317530549919744) for this tip!
 
 ##To Do
 
@@ -523,9 +534,9 @@ The change log is now in it's own file: [CHANGELOG.md](CHANGELOG.md)
 [badge-platforms]: https://img.shields.io/badge/Platforms-OS%20X%20%7C%20iOS%20%7C%20tvOS%20%7C%20watchOS-lightgray.svg?style=flat
 [badge-license]: https://img.shields.io/badge/License-MIT-lightgrey.svg?style=flat
 [badge-travis]: https://img.shields.io/travis/DaveWoodCom/XCGLogger/swift_3.0.svg?style=flat
-[badge-swiftpm]: https://img.shields.io/badge/Swift_Package_Manager-v4.0.0--beta.3-64a6dd.svg?style=flat
+[badge-swiftpm]: https://img.shields.io/badge/Swift_Package_Manager-v4.0.0-64a6dd.svg?style=flat
 [badge-cocoapods]: https://img.shields.io/cocoapods/v/XCGLogger.svg?style=flat
-[badge-carthage]: https://img.shields.io/badge/Carthage-v4.0.0--beta.3-64a6dd.svg?style=flat
+[badge-carthage]: https://img.shields.io/badge/Carthage-v4.0.0-64a6dd.svg?style=flat
 
 [badge-sponsors]: https://img.shields.io/badge/Sponsors-Cerebral%20Gardens-orange.svg?style=flat
 [badge-twitter]: https://img.shields.io/twitter/follow/DaveWoodX.svg?style=social
@@ -537,8 +548,9 @@ The change log is now in it's own file: [CHANGELOG.md](CHANGELOG.md)
 [Firelog]: http://jogabo.github.io/firelog/
 [Firebase]: https://www.firebase.com/
 
-[xcglogger-4.0.0]: https://github.com/DaveWoodCom/XCGLogger/tree/swift_3.0
-[xcglogger-3.5.1]: https://github.com/DaveWoodCom/XCGLogger/releases/tag/Version_3.5.1
+[xcglogger-4.0.0]: https://github.com/DaveWoodCom/XCGLogger/releases/tag/Version_4.0.0
+[xcglogger-3.6.0]: https://github.com/DaveWoodCom/XCGLogger/releases/tag/Version_3.6.0
+[xcglogger-3.5.3]: https://github.com/DaveWoodCom/XCGLogger/releases/tag/Version_3.5.3
 [xcglogger-3.2]: https://github.com/DaveWoodCom/XCGLogger/releases/tag/Version_3.2
 [xcglogger-2.x]: https://github.com/DaveWoodCom/XCGLogger/releases/tag/Version_2.4
 [xcglogger-1.x]: https://github.com/DaveWoodCom/XCGLogger/releases/tag/Version_1.8.1

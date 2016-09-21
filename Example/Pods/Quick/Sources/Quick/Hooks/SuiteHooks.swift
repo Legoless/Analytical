@@ -4,29 +4,29 @@
 final internal class SuiteHooks {
     internal var befores: [BeforeSuiteClosure] = []
     internal var afters: [AfterSuiteClosure] = []
-    internal var phase: HooksPhase = .nothingExecuted
+    internal var phase: HooksPhase = .NothingExecuted
 
-    internal func appendBefore(_ closure: @escaping BeforeSuiteClosure) {
+    internal func appendBefore(closure: BeforeSuiteClosure) {
         befores.append(closure)
     }
 
-    internal func appendAfter(_ closure: @escaping AfterSuiteClosure) {
+    internal func appendAfter(closure: AfterSuiteClosure) {
         afters.append(closure)
     }
 
     internal func executeBefores() {
-        phase = .beforesExecuting
+        phase = .BeforesExecuting
         for before in befores {
             before()
         }
-        phase = .beforesFinished
+        phase = .BeforesFinished
     }
 
     internal func executeAfters() {
-        phase = .aftersExecuting
+        phase = .AftersExecuting
         for after in afters {
             after()
         }
-        phase = .aftersFinished
+        phase = .AftersFinished
     }
 }

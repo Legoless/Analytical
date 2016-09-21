@@ -26,7 +26,7 @@ final public class Example: NSObject {
     private let closure: () -> ()
     private let flags: FilterFlags
 
-    internal init(description: String, callsite: Callsite, flags: FilterFlags, closure: @escaping () -> ()) {
+    internal init(description: String, callsite: Callsite, flags: FilterFlags, closure: () -> ()) {
         self.internalDescription = description
         self.closure = closure
         self.callsite = callsite
@@ -46,8 +46,10 @@ final public class Example: NSObject {
         to be displayed in Xcode's test navigator.
     */
     public var name: String {
-        guard let groupName = group?.name else { return description }
-        return "\(groupName), \(description)"
+        switch group!.name {
+        case .Some(let groupName): return "\(groupName), \(description)"
+        case .None: return description
+        }
     }
 
     /**
@@ -65,19 +67,19 @@ final public class Example: NSObject {
         world.currentExampleMetadata = exampleMetadata
 
         world.exampleHooks.executeBefores(exampleMetadata)
-        group!.phase = .beforesExecuting
+        group!.phase = .BeforesExecuting
         for before in group!.befores {
-            before(exampleMetadata)
+            before(exampleMetadata: exampleMetadata)
         }
-        group!.phase = .beforesFinished
+        group!.phase = .BeforesFinished
 
         closure()
 
-        group!.phase = .aftersExecuting
+        group!.phase = .AftersExecuting
         for after in group!.afters {
-            after(exampleMetadata)
+            after(exampleMetadata: exampleMetadata)
         }
-        group!.phase = .aftersFinished
+        group!.phase = .AftersFinished
         world.exampleHooks.executeAfters(exampleMetadata)
 
         numberOfExamplesRun += 1
