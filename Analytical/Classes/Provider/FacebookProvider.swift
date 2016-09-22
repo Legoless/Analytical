@@ -20,7 +20,7 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
     public func setup(with properties: Properties?) {
         instance = FBSDKApplicationDelegate.sharedInstance()
         
-        if let launchOptions = properties?[Property.Launch.options.rawValue] as? [AnyHashable: Any], let application = properties?[Property.Launch.application.rawValue] as? UIApplication {
+        if let launchOptions = properties?[Property.Launch.options.rawValue] as? [UIApplicationLaunchOptionsKey: Any], let application = properties?[Property.Launch.application.rawValue] as? UIApplication {
             instance.application(application, didFinishLaunchingWithOptions: launchOptions)
         }
     }
