@@ -60,6 +60,8 @@ Analytical provides Google Analytics provider, but due to it's incompatibility b
 
 *Google Analytics takes 4 parameters for each event: Category, Action, Label and Value. Category will be set to "default", when called from Analytical and Action will be the event name passed to the call. Label and Value are optional.*
 
+*When Google will update their library to support dynamic frameworks, these steps will no longer be required.*
+
 ## Configuration
 
 To separate analytics code, a new separate Swift file is recommended:
