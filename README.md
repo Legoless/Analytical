@@ -8,7 +8,7 @@
 [![Pod Platform](http://img.shields.io/cocoapods/p/Analytical.svg?style=flat)](http://cocoadocs.org/docsets/Analytical/)
 [![Pod License](http://img.shields.io/cocoapods/l/Analytical.svg?style=flat)](http://opensource.org/licenses/MIT)
 
-Analytical is a simple lightweight analytics wrapper for iOS Swift projects. Inspired by [ARAnalytics](https://github.com/orta/ARAnalytics), which is a powerful Objective-C library. Analytical does not support all advanced functionalities of it's providers, but it allows to directly access each instance for specific configuration.
+Analytical is a simple lightweight analytics wrapper for iOS Swift projects. Inspired by [ARAnalytics](https://github.com/orta/ARAnalytics) - a powerful Objective-C analytics library. Analytical does not support all advanced functionalities of it's providers, but it allows to directly access each instance for specific configuration.
 
 
 Currently available providers:
