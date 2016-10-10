@@ -28,7 +28,7 @@ it, simply add the following line to your Podfile:
 # Required for Swift libraries
 !use_frameworks
 
-pod "Analytical"
+pod "Analytical", "0.2.8"
 
 # To use Swift3 version point your CocoaPods installation directly to this repository. 0.2.x are Swift 2.x versions.
 pod "Analytical", :git => 'https://github.com/Legoless/Analytical.git'
