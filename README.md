@@ -30,7 +30,7 @@ it, simply add the following line to your Podfile:
 
 pod "Analytical", "0.2.0"
 
-# To use Swift3 version point your CocoaPods installation directly to this repository. 0.2.x are Swift 2.x versions.
+# To use Swift3 version point your CocoaPods installation directly to this repository.
 pod "Analytical", :git => 'https://github.com/Legoless/Analytical.git'
 ```
 
