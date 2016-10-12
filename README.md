@@ -8,7 +8,7 @@
 [![Pod Platform](http://img.shields.io/cocoapods/p/Analytical.svg?style=flat)](http://cocoadocs.org/docsets/Analytical/)
 [![Pod License](http://img.shields.io/cocoapods/l/Analytical.svg?style=flat)](http://opensource.org/licenses/MIT)
 
-Analytical is a simple light-weight analytics wrapper for iOS Swift projects. Inspired by [ARAnalytics](https://github.com/orta/ARAnalytics), which is a powerful Objective-C library. Analytical does not support all advanced functionalities of it's providers, but it allows to directly access each instance for specific configuration.
+Analytical is a simple lightweight analytics wrapper for iOS Swift projects. Inspired by [ARAnalytics](https://github.com/orta/ARAnalytics) - a powerful Objective-C analytics library. Analytical does not support all advanced functionalities of specific providers, but it allows to directly access each analytics instance for additional features.
 
 
 Currently available providers:
@@ -28,9 +28,9 @@ it, simply add the following line to your Podfile:
 # Required for Swift libraries
 !use_frameworks
 
-pod "Analytical"
+pod "Analytical", "0.2.0"
 
-# To use Swift3 version point your CocoaPods installation directly to this repository. 0.2.x are Swift 2.x versions.
+# To use Swift3 version point your CocoaPods installation directly to this repository.
 pod "Analytical", :git => 'https://github.com/Legoless/Analytical.git'
 ```
 
@@ -59,6 +59,8 @@ Analytical provides Google Analytics provider, but due to it's incompatibility b
 5. Normally instantiate `GoogleProvider` from Analytical with Google Tracking ID.
 
 *Google Analytics takes 4 parameters for each event: Category, Action, Label and Value. Category will be set to "default", when called from Analytical and Action will be the event name passed to the call. Label and Value are optional.*
+
+*When Google will update their library to support dynamic frameworks, these steps will no longer be required.*
 
 ## Configuration
 

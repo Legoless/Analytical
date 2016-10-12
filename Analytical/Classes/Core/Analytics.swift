@@ -50,11 +50,15 @@ open class Analytics : Analytical {
      - parameter application:   UIApplication instance
      - parameter launchOptions: launch options
      */
-    open func setup(_ application: UIApplication?, launchOptions: [AnyHashable: Any]?) {
+    open func setup(_ application: UIApplication?, launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
         var properties : Properties = [:]
         
+        if let application = application {
+            properties[Property.Launch.application.rawValue] = application
+        }
+        
         if let launchOptions = launchOptions {
-            properties = [Property.Launch.options.rawValue : launchOptions as AnyObject]
+            properties[Property.Launch.options.rawValue] = launchOptions
         }
         
         setup(with: properties)
