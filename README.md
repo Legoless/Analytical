@@ -28,10 +28,11 @@ it, simply add the following line to your Podfile:
 # Required for Swift libraries
 !use_frameworks
 
-pod "Analytical", "0.2.0"
+# To use Swift 2.x version use 0.2 version
+pod "Analytical", "~> 0.2.x"
 
-# To use Swift3 version point your CocoaPods installation directly to this repository.
-pod "Analytical", :git => 'https://github.com/Legoless/Analytical.git'
+# To use Swift3 version use 0.3 version or newer.
+pod "Analytical", "~> 0.3.x"
 ```
 
 The complete Podspec will install all available providers, but you may specify the providers you wish to use.
