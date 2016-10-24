@@ -33,6 +33,7 @@ pod "Analytical", "~> 0.2.x"
 
 # To use Swift3 version use 0.3 version or newer.
 pod "Analytical", "~> 0.3.x"
+pod "Analytical"
 ```
 
 The complete Podspec will install all available providers, but you may specify the providers you wish to use.
