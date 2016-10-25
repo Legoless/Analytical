@@ -32,8 +32,7 @@ it, simply add the following line to your Podfile:
 pod "Analytical", "~> 0.2.x"
 
 # To use Swift3 version use 0.3 version or newer.
-pod "Analytical", "~> 0.3.x"
-pod "Analytical"
+pod "Analytical" #, "~> 0.3.x"
 ```
 
 The complete Podspec will install all available providers, but you may specify the providers you wish to use.
@@ -109,7 +108,7 @@ extension Analytical {
 
 ## Usage
 
-Some analytics providers require to be setup when application finishes launching. Add this code to your `application:didFinishLaunchingWithOptions` method:
+Some analytics providers require to be setup when application finishes launching. Make sure to add this code to your `application:didFinishLaunchingWithOptions` method:
 
 ```swift
 analytics.setup(application, launchOptions: launchOptions)
