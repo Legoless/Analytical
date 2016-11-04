@@ -19,6 +19,8 @@ Currently available providers:
 - [Mixpanel](https://mixpanel.com/help/reference/ios)
 - [Segment.io](https://segment.com/docs/sources/mobile/ios/)
 
+- Debug provider
+
 ## Installation
 
 Analytical is available through [CocoaPods](http://cocoapods.org). To install
