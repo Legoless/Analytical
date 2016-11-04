@@ -10,8 +10,7 @@
 
 Analytical is a simple lightweight analytics wrapper for iOS Swift projects. Inspired by [ARAnalytics](https://github.com/orta/ARAnalytics) - a powerful Objective-C analytics library. Analytical does not support all advanced functionalities of specific providers, but it allows to directly access each analytics instance for additional features.
 
-
-Currently available providers:
+Currently available common providers:
 
 - [Facebook Analytics](https://developers.facebook.com/products/analytics)
 - [Flurry](https://github.com/flurry/flurry-ios-sdk)
@@ -19,6 +18,7 @@ Currently available providers:
 - [Mixpanel](https://mixpanel.com/help/reference/ios)
 - [Segment.io](https://segment.com/docs/sources/mobile/ios/)
 
+A special set of providers for specific purposes:
 - Debug provider
 
 ## Installation
