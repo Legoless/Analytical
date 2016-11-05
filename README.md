@@ -59,7 +59,7 @@ Analytical includes Google Analytics provider, but due to it's incompatibility b
 2. Run `pod install`
 3. Add `#import <Google/Analytics.h>` to your Application Bridging Header.
 4. Drag & drop `GoogleProvider.swift` to your project.
-5. Normally instantiate `GoogleProvider` from Analytical with Google Tracking ID.
+5. Instantiate `GoogleProvider` class with Google Tracking ID.
 
 *Google Analytics takes 4 parameters for each event: Category, Action, Label and Value. Category will be set to "default", when called from Analytical and Action will be the event name passed to the call. Label and Value are optional.*
 
