@@ -5,9 +5,10 @@ use_frameworks!
 
 target 'Analytical_Example' do
   pod 'Analytical', :path => '../'
+  
   pod 'Google/Analytics'
-  pod 'Mixpanel-swift', :git => 'https://github.com/mixpanel/mixpanel-swift', :branch => 'swift3'
-  pod 'XCGLogger', :git => 'https://github.com/DaveWoodCom/XCGLogger', :branch => 'swift_3.0'
+  pod 'Mixpanel-swift', :git => 'https://github.com/mixpanel/mixpanel-swift'
+  pod 'XCGLogger', :git => 'https://github.com/DaveWoodCom/XCGLogger'
 
   target 'Analytical_Tests' do
     inherit! :search_paths
