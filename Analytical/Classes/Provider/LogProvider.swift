@@ -1,5 +1,5 @@
 //
-//  DebugProvider.swift
+//  LogProvider.swift
 //  Analytical
 //
 //  Created by Dal Rupnik on 19/07/16.
@@ -8,16 +8,16 @@
 
 import XCGLogger
 
-open class DebugProvider : Provider<XCGLogger>, Analytical {
+open class LogProvider : Provider<XCGLogger>, Analytical {
     open func setup(with properties: Properties?) {
         instance = XCGLogger(identifier: "com.unifiedsense.analytical.logger", includeDefaultDestinations: true)
         instance.setup(level: .verbose, showLogIdentifier: false, showFunctionName: false, showThreadName: false, showLevel: false, showFileNames: false, showLineNumbers: false)
         
-        instance.debug("Setuped provider with properties: \(properties)")
+        instance.debug("Setup LogProvider with properties: \(properties)")
     }
     
     open override func activate() {
-        instance.debug("Provider was activated.")
+        instance.debug("LogProvider was activated.")
     }
     
     open func flush() {

@@ -22,7 +22,7 @@ public enum Track {
 
 //let analytics = Analytics() <<~ GoogleProvider(trackingId: "<TRACKING-ID>") <<~ MixpanelProvider(token: "<MIXPANEL-ID>") <<~ FacebookProvider()
 
-let analytics = Analytics() <<~ DebugProvider()
+let analytics = Analytics() <<~ LogProvider()
 
 extension Analytical {
     func track(event: Track.Event, properties: Properties? = nil) {
