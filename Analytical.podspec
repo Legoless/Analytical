@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Analytical'
-  s.version          = '0.3.0'
+  s.version          = '0.4.0'
   s.summary          = 'Analytical is a lightweight analytics library wrapper.'
 
   s.description      = <<-DESC
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/legoless/Analytical.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/thelegoless'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 
   s.subspec 'Core' do |subspec|
     subspec.source_files = 'Analytical/Classes/Core/**/*.{swift}'

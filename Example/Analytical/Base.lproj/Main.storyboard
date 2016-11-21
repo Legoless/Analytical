@@ -24,6 +24,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0dA-iy-IQ0">
                                 <rect key="frame" x="135" y="318" width="104" height="30"/>
                                 <state key="normal" title="Second Screen"/>
+                                <connections>
+                                    <action selector="secondScreenButtonTap:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Ygl-7g-sVb"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -32,9 +35,43 @@
                             <constraint firstItem="0dA-iy-IQ0" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="mvd-39-4Si"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="aQu-f6-lBG" kind="show" identifier="SecondScreenSegue" id="ywA-M9-V7k"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Second View Controller-->
+        <scene sceneID="98q-aV-yyM">
+            <objects>
+                <viewController id="aQu-f6-lBG" customClass="SecondViewController" customModule="Analytical_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QCt-I1-nAR"/>
+                        <viewControllerLayoutGuide type="bottom" id="6iQ-Li-Fho"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0Gg-Bf-OFi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZVz-4U-aJj">
+                                <rect key="frame" x="168" y="318" width="39" height="30"/>
+                                <state key="normal" title="Close"/>
+                                <connections>
+                                    <action selector="closeButtonTap:" destination="aQu-f6-lBG" eventType="touchUpInside" id="36P-c3-cfP"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZVz-4U-aJj" firstAttribute="centerY" secondItem="0Gg-Bf-OFi" secondAttribute="centerY" id="4qs-nd-OEd"/>
+                            <constraint firstItem="ZVz-4U-aJj" firstAttribute="centerX" secondItem="0Gg-Bf-OFi" secondAttribute="centerX" id="8iV-Zh-4Nv"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QlG-MW-auz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="759" y="37"/>
         </scene>
     </scenes>
 </document>

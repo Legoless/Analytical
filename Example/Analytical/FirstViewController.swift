@@ -14,5 +14,12 @@ class FirstViewController: UIViewController {
         
         analytics.track(screen: Track.Screen.first)
     }
+    
+    @IBAction func secondScreenButtonTap(_ sender: UIButton) {
+        
+        analytics.track(event: Track.Event.secondScreenTap)
+        
+        performSegue(withIdentifier: "SecondScreenSegue", sender: sender)
+    }
 }
 

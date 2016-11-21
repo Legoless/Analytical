@@ -29,20 +29,22 @@ open class DebugProvider : Provider<XCGLogger>, Analytical {
     }
     
     open override func event(name: EventName, properties: Properties?) {
-        instance.debug("Event \(name) was triggered with properties: \(properties)")
+        instance.debug("Event \(name) was logged with properties: \(properties)")
     }
     
     open func screen(name: EventName, properties: Properties?) {
-        instance.debug("Event \(name) was triggered with properties: \(properties)")
+        instance.debug("Screen \(name) was logged with properties: \(properties)")
     }
     
     open override func time (name: EventName, properties: Properties?) {
         super.time(name: name, properties: properties)
         
-        instance.debug("Timed event \(name) was triggered with properties: \(properties)")
+        instance.debug("Timed event \(name) was started with properties: \(properties)")
     }
     
     open override func finish (name: EventName, properties: Properties?) {
+        super.finish(name: name, properties: properties)
+        
         instance.debug("Event \(name) was completed with properties in time \(self.events): \(properties)")
     }
     

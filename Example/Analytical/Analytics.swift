@@ -10,8 +10,8 @@ import Analytical
 
 public enum Track {
     public enum Event : String {
-        case simpleTap  = "SimpleTap"
-        case anotherTap = "AnotherTap"
+        case secondScreenTap  = "SecondScreenTap"
+        case closeTap = "CloseTap"
     }
     
     public enum Screen : String {
@@ -20,7 +20,10 @@ public enum Track {
     }
 }
 
-let analytics = Analytics() <<~ GoogleProvider(trackingId: "<TRACKING-ID>") <<~ MixpanelProvider(token: "<MIXPANEL-ID>") <<~ FacebookProvider()
+//let analytics = Analytics() <<~ GoogleProvider(trackingId: "<TRACKING-ID>") <<~ MixpanelProvider(token: "<MIXPANEL-ID>") <<~ FacebookProvider()
+
+let analytics = Analytics() <<~ DebugProvider()
+
 
 extension Analytical {
     func track(event: Track.Event, properties: Properties? = nil) {
