@@ -9,6 +9,8 @@
 import Flurry_iOS_SDK
 
 public class FlurryProvider : Provider<Flurry>, Analytical {
+    private var key : String
+    
     public static let ApiKey = "ApiKey"
     
     public var uncaughtExceptions: Bool = false {
@@ -17,8 +19,18 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
         }
     }
     
+    public init (key: String) {
+        self.key = key
+        
+        super.init()
+    }
+    
     public func setup(with properties: Properties?) {
-        Flurry.startSession(properties?[FlurryProvider.ApiKey] as? String)
+        if let key = properties?[FlurryProvider.ApiKey] as? String {
+            self.key = key
+        }
+        
+        Flurry.startSession(key)
     }
     
     public func flush() {
