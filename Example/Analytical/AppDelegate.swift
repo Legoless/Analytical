@@ -13,9 +13,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        analytics.setup()
+        analytics.setup(with: application, launchOptions: launchOptions)
         
         return true
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        analytics.activate()
     }
 }
 

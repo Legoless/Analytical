@@ -24,7 +24,6 @@ public enum Track {
 
 let analytics = Analytics() <<~ DebugProvider()
 
-
 extension Analytical {
     func track(event: Track.Event, properties: Properties? = nil) {
         self.event(name: event.rawValue, properties: properties)

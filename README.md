@@ -30,9 +30,6 @@ it, simply add the following line to your Podfile:
 # Required for Swift libraries
 !use_frameworks
 
-# To use Swift 2.x version use 0.2 version
-pod "Analytical", "~> 0.2.x"
-
 # To use Swift3 version use 0.3 version or newer.
 pod "Analytical"
 ```
@@ -70,19 +67,19 @@ Analytical includes Google Analytics provider, but due to it's incompatibility b
 To separate analytics code, a new separate Swift file is recommended:
 
 ```swift
-// Define Providers and create a global variable
+// Define Providers and create a global variable to be accessible from everywhere
 let analytics = Analytics() <<~ GoogleProvider(trackingId: "<GA_TRACKING_ID>") <<~ MixpanelProvider(token: "<MIXPANEL_TOKEN>") <<~ FacebookProvider()
 
 // Simple Enum for Events
 public enum Track {
     public enum Event : String {
-        case FirstButtonTap         = "FirstButtonTap"
-        case TopMenuSelect          = "TopMenuSelect"
+        case secondScreenTap  = "SecondScreenTap"
+        case closeTap = "CloseTap"
     }
-    // Define screens
+    
     public enum Screen : String {
-        case FirstScreen            = "FirstScreen"
-        case SecondScreen           = "SecondScreen"
+        case first  = "first"
+        case second = "second"
     }
 }
 
@@ -90,33 +87,33 @@ public enum Track {
 // Add simple wrapper to use defined Enums with Analytical
 //
 extension Analytical {
-    func track(track: Track.Event, properties: Properties? = nil) {
-        event(track.rawValue, properties: properties)
+    func track(event: Track.Event, properties: Properties? = nil) {
+        self.event(name: event.rawValue, properties: properties)
     }
     
-    func track(track: Track.Screen, properties: Properties? = nil) {
-        screen(track.rawValue, properties: properties)
+    func track(screen: Track.Screen, properties: Properties? = nil) {
+        self.screen(name: screen.rawValue, properties: properties)
     }
     
-    func time(track: Track.Event, properties: Properties? = nil) {
-        time(track.rawValue, properties: properties)
+    func time(event: Track.Event, properties: Properties? = nil) {
+        self.time(name: event.rawValue, properties: properties)
     }
     
-    func finish(track: Track.Event, properties: Properties? = nil) {
-        finish(track.rawValue, properties: properties)
+    func finish(event: Track.Event, properties: Properties? = nil) {
+        self.finish(name: event.rawValue, properties: properties)
     }
 }
 ```
 
 ## Usage
 
-Some analytics providers require to be setup when application finishes launching. Make sure to add this code to your `application:didFinishLaunchingWithOptions` method:
+Some analytics providers require to be setup when application finishes launching. Make sure to add call to `setup` to your `application:didFinishLaunchingWithOptions` method:
 
 ```swift
-analytics.setup(application, launchOptions: launchOptions)
+analytics.setup(with: application, launchOptions: launchOptions)
 ```
 
-Some analytics providers require to log application activation (Facebook for example), so you must add the code below to your `applicationDidBecomeActive:` method.
+Some analytics providers require to log application activation (Facebook for example), so you should add the code below to your `applicationDidBecomeActive:` method.
 
 ```swift
 analytics.activate()
@@ -144,7 +141,7 @@ analytics.track(.FirstScreen, ["property" : 12.00])
 
 ### Identification
 
-If your application has identified user, you should call `identify` method. If your user is anonymous, you may use `analytics.deviceId` property to retrieve UUID. After first retrieval, it is stored to `NSUserDefaults` and used in all next calls.
+If your application has identified user, you should call `identify` method. If your user is anonymous, you may use `analytics.deviceId` property to retrieve UUID. After first retrieval, it is stored to `UserDefaults` and used in all next calls.
 
 ```swift
 analytics.identify(analytics.deviceId)
