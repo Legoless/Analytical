@@ -23,19 +23,19 @@ public enum Track {
 let analytics = Analytics() <<~ GoogleProvider(trackingId: "<TRACKING-ID>") <<~ MixpanelProvider(token: "<MIXPANEL-ID>") <<~ FacebookProvider()
 
 extension Analytical {
-    func track(_ track: Track.Event, properties: Properties? = nil) {
-        event(name: track.rawValue, properties: properties)
+    func track(event: Track.Event, properties: Properties? = nil) {
+        self.event(name: event.rawValue, properties: properties)
     }
     
-    func track(_ track: Track.Screen, properties: Properties? = nil) {
-        screen(name: track.rawValue, properties: properties)
+    func track(screen: Track.Screen, properties: Properties? = nil) {
+        self.screen(name: screen.rawValue, properties: properties)
     }
     
-    func time(_ track: Track.Event, properties: Properties? = nil) {
-        time(name: track.rawValue, properties: properties)
+    func time(event: Track.Event, properties: Properties? = nil) {
+        self.time(name: event.rawValue, properties: properties)
     }
     
-    func finish(_ track: Track.Event, properties: Properties? = nil) {
-        finish(name: track.rawValue, properties: properties)
+    func finish(event: Track.Event, properties: Properties? = nil) {
+        self.finish(name: event.rawValue, properties: properties)
     }
 }
