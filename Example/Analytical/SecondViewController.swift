@@ -12,11 +12,11 @@ class SecondViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        analytics.track(screen: Track.Screen.second)
+        analytics.track(screen: .second)
     }
     
     @IBAction func closeButtonTap(_ sender: UIButton) {
-        analytics.track(event: Track.Event.closeTap)
+        analytics.track(event: .closeTap)
         
         dismiss(animated: true, completion: nil)
     }

@@ -19,7 +19,9 @@ Currently available common providers:
 - [Segment.io](https://segment.com/docs/sources/mobile/ios/)
 
 A special set of providers for specific purposes:
-- Debug provider
+- [Log provider](https://github.com/Legoless/Analytical/blob/master/Analytical/Classes/Provider/LogProvider.swift)
+
+Analytical is currently used in all applications by [Blub Blub](http://blubblub.org) in production.
 
 ## Installation
 
@@ -30,7 +32,6 @@ it, simply add the following line to your Podfile:
 # Required for Swift libraries
 !use_frameworks
 
-# To use Swift3 version use 0.3 version or newer.
 pod "Analytical"
 ```
 
@@ -125,18 +126,22 @@ analytics.activate()
 
 ```swift
 // Calls using above wrapper
-analytics.track(.FirstButtonTap)
-analytics.track(.FirstScreen)
+analytics.track(event: .secondScreenTap)
+analytics.track(screen: .first)
 
+//
 // Original call with String
-analytics.screen(Track.Screen.rawValue)
+//
+analytics.screen(name: Track.Screen.first.rawValue)
 ```
+
+See Example project for more examples.
 
 ### Tracking properties
 
 ```swift
-analytics.track(.FirstButtonTap, ["property" : 12.00])
-analytics.track(.FirstScreen, ["property" : 12.00])
+analytics.track(event: .closeTap, ["property" : 12.00])
+analytics.track(screen: .first, ["property" : 12.00])
 ```
 
 ### Identification
