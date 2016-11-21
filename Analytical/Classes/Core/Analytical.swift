@@ -88,7 +88,7 @@ public protocol Analytical {
      - parameter name:       name of the event
      - parameter properties: additional properties
      */
-    func event(_ name: EventName, properties: Properties?)
+    func event(name: EventName, properties: Properties?)
     
     /*!
      Logs a specific screen to analytics.
@@ -96,7 +96,7 @@ public protocol Analytical {
      - parameter name:       name of the screen
      - parameter properties: additional properties
      */
-    func screen(_ name: EventName, properties: Properties?)
+    func screen(name: EventName, properties: Properties?)
     
     /*!
      Track time for event name
@@ -104,7 +104,7 @@ public protocol Analytical {
      - parameter name:       name of the event
      - parameter properties: properties
      */
-    func time (_ name: EventName, properties: Properties?)
+    func time (name: EventName, properties: Properties?)
     
     /*!
      Finish tracking time for event
@@ -112,7 +112,7 @@ public protocol Analytical {
      - parameter name:       event
      - parameter properties: properties
      */
-    func finish (_ name: EventName, properties: Properties?)
+    func finish (name: EventName, properties: Properties?)
     
     //
     // MARK: User Tracking
@@ -124,7 +124,7 @@ public protocol Analytical {
      - parameter userId:      user id
      - parameter properties:  different traits and properties
      */
-    func identify(_ userId: String, properties: Properties?)
+    func identify(userId: String, properties: Properties?)
     
     /*!
      Connect the existing anonymous user with the alias (for example, after user signs up),
@@ -133,14 +133,14 @@ public protocol Analytical {
      
      - parameter userId: user
      */
-    func alias(_ userId: String, forId: String)
+    func alias(userId: String, forId: String)
     
     /*!
      Sets properties to currently identified user.
      
      - parameter properties: properties
      */
-    func set(_ properties: Properties)
+    func set(properties: Properties)
     
     /*!
      Increments currently set property by a number.
@@ -148,7 +148,7 @@ public protocol Analytical {
      - parameter property: property to increment
      - parameter number:   number to incrememt by
      */
-    func increment(_ property: String, by number: NSDecimalNumber)
+    func increment(property: String, by number: NSDecimalNumber)
     
     /*!
      Make a purchase for the current user.
@@ -156,5 +156,5 @@ public protocol Analytical {
      - parameter amount:     amount
      - parameter properties: properties, such as SKU, Product ID, Tax, etc.
      */
-    func purchase(_ amount: NSDecimalNumber, properties: Properties?)
+    func purchase(amount: NSDecimalNumber, properties: Properties?)
 }

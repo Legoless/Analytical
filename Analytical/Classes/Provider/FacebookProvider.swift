@@ -39,37 +39,37 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
         //
     }
     
-    public override func event(_ name: EventName, properties: Properties?) {
+    public override func event(name: EventName, properties: Properties?) {
         FBSDKAppEvents.logEvent(name, parameters: properties)
     }
     
-    public func screen(_ name: EventName, properties: Properties?) {
-        event(name, properties: properties)
+    public func screen(name: EventName, properties: Properties?) {
+        event(name: name, properties: properties)
     }
     
-    public func identify(_ userId: String, properties: Properties?) {
+    public func identify(userId: String, properties: Properties?) {
         //
         // No user tracking with Facebook
         //
     }
     
-    public func alias(_ userId: String, forId: String) {
+    public func alias(userId: String, forId: String) {
         //
         // No alias tracking with Facebook
         //
     }
     
-    public func set(_ properties: Properties) {
+    public func set(properties: Properties) {
         //
         // No custom properties
         //
     }
     
-    public func increment(_ property: String, by number: NSDecimalNumber) {
+    public func increment(property: String, by number: NSDecimalNumber) {
         FBSDKAppEvents.logEvent(property, valueToSum: number.doubleValue)
     }
     
-    public func purchase(_ amount: NSDecimalNumber, properties: Properties?) {
+    public func purchase(amount: NSDecimalNumber, properties: Properties?) {
         let properties = prepareProperties(properties)
         
         let currency = properties[Property.Purchase.currency.rawValue] as? String

@@ -22,14 +22,14 @@ open class Provider <T> : NSObject {
         
     }
     
-    open func event(_ name: EventName, properties: Properties? = nil) {
+    open func event(name: EventName, properties: Properties? = nil) {
         //
         // A Generic Provider has no way to know how to send events.
         //
         assert(false)
     }
     
-    open func time(_ name: EventName, properties: Properties? = nil) {
+    open func time(name: EventName, properties: Properties? = nil) {
         events[name] = Date()
         
         if let properties = properties {
@@ -37,7 +37,7 @@ open class Provider <T> : NSObject {
         }
     }
     
-    open func finish(_ name: EventName, properties: Properties?) {
+    open func finish(name: EventName, properties: Properties?) {
         
         var properties = properties
         
@@ -49,6 +49,6 @@ open class Provider <T> : NSObject {
             properties![Property.time.rawValue] = time.timeIntervalSinceNow as AnyObject?
         }
         
-        event(name, properties: properties)
+        event(name: name, properties: properties)
     }
 }

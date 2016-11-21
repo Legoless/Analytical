@@ -9,7 +9,7 @@
 import Mixpanel
 
 public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
-    fileprivate var token : String
+    private var token : String
     
     public static let ApiToken = "ApiToken"
     
@@ -40,24 +40,24 @@ public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
         instance.reset()
     }
     
-    public override func event(_ name: EventName, properties: Properties? = nil) {
+    public override func event(name: EventName, properties: Properties? = nil) {
         instance.track(event: name, properties: properties as? [String : MixpanelType])
     }
     
-    public func screen(_ name: EventName, properties: Properties? = nil) {
+    public func screen(name: EventName, properties: Properties? = nil) {
         //
         // Mixpanel does not specifically track screens, so just send out an event.
         //
         instance.track(event: name, properties: properties as? [String : MixpanelType])
     }
     
-    public override func time(_ name: EventName, properties: Properties? = nil) {
-        super.time(name, properties: properties)
+    public override func time(name: EventName, properties: Properties? = nil) {
+        super.time(name: name, properties: properties)
         
         instance.time(event: name)
     }
     
-    public func identify(_ userId: String, properties: Properties? = nil) {
+    public func identify(userId: String, properties: Properties? = nil) {
         
         instance.identify(distinctId: userId)
         
@@ -66,12 +66,12 @@ public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
         }
     }
     
-    public func alias(_ userId: String, forId: String) {
+    public func alias(userId: String, forId: String) {
         instance.createAlias(userId, distinctId: forId)
         instance.identify(distinctId: forId)
     }
     
-    public func set(_ properties: Properties) {
+    public func set(properties: Properties) {
         guard let properties = properties as? [String : MixpanelType] else {
             return
         }
@@ -79,11 +79,11 @@ public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
         instance.people.set(properties: properties)
     }
     
-    public func increment(_ property: String, by number: NSDecimalNumber) {
+    public func increment(property: String, by number: NSDecimalNumber) {
         instance.people.increment(property: property, by: number.doubleValue)
     }
     
-    public func purchase(_ amount: NSDecimalNumber, properties: Properties?) {
+    public func purchase(amount: NSDecimalNumber, properties: Properties?) {
         instance.people.trackCharge(amount: amount.doubleValue, properties: properties as? [String : MixpanelType])
     }
 }

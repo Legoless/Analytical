@@ -65,7 +65,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         //
     }
     
-    public override func event(_ name: EventName, properties: Properties? = nil) {
+    public override func event(name: EventName, properties: Properties? = nil) {
         //
         // Google Analytics works with Category, Action, Label and Value,
         // where both Category and Action are required.
@@ -76,23 +76,23 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         instance.send(GAIDictionaryBuilder.createEvent(withCategory: properties["category"] as? String, action: name, label: properties["label"] as? String, value: properties["value"] as? NSNumber).parsed)
     }
     
-    public func screen(_ name: EventName, properties: Properties? = nil) {
+    public func screen(name: EventName, properties: Properties? = nil) {
         //
         // Send screen as an event in addition
         //
-        event(name, properties: properties)
+        event(name: name, properties: properties)
         
         instance.set(kGAIScreenName, value: name)
         instance.send(GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject])
     }
     
-    public override func finish(_ name: EventName, properties: Properties? = nil) {
+    public override func finish(name: EventName, properties: Properties? = nil) {
         
         guard let startDate = events[name] else {
             return
         }
         
-        event(name, properties: properties)
+        event(name: name, properties: properties)
         
         let properties = prepareProperties(properties: properties)
         
@@ -101,23 +101,23 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         instance.send(GAIDictionaryBuilder.createTiming(withCategory: properties["category"] as? String, interval: interval, name: name, label: properties["label"] as? String).parsed)
     }
     
-    public func identify(_ userId: String, properties: Properties? = nil) {
+    public func identify(userId: String, properties: Properties? = nil) {
         instance.set(kGAIUserId, value: userId)
         
         if let properties = properties {
-            set(properties)
+            set(properties: properties)
         }
     }
     
-    public func alias(_ userId: String, forId: String) {
+    public func alias(userId: String, forId: String) {
         //
         // No alias power for Google Analytics
         //
         
-        identify(forId)
+        identify(userId: forId)
     }
     
-    public func set(_ properties: Properties) {
+    public func set(properties: Properties) {
         let properties = prepareProperties(properties: properties)
         
         for (property, value) in properties {
@@ -129,13 +129,13 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         }
     }
     
-    public func increment(_ property: String, by number: NSDecimalNumber) {
+    public func increment(property: String, by number: NSDecimalNumber) {
         //
         // No increment for Google Analytics
         //
     }
     
-    public func purchase(_ amount: NSDecimalNumber, properties: Properties? = nil) {
+    public func purchase(amount: NSDecimalNumber, properties: Properties? = nil) {
         let properties = prepareProperties(properties: properties)
         
         let transactionId = properties[Property.Purchase.transactionId.rawValue] as? String

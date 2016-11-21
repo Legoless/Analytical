@@ -8,22 +8,22 @@
 
 import Analytics
 
-open class SegmentProvider : Provider <SEGAnalytics>, Analytical {
-    open static let Configuration = "Configuration" // Needs a type SEGAnalyticsConfiguration
-    open static let WriteKey      = "WriteKey"    // Needs a String
+public class SegmentProvider : Provider <SEGAnalytics>, Analytical {
+    public static let Configuration = "Configuration" // Needs a type SEGAnalyticsConfiguration
+    public static let WriteKey      = "WriteKey"    // Needs a String
     
     //
     // MARK: Private Properties
     //
     
-    fileprivate var _userId = ""
-    fileprivate var _properties : Properties? = nil
+    private var _userId = ""
+    private var _properties : Properties? = nil
     
     //
     // MARK: Analytical
     //
     
-    open var uncaughtExceptions: Bool = false
+    public var uncaughtExceptions: Bool = false
     
     open func setup (with properties : Properties? = nil) {
         if let configuration = properties?[SegmentProvider.Configuration] as? SEGAnalyticsConfiguration {
@@ -46,11 +46,11 @@ open class SegmentProvider : Provider <SEGAnalytics>, Analytical {
         instance.reset()
     }
     
-    open override func event(_ name: EventName, properties: Properties?) {
+    open override func event(name: EventName, properties: Properties?) {
         instance.track(name, properties: properties)
     }
     
-    open func screen(_ name: EventName, properties: Properties?) {
+    open func screen(name: EventName, properties: Properties?) {
         instance.screen(name, properties: properties)
     }
     
@@ -67,18 +67,18 @@ open class SegmentProvider : Provider <SEGAnalytics>, Analytical {
         instance.track(name, properties: properties)
     }
     
-    open func identify(_ userId: String, properties: Properties?) {
+    open func identify(userId: String, properties: Properties?) {
         _userId = userId
         _properties = properties
         
         instance.identify(userId, traits: properties)
     }
     
-    open func alias(_ userId: String, forId: String) {
+    open func alias(userId: String, forId: String) {
         instance.alias(userId)
     }
     
-    open func set(_ properties: Properties) {
+    open func set(properties: Properties) {
         //
         // Segment has no specific user dictionary method, so we remember user's properties,
         // every time it is identified. This method combines the properties with new properties,
@@ -100,11 +100,11 @@ open class SegmentProvider : Provider <SEGAnalytics>, Analytical {
         instance.identify(_userId, traits: finalProperties)
     }
     
-    open func increment(_ property: String, by number: NSDecimalNumber) {
+    open func increment(property: String, by number: NSDecimalNumber) {
         
     }
     
-    open func purchase(_ amount: NSDecimalNumber, properties: Properties?) {
+    open func purchase(amount: NSDecimalNumber, properties: Properties?) {
         var properties = properties
         
         if properties == nil {

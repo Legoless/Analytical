@@ -28,17 +28,17 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
         
     }
     
-    public override func event(_ name: EventName, properties: Properties?) {
+    public override func event(name: EventName, properties: Properties?) {
         Flurry.logEvent(name, withParameters: properties)
     }
     
-    public func screen(_ name: EventName, properties: Properties?) {
+    public func screen(name: EventName, properties: Properties?) {
         Flurry.logEvent(name, withParameters: properties)
         Flurry.logPageView()
     }
     
-    public override func time(_ name: EventName, properties: Properties?) {
-        super.time(name, properties: properties)
+    public override func time(name: EventName, properties: Properties?) {
+        super.time(name: name, properties: properties)
         
         Flurry.logEvent(name, withParameters: properties, timed: true)
     }
@@ -47,22 +47,22 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
         Flurry.endTimedEvent(name, withParameters: properties)
     }
     
-    public func identify(_ userId: String, properties: Properties?) {
+    public func identify(userId: String, properties: Properties?) {
         Flurry.setUserID(userId)
         
         if let properties = properties {
-            set(properties)
+            set(properties: properties)
         }
     }
     
-    public func alias(_ userId: String, forId: String) {
+    public func alias(userId: String, forId: String) {
         //
         // Flurry has no specific Alias mechanism, so just set the forId.
         //
         Flurry.setUserID(forId)
     }
     
-    open func set(_ properties: Properties) {
+    open func set(properties: Properties) {
         if let age = properties[Property.User.age.rawValue] as? Int32 {
             Flurry.setAge(age)
         }
@@ -78,11 +78,11 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
         //
     }
     
-    public func increment(_ property: String, by number: NSDecimalNumber) {
+    public func increment(property: String, by number: NSDecimalNumber) {
         
     }
     
-    public func purchase(_ amount: NSDecimalNumber, properties: Properties?) {
-        event(DefaultEvent.purchase.rawValue, properties: properties)
+    public func purchase(amount: NSDecimalNumber, properties: Properties?) {
+        event(name: DefaultEvent.purchase.rawValue, properties: properties)
     }    
 }

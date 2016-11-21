@@ -84,32 +84,32 @@ open class Analytics : Analytical {
     open func reset() {
         providers.forEach { $0.reset() }
     }
-    open func event(_ name: EventName, properties: Properties? = nil) {
-        providers.forEach { $0.event(name, properties: properties) }
+    open func event(name: EventName, properties: Properties? = nil) {
+        providers.forEach { $0.event(name: name, properties: properties) }
     }
-    open func screen(_ name: EventName, properties: Properties? = nil) {
-        providers.forEach { $0.screen(name, properties: properties) }
+    open func screen(name: EventName, properties: Properties? = nil) {
+        providers.forEach { $0.screen(name: name, properties: properties) }
     }
-    open func time (_ name: EventName, properties: Properties? = nil) {
-        providers.forEach { $0.time(name, properties: properties) }
+    open func time (name: EventName, properties: Properties? = nil) {
+        providers.forEach { $0.time(name: name, properties: properties) }
     }
-    open func finish (_ name: EventName, properties: Properties? = nil) {
-        providers.forEach { $0.finish(name, properties: properties) }
+    open func finish (name: EventName, properties: Properties? = nil) {
+        providers.forEach { $0.finish(name: name, properties: properties) }
     }
-    open func identify(_ userId: String, properties: Properties? = nil) {
-        providers.forEach { $0.identify(userId, properties: properties) }
+    open func identify(userId: String, properties: Properties? = nil) {
+        providers.forEach { $0.identify(userId: userId, properties: properties) }
     }
-    open func alias(_ userId: String, forId: String) {
-        providers.forEach { $0.alias(userId, forId: forId) }
+    open func alias(userId: String, forId: String) {
+        providers.forEach { $0.alias(userId: userId, forId: forId) }
     }
-    open func set(_ properties: Properties) {
-        providers.forEach { $0.set(properties) }
+    open func set(properties: Properties) {
+        providers.forEach { $0.set(properties: properties) }
     }
-    open func increment(_ property: String, by number: NSDecimalNumber) {
-        providers.forEach { $0.increment(property, by: number) }
+    open func increment(property: String, by number: NSDecimalNumber) {
+        providers.forEach { $0.increment(property: property, by: number) }
     }
-    open func purchase(_ amount: NSDecimalNumber, properties: Properties?) {
-        providers.forEach { $0.purchase(amount, properties: properties) }
+    open func purchase(amount: NSDecimalNumber, properties: Properties?) {
+        providers.forEach { $0.purchase(amount: amount, properties: properties) }
     }
     
     //

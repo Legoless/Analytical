@@ -3,7 +3,7 @@
 //  Analytical
 //
 //  Created by Dal Rupnik on 15/09/16.
-//  Copyright © 2016 CocoaPods. All rights reserved.
+//  Copyright © 2016 Unified Sense. All rights reserved.
 //
 
 import Analytical
@@ -24,18 +24,18 @@ let analytics = Analytics() <<~ GoogleProvider(trackingId: "<TRACKING-ID>") <<~ 
 
 extension Analytical {
     func track(_ track: Track.Event, properties: Properties? = nil) {
-        event(track.rawValue, properties: properties)
+        event(name: track.rawValue, properties: properties)
     }
     
     func track(_ track: Track.Screen, properties: Properties? = nil) {
-        screen(track.rawValue, properties: properties)
+        screen(name: track.rawValue, properties: properties)
     }
     
     func time(_ track: Track.Event, properties: Properties? = nil) {
-        time(track.rawValue, properties: properties)
+        time(name: track.rawValue, properties: properties)
     }
     
     func finish(_ track: Track.Event, properties: Properties? = nil) {
-        finish(track.rawValue, properties: properties)
+        finish(name: track.rawValue, properties: properties)
     }
 }
