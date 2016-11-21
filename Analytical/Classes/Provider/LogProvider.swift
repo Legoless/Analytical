@@ -21,11 +21,11 @@ open class LogProvider : Provider<XCGLogger>, Analytical {
     }
     
     open func flush() {
-        instance.debug("Provider data was flushed.")
+        instance.debug("LogProvider data was flushed.")
     }
     
     open func reset() {
-        instance.debug("Provider user data was reset.")
+        instance.debug("LogProvider user data was reset.")
     }
     
     open override func event(name: EventName, properties: Properties?) {
