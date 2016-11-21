@@ -1,25 +1,25 @@
 PODS:
-  - Analytical (0.3.0):
-    - Analytical/Core (= 0.3.0)
-    - Analytical/Facebook (= 0.3.0)
-    - Analytical/Flurry (= 0.3.0)
-    - Analytical/Log (= 0.3.0)
-    - Analytical/Mixpanel (= 0.3.0)
-    - Analytical/Segment (= 0.3.0)
-  - Analytical/Core (0.3.0)
-  - Analytical/Facebook (0.3.0):
+  - Analytical (0.4.0):
+    - Analytical/Core (= 0.4.0)
+    - Analytical/Facebook (= 0.4.0)
+    - Analytical/Flurry (= 0.4.0)
+    - Analytical/Log (= 0.4.0)
+    - Analytical/Mixpanel (= 0.4.0)
+    - Analytical/Segment (= 0.4.0)
+  - Analytical/Core (0.4.0)
+  - Analytical/Facebook (0.4.0):
     - Analytical/Core
     - FBSDKCoreKit
-  - Analytical/Flurry (0.3.0):
+  - Analytical/Flurry (0.4.0):
     - Analytical/Core
     - Flurry-iOS-SDK/FlurrySDK
-  - Analytical/Log (0.3.0):
+  - Analytical/Log (0.4.0):
     - Analytical/Core
     - XCGLogger
-  - Analytical/Mixpanel (0.3.0):
+  - Analytical/Mixpanel (0.4.0):
     - Analytical/Core
     - Mixpanel-swift
-  - Analytical/Segment (0.3.0):
+  - Analytical/Segment (0.4.0):
     - Analytical/Core
     - Analytics
   - Analytics (3.5.3)
@@ -72,7 +72,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Analytical: 6a4a6500d2b3e7aaeede597742959a81ee540e7c
+  Analytical: 738256399dd6b2053b13b7b1e6a77450efbc7d7e
   Analytics: e9f07fe57d1d5d14c47e72e719d1f30c6d0ec548
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   FBSDKCoreKit: 30a21d2d7b92984b3d80497113433c00824c35e9
@@ -90,6 +90,6 @@ SPEC CHECKSUMS:
   Quick: 5d290df1c69d5ee2f0729956dcf0fd9a30447eaa
   XCGLogger: 38063ea89b4c8b23232d18efd2e12eb0005f3ea4
 
-PODFILE CHECKSUM: 42f3782583d0a8e411ffdf717faf56ae7237a279
+PODFILE CHECKSUM: 0a3b945d061b495b94d63ec543e37bbd126a13e9
 
 COCOAPODS: 1.2.0.beta.1
