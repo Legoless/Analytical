@@ -21,7 +21,7 @@ Currently available common providers:
 A special set of providers for specific purposes:
 - [Log provider](https://github.com/Legoless/Analytical/blob/master/Analytical/Classes/Provider/LogProvider.swift)
 
-Analytical is currently used in all applications by [Blub Blub](http://blubblub.org) in production.
+Analytical is currently used in production in all applications by [Blub Blub](http://blubblub.org).
 
 ## Installation
 
