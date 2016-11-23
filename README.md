@@ -1,8 +1,8 @@
 # Analytical
 
 [![Issues on Waffle](https://img.shields.io/badge/issues on-Waffle-blue.svg)](http://waffle.io/legoless/Analytical)
-[![Build Status](https://travis-ci.org/Legoless/Analytical.svg)](https://travis-ci.org/legoless/Analytical)
 [![Swift Code](https://img.shields.io/badge/code in-Swift-orange.svg)](http://github.com/legoless/Analytical)
+[![Build Status](https://travis-ci.org/Legoless/Analytical.svg)](https://travis-ci.org/legoless/Analytical)
 [![Pod Version](http://img.shields.io/cocoapods/v/Analytical.svg?style=flat)](http://cocoadocs.org/docsets/Analytical/)
 [![Pod Platform](http://img.shields.io/cocoapods/p/Analytical.svg?style=flat)](http://cocoadocs.org/docsets/Analytical/)
 [![Pod License](http://img.shields.io/cocoapods/l/Analytical.svg?style=flat)](http://opensource.org/licenses/MIT)
