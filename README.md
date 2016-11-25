@@ -33,8 +33,7 @@ it, simply add the following line to your Podfile:
 
 pod "Analytical"
 ```
-
-The complete Podspec will install all available providers, but you may specify the providers you wish to use.
+For performance reasons, it is advised to have up to maximum of two libraries installed, so you may specify specific analytics providers to use.
 
 ```ruby
 # Required for Swift libraries
