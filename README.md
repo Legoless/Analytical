@@ -150,6 +150,11 @@ If your application has identified user, you should call `identify` method. If y
 analytics.identify(analytics.deviceId)
 ```
 
+## FAQ
+
+*Where is Carthage support?*
+Analytical does not support Carthage, as it depends on several external frameworks.
+
 Contact
 ======
 
