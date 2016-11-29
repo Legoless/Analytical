@@ -33,7 +33,7 @@ it, simply add the following line to your Podfile:
 
 pod "Analytical"
 ```
-For performance reasons, it is advised to have up to maximum of two libraries installed, so you may specify specific analytics providers to use.
+For performance reasons, it is recommended to have up to maximum of two libraries installed, so you may specify specific analytics providers to use.
 
 ```ruby
 # Required for Swift libraries
