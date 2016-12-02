@@ -74,10 +74,10 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
         
         let currency = properties[Property.Purchase.currency.rawValue] as? String
         
-        var finalParameters : [String : AnyObject] = [:]
-        finalParameters[FBSDKAppEventParameterNameContentType] = properties[Property.category.rawValue] as? String as AnyObject?
-        finalParameters[FBSDKAppEventParameterNameContentID] = properties[Property.Purchase.sku.rawValue] as? String as AnyObject?
-        finalParameters[FBSDKAppEventParameterNameCurrency] = currency as AnyObject?
+        var finalParameters : [String : Any] = [:]
+        finalParameters[FBSDKAppEventParameterNameContentType] = properties[Property.category.rawValue]
+        finalParameters[FBSDKAppEventParameterNameContentID] = properties[Property.Purchase.sku.rawValue]
+        finalParameters[FBSDKAppEventParameterNameCurrency] = currency
         
         FBSDKAppEvents.logPurchase(amount.doubleValue, currency: currency, parameters: finalParameters)
     }
