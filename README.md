@@ -61,6 +61,14 @@ Analytical includes Google Analytics provider, but due to it's incompatibility b
 
 *When Google will update their library to support dynamic frameworks, these steps will no longer be required.*
 
+## Manual Installation
+
+If you do not use CocoaPods, you can manually install Analytical. The required files are in `Analytical/Classes/Core` directory, so you may directly drag & drop them into your project: `Analytical.swift`, `Analytics.swift` and `Provider.swift`.
+
+In addition to the core files, you will also require at least one concrete provider, from `Analytical/Classes/Provider` directory.
+
+*Please ensure that all additional dependencies for specific providers are linked correctly to your project.*
+
 ## Configuration
 
 To separate analytics code, a new separate Swift file is recommended:
