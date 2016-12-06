@@ -22,7 +22,7 @@ A special set of providers for specific purposes:
 
 Analytical is currently used in production in all applications by [Blub Blub](http://blubblub.org).
 
-## Installation
+## CocoaPods
 
 Analytical is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
