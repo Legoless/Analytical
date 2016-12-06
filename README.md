@@ -161,6 +161,7 @@ analytics.identify(analytics.deviceId)
 ## FAQ
 
 *Where is Carthage support?*
+
 Analytical does not support Carthage, as it depends on several external frameworks.
 
 Contact
