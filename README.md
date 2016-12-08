@@ -162,7 +162,7 @@ analytics.identify(analytics.deviceId)
 
 *Where is Carthage support?*
 
-Analytical does not support Carthage, as it depends on several external frameworks.
+Analytical does not support Carthage for providers, as it depends on several external frameworks. You can use the core Analytical as a framework and add specific providers manually, as described under Manual installation.
 
 Contact
 ======
