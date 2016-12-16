@@ -45,7 +45,7 @@ pod "Analytical/Log"
 pod "Analytical/Mixpanel"
 pod "Analytical/Segment"
 ```
-The `Log` podspec will install a simple logger to output tracking calls to Xcode.
+The `Log` subspec will install a simple logger to output tracking calls to Xcode Console.
 
 ## Google Analytics
 
