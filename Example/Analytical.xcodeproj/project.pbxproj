@@ -10,6 +10,7 @@
 		101401060142E6D86C633F32 /* Pods_Analytical_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6C4C83E41085A2D5BD2DAF /* Pods_Analytical_Example.framework */; };
 		380845481D8AF6D8007E1D2D /* GoogleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380845471D8AF6D8007E1D2D /* GoogleProvider.swift */; };
 		3808454A1D8AF708007E1D2D /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380845491D8AF708007E1D2D /* Analytics.swift */; };
+		38ED74361E128A7D008B77E4 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38ED74341E128330008B77E4 /* iAd.framework */; };
 		38F4CE771DE316E700B93EC0 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F4CE761DE316E700B93EC0 /* SecondViewController.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* FirstViewController.swift */; };
@@ -62,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38ED74361E128A7D008B77E4 /* iAd.framework in Frameworks */,
 				101401060142E6D86C633F32 /* Pods_Analytical_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

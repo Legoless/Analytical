@@ -20,12 +20,12 @@ public class Analytics : Analytical {
     public private(set) var providers : [Analytical] = []
     
     public var deviceId : String {
-        if let id = userDefaults.string(forKey: Analytics.DeviceKey) {
-            return id
-        }
-        
         if let advertisingIdentifier = advertisingIdentifier?.uuidString {
             return advertisingIdentifier
+        }
+        
+        if let id = userDefaults.string(forKey: Analytics.DeviceKey) {
+            return id
         }
         
         if let id = UIDevice.current.identifierForVendor?.uuidString {
