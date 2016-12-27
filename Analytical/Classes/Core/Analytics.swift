@@ -6,6 +6,7 @@
 //  Copyright © 2016 Unified Sense. All rights reserved.
 //
 
+import ObjectiveC
 import UIKit
 
 ///
@@ -21,6 +22,12 @@ public class Analytics : Analytical {
     public var deviceId : String {
         if let id = userDefaults.string(forKey: Analytics.DeviceKey) {
             return id
+        }
+        
+        if let advertisingIdentifier = advertisingIdentifier?.uuidString {
+            print ("Advertising: \(advertisingIdentifier)")
+            
+            return advertisingIdentifier
         }
         
         if let id = UIDevice.current.identifierForVendor?.uuidString {
@@ -119,6 +126,20 @@ public class Analytics : Analytical {
     //
     // MARK: Private Methods
     //
+    
+    private var advertisingIdentifier : UUID? {
+        let managerClass = NSClassFromString("ASIdentifierManager") as? NSObject
+        
+        guard let shared = managerClass?.perform("shared" as! Selector) as? NSObject else {
+            return nil
+        }
+        
+        guard let identifier = shared.perform("advertisingIdenfifier" as! Selector) as? UUID else {
+            return nil
+        }
+        
+        return identifier
+    }
     
     private static func randomId(_ length: Int = 64) -> String {
         let charactersString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
