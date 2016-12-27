@@ -152,7 +152,7 @@ analytics.track(screen: .first, ["property" : 12.00])
 
 ### Identification
 
-If your application has identified user, you should call `identify` method. If your user is anonymous, you may use `analytics.deviceId` property to retrieve UUID. After first retrieval, it is stored to `UserDefaults` and used in all next calls.
+If your application has identified user, you should call `identify` method. If your user is anonymous, you may use `analytics.deviceId` property to retrieve UUID. After first retrieval, it is stored to `UserDefaults` and used in all next calls. If your application is linked to `iAd.framework`, it will return `ASIdentifierManager.sharedManager().advertisingIdentifier` as a `String`. Analytics does not depend on iAd and will use runtime introspection to detect it.
 
 ```swift
 analytics.identify(analytics.deviceId)
