@@ -25,8 +25,6 @@ public class Analytics : Analytical {
         }
         
         if let advertisingIdentifier = advertisingIdentifier?.uuidString {
-            print ("Advertising: \(advertisingIdentifier)")
-            
             return advertisingIdentifier
         }
         
@@ -127,18 +125,50 @@ public class Analytics : Analytical {
     // MARK: Private Methods
     //
     
+    /*!
+     *  Returns advertising identifier if iAd.framework is linked. 
+     *
+     *  @note It uses Objective-C Runtime inspection, to detect,
+     *  so no direct dependency to iAd is created in Swift.
+     */
     private var advertisingIdentifier : UUID? {
-        let managerClass = NSClassFromString("ASIdentifierManager") as? NSObject
-        
-        guard let shared = managerClass?.perform("shared" as! Selector) as? NSObject else {
+        guard let managerClass = NSClassFromString("ASIdentifierManager") as? NSObjectProtocol else {
             return nil
         }
         
-        guard let identifier = shared.perform("advertisingIdenfifier" as! Selector) as? UUID else {
+        //
+        // To ensure the dynamic code works correctly and it is future proof, we check for each call that can crash it.
+        //
+        
+        let sharedSelector = NSSelectorFromString("sharedManager")
+        
+        if !managerClass.responds(to: sharedSelector) {
             return nil
         }
         
-        return identifier
+        guard let shared = managerClass.perform(sharedSelector) as? NSObjectProtocol else {
+            return nil
+        }
+        
+        guard let managerPointer = shared as? Swift.Unmanaged<AnyObject> else {
+            return nil
+        }
+        
+        guard let manager = managerPointer.takeUnretainedValue() as? NSObject else {
+            return nil
+        }
+        
+        let advertisingSelector = NSSelectorFromString("advertisingIdentifier")
+        
+        if !manager.responds(to: advertisingSelector) {
+            return nil
+        }
+        
+        guard let identifier = manager.perform(advertisingSelector) as? Swift.Unmanaged<AnyObject> else {
+            return nil
+        }
+        
+        return identifier.takeUnretainedValue() as? UUID
     }
     
     private static func randomId(_ length: Int = 64) -> String {
