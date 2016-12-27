@@ -15,6 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         analytics.setup(with: application, launchOptions: launchOptions)
         
+        print("Device identifier: \(analytics.deviceId)")
+        
+        analytics.identify(userId: analytics.deviceId)
+        
         return true
     }
     
