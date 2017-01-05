@@ -24,8 +24,7 @@ Analytical is currently used in production in all applications by [Blub Blub](ht
 
 ## CocoaPods
 
-Analytical is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+Analytical is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
 # Required for Swift libraries
@@ -33,7 +32,8 @@ it, simply add the following line to your Podfile:
 
 pod "Analytical"
 ```
-For performance reasons, it is not recommended to have more than two libraries installed, so you may specify which analytics providers you wish to use.
+
+For performance reasons, it is not recommended to have more than two providers installed, so you may specify which you wish to use.
 
 ```ruby
 # Required for Swift libraries
