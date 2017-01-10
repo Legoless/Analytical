@@ -158,6 +158,24 @@ public class Analytics : Analytical {
             return nil
         }
         
+        //
+        // Check if advertising is enabled to respect Apple's policy
+        //
+        
+        let enabledSelector = NSSelectorFromString("isAdvertisingTrackingEnabled")
+        
+        if !manager.responds(to: enabledSelector) {
+            return nil
+        }
+        
+        guard let trackingEnabled = manager.perform(enabledSelector) else {
+            return nil
+        }
+                
+        //
+        // Return advertising selector
+        //
+        
         let advertisingSelector = NSSelectorFromString("advertisingIdentifier")
         
         if !manager.responds(to: advertisingSelector) {
