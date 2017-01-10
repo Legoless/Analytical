@@ -24,8 +24,7 @@ Analytical is currently used in production in all applications by [Blub Blub](ht
 
 ## CocoaPods
 
-Analytical is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+Analytical is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
 # Required for Swift libraries
@@ -33,7 +32,8 @@ it, simply add the following line to your Podfile:
 
 pod "Analytical"
 ```
-For performance reasons, it is recommended to have up to maximum of two libraries installed, so you may specify specific analytics providers to use.
+
+For performance reasons, it is not recommended to have more than two providers installed, so you may specify which you wish to use.
 
 ```ruby
 # Required for Swift libraries
@@ -152,7 +152,7 @@ analytics.track(screen: .first, ["property" : 12.00])
 
 ### Identification
 
-If your application has identified user, you should call `identify` method. If your user is anonymous, you may use `analytics.deviceId` property to retrieve UUID. After first retrieval, it is stored to `UserDefaults` and used in all next calls.
+If your application has identified user, you should call `identify` method. If your user is anonymous, you may use `analytics.deviceId` property to retrieve UUID. After first retrieval, it is stored to `UserDefaults` and used in all next calls. If your application is linked to `iAd.framework`, it will return `ASIdentifierManager.sharedManager().advertisingIdentifier` as a `String`. Analytics does not depend on iAd and will use runtime introspection to detect it.
 
 ```swift
 analytics.identify(analytics.deviceId)
