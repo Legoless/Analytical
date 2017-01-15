@@ -27,7 +27,6 @@ Analytical is currently used in production in all applications by [Blub Blub](ht
 Analytical is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
-# Required for Swift libraries
 !use_frameworks
 
 pod "Analytical"
@@ -36,7 +35,6 @@ pod "Analytical"
 For performance reasons, it is not recommended to have more than two providers installed, so you may specify which you wish to use.
 
 ```ruby
-# Required for Swift libraries
 !use_frameworks
 
 pod "Analytical/Facebook"
