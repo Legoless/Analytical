@@ -24,8 +24,7 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
             self.key = key
         }
         
-        if let launchOptions = properties?[Property.Launch.options.rawValue] as? [UIApplicationLaunchOptionsKey: Any], let application = properties?[Property.Launch.application.rawValue] as? UIApplication {
-            
+        if let launchOptions = properties?[Property.Launch.options.rawValue] as? [UIApplicationLaunchOptionsKey: Any] {
             Flurry.startSession(key, withOptions: launchOptions)
         }
         else {
