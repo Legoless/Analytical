@@ -13,12 +13,6 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
     
     public static let ApiKey = "ApiKey"
     
-    public var uncaughtExceptions: Bool = false {
-        didSet {
-            Flurry.setCrashReportingEnabled(uncaughtExceptions)
-        }
-    }
-    
     public init (key: String) {
         self.key = key
         
@@ -30,7 +24,13 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
             self.key = key
         }
         
-        Flurry.startSession(key)
+        if let launchOptions = properties?[Property.Launch.options.rawValue] as? [UIApplicationLaunchOptionsKey: Any], let application = properties?[Property.Launch.application.rawValue] as? UIApplication {
+            
+            Flurry.startSession(key, withOptions: launchOptions)
+        }
+        else {
+            Flurry.startSession(key)
+        }
     }
     
     public func flush() {
@@ -83,11 +83,7 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
             Flurry.setGender(gender)
         }
         
-        //
-        // Other properties will be discarded.
-        //
-        // TODO: Under debug configurations, print out a warning.
-        //
+        Flurry.sessionProperties(properties)
     }
     
     public func increment(property: String, by number: NSDecimalNumber) {

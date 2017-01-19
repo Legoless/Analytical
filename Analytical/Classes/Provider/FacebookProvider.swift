@@ -51,7 +51,7 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
         FBSDKAppEvents.setUserID(userId)
         
         if let properties = properties {
-            FBSDKAppEvents.updateUserProperties(properties, handler: nil)
+            set(properties: properties)
         }
     }
     

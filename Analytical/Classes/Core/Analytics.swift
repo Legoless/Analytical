@@ -168,7 +168,7 @@ public class Analytics : Analytical {
             return nil
         }
         
-        guard let trackingEnabled = manager.perform(enabledSelector) else {
+        guard let _ = manager.perform(enabledSelector) else {
             return nil
         }
                 
@@ -182,7 +182,7 @@ public class Analytics : Analytical {
             return nil
         }
         
-        guard let identifier = manager.perform(advertisingSelector) as? Swift.Unmanaged<AnyObject> else {
+        guard let identifier = manager.perform(advertisingSelector) else {
             return nil
         }
         
