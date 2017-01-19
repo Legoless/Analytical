@@ -1,47 +1,48 @@
 PODS:
-  - Analytical (0.4.1):
-    - Analytical/Core (= 0.4.1)
-    - Analytical/Facebook (= 0.4.1)
-    - Analytical/Flurry (= 0.4.1)
-    - Analytical/Log (= 0.4.1)
-    - Analytical/Mixpanel (= 0.4.1)
-    - Analytical/Segment (= 0.4.1)
-  - Analytical/Core (0.4.1)
-  - Analytical/Facebook (0.4.1):
+  - Analytical (0.4.6):
+    - Analytical/Core (= 0.4.6)
+    - Analytical/Facebook (= 0.4.6)
+    - Analytical/Flurry (= 0.4.6)
+    - Analytical/Log (= 0.4.6)
+    - Analytical/Mixpanel (= 0.4.6)
+    - Analytical/Segment (= 0.4.6)
+  - Analytical/Core (0.4.6)
+  - Analytical/Facebook (0.4.6):
     - Analytical/Core
     - FBSDKCoreKit
-  - Analytical/Flurry (0.4.1):
+  - Analytical/Flurry (0.4.6):
     - Analytical/Core
     - Flurry-iOS-SDK/FlurrySDK
-  - Analytical/Log (0.4.1):
+  - Analytical/Log (0.4.6):
     - Analytical/Core
     - XCGLogger
-  - Analytical/Mixpanel (0.4.1):
+  - Analytical/Mixpanel (0.4.6):
     - Analytical/Core
     - Mixpanel-swift
-  - Analytical/Segment (0.4.1):
+  - Analytical/Segment (0.4.6):
     - Analytical/Core
     - Analytics
-  - Analytics (3.5.3)
+  - Analytics (3.5.6)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - FBSDKCoreKit (4.17.0):
+  - FBSDKCoreKit (4.18.0):
     - Bolts (~> 1.7)
-  - FirebaseAnalytics (3.5.1):
+  - FirebaseAnalytics (3.6.0):
     - FirebaseCore (~> 3.4)
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleSymbolUtilities (~> 1.1)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseCore (3.4.4):
+  - FirebaseCore (3.4.7):
     - GoogleInterchangeUtilities (~> 1.2)
+    - GoogleSymbolUtilities (~> 1.1)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseInstanceID (1.0.8)
-  - Flurry-iOS-SDK/FlurrySDK (7.8.2)
+  - Flurry-iOS-SDK/FlurrySDK (7.9.2)
   - Google/Analytics (3.0.3):
     - Google/Core
     - GoogleAnalytics (~> 3.12)
@@ -51,12 +52,12 @@ PODS:
   - GoogleInterchangeUtilities (1.2.2):
     - GoogleSymbolUtilities (~> 1.1)
   - GoogleSymbolUtilities (1.1.2)
-  - GoogleToolboxForMac/Defines (2.1.0)
-  - GoogleToolboxForMac/NSData+zlib (2.1.0):
-    - GoogleToolboxForMac/Defines (= 2.1.0)
-  - Mixpanel-swift (2.1.0)
+  - GoogleToolboxForMac/Defines (2.1.1)
+  - GoogleToolboxForMac/NSData+zlib (2.1.1):
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+  - Mixpanel-swift (2.1.2)
   - Nimble (5.1.1)
-  - Quick (0.10.0)
+  - Quick (1.0.0)
   - XCGLogger (4.0.0):
     - XCGLogger/Core (= 4.0.0)
   - XCGLogger/Core (4.0.0)
@@ -72,22 +73,22 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Analytical: 150de8bd1539d2ad7037008242c1e755382535aa
-  Analytics: e9f07fe57d1d5d14c47e72e719d1f30c6d0ec548
+  Analytical: 3e8877caa3e39d7c67d060ae6d3592aee6bd41f7
+  Analytics: 3f083546175de3e62185a72c14670aa00ca6a201
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  FBSDKCoreKit: 30a21d2d7b92984b3d80497113433c00824c35e9
-  FirebaseAnalytics: 6e58fc9b397664369ac7617fb0ba93fab6ba7b5b
-  FirebaseCore: d0ed25f27b6f9158eccc439f1be6f92e81207e28
+  FBSDKCoreKit: 15fef8804a4629f98c6f4e55e81a76c9d725d85e
+  FirebaseAnalytics: 9c67af0ebeb8d2146c9b4ea2616439affa947b58
+  FirebaseCore: 46afaf2c2e0419ea7d3acfb08cf26a461a75fe85
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
-  Flurry-iOS-SDK: 8ed76252016d0162a893363c108a010ab97d424c
+  Flurry-iOS-SDK: 300dc1d78443dea3d433a38e76292f20f14f0a96
   Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
-  GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
-  Mixpanel-swift: 8bd335e85ea645dd5eacc1bb61f4b418fb4998d7
+  GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  Mixpanel-swift: e6234affa94d14f76c856f301693dc43cae5dcb0
   Nimble: 415e3aa3267e7bc2c96b05fa814ddea7bb686a29
-  Quick: 5d290df1c69d5ee2f0729956dcf0fd9a30447eaa
+  Quick: 8024e4a47e6cc03a9d5245ef0948264fc6d27cff
   XCGLogger: 38063ea89b4c8b23232d18efd2e12eb0005f3ea4
 
 PODFILE CHECKSUM: 0a3b945d061b495b94d63ec543e37bbd126a13e9
