@@ -48,9 +48,11 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
     }
     
     public func identify(userId: String, properties: Properties?) {
-        //
-        // No user tracking with Facebook
-        //
+        FBSDKAppEvents.setUserID(userId)
+        
+        if let properties = properties {
+            FBSDKAppEvents.updateUserProperties(properties, handler: nil)
+        }
     }
     
     public func alias(userId: String, forId: String) {
@@ -60,9 +62,7 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
     }
     
     public func set(properties: Properties) {
-        //
-        // No custom properties
-        //
+        FBSDKAppEvents.updateUserProperties(properties, handler: nil)
     }
     
     public func increment(property: String, by number: NSDecimalNumber) {
