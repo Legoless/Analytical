@@ -65,7 +65,7 @@ If you do not use CocoaPods, you can manually install Analytical. The required f
 
 In addition to the core files, you will also require at least one concrete provider, from `Analytical/Classes/Provider` directory.
 
-*Please ensure that all additional dependencies for specific providers are linked correctly to your project.*
+*Please ensure that all additional dependencies for specific providers are linked correctly to your target.*
 
 ## Configuration
 
