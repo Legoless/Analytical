@@ -29,7 +29,7 @@ Analytical is available through [CocoaPods](http://cocoapods.org). To install it
 ```ruby
 !use_frameworks
 
-pod "Analytical"
+pod 'Analytical'
 ```
 
 For performance reasons, it is not recommended to have more than two providers installed, so you may specify which you wish to use.
@@ -37,11 +37,11 @@ For performance reasons, it is not recommended to have more than two providers i
 ```ruby
 !use_frameworks
 
-pod "Analytical/Facebook"
-pod "Analytical/Flurry"
-pod "Analytical/Log"
-pod "Analytical/Mixpanel"
-pod "Analytical/Segment"
+pod 'Analytical/Facebook'
+pod 'Analytical/Flurry'
+pod 'Analytical/Log'
+pod 'Analytical/Mixpanel'
+pod 'Analytical/Segment'
 ```
 The `Log` subspec will install a simple logger to output tracking calls to Xcode Console.
 
