@@ -18,7 +18,7 @@ Currently available common providers:
 - [Segment.io](https://segment.com/docs/sources/mobile/ios/)
 
 A special set of providers for specific purposes:
-- [Log provider](https://github.com/Legoless/Analytical/blob/master/Analytical/Classes/Provider/LogProvider.swift)
+- [Logging provider](https://github.com/Legoless/Analytical/blob/master/Analytical/Classes/Provider/LogProvider.swift)
 
 Analytical is currently used in production in all applications by [Blub Blub](http://blubblub.org).
 
