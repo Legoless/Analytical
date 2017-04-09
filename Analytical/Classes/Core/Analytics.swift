@@ -3,7 +3,7 @@
 //  Analytical
 //
 //  Created by Dal Rupnik on 18/07/16.
-//  Copyright © 2016 Unified Sense. All rights reserved.
+//  Copyright © 2017 Unified Sense. All rights reserved.
 //
 
 import ObjectiveC
