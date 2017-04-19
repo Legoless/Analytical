@@ -24,7 +24,7 @@ Analytical is currently used in production in all applications by [Blub Blub](ht
 
 ## CocoaPods
 
-Analytical is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
+Analytical is available only through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
 !use_frameworks
