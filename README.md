@@ -89,7 +89,7 @@ public enum Track {
 }
 
 //
-// Add simple wrapper to use defined Enums with Analytical
+// Add simple wrapper to use newly defined enums with Analytical
 //
 extension Analytical {
     func track(event: Track.Event, properties: Properties? = nil) {
