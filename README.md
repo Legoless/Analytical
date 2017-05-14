@@ -9,7 +9,7 @@
 
 Analytical is a simple lightweight analytics wrapper for iOS Swift projects. Inspired by [ARAnalytics](https://github.com/orta/ARAnalytics) - a powerful Objective-C analytics library by Orta Therox. Analytical does not support all advanced functionalities of specific providers, but it allows direct access each analytics instance for additional features, after it is set up.
 
-Available analytics providers:
+Currently available analytics providers:
 
 - [Facebook Analytics](https://developers.facebook.com/products/analytics)
 - [Flurry](https://github.com/flurry/flurry-ios-sdk)
