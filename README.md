@@ -21,7 +21,7 @@ Currently available analytics providers:
 A special set of providers for specific purposes:
 - [Logging provider](https://github.com/Legoless/Analytical/blob/master/Analytical/Classes/Provider/LogProvider.swift)
 
-Analytical is currently used in production in all applications by [Blub Blub](http://blubblub.org).
+Analytical is used in production in all applications by [Blub Blub](http://blubblub.org).
 
 ## CocoaPods
 
