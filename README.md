@@ -33,7 +33,7 @@ Analytical is available only through [CocoaPods](http://cocoapods.org). To insta
 pod 'Analytical'
 ```
 
-For performance reasons, it is not recommended to have more than two providers installed, so you may specify which you wish to use.
+For performance reasons, it is not recommended to have more than two providers installed, you should specify which you wish to use.
 
 ```ruby
 !use_frameworks
