@@ -82,6 +82,13 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
         FBSDKAppEvents.logPurchase(amount.doubleValue, currency: currency, parameters: finalParameters)
     }
     
+    public func addDevice(token: Data) {
+        FBSDKAppEvents.setPushNotificationsDeviceToken(token)
+    }
+    public func push(payload: [AnyHashable : Any]?, event: EventName?) {
+        FBSDKAppEvents.logPushNotificationOpen(payload, action: event)
+    }
+    
     fileprivate func prepareProperties(_ properties: Properties?) -> Properties {
         var currentProperties : Properties! = properties
         

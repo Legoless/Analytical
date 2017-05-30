@@ -157,4 +157,19 @@ public protocol Analytical {
      - parameter properties: properties, such as SKU, Product ID, Tax, etc.
      */
     func purchase(amount: NSDecimalNumber, properties: Properties?)
+    
+    /*!
+     Add device token to the provider for push notification support.
+ 
+     - parameter token: token
+     */
+    func addDevice(token: Data)
+    
+    /*!
+     Log push notification to the provider.
+ 
+     - parameter payload:   push notification payload
+     - parameter event:     action of the push
+     */
+    func push(payload: [AnyHashable : Any]?, event: EventName?)
 }

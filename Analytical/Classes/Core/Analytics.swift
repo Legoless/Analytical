@@ -120,6 +120,12 @@ public class Analytics : Analytical {
     public func purchase(amount: NSDecimalNumber, properties: Properties?) {
         providers.forEach { $0.purchase(amount: amount, properties: properties) }
     }
+    public func addDevice(token: Data) {
+        providers.forEach { $0.addDevice(token: token) }
+    }
+    public func push(payload: [AnyHashable : Any]?, event: EventName?) {
+        providers.forEach { $0.push(payload: payload, event: event) }
+    }
     
     //
     // MARK: Private Methods
