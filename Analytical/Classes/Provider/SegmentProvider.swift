@@ -115,4 +115,11 @@ public class SegmentProvider : Provider <SEGAnalytics>, Analytical {
         
         instance.track(DefaultEvent.purchase.rawValue, properties: properties)
     }
+    
+    public override func addDevice(token: Data) {
+        instance.registeredForRemoteNotifications(withDeviceToken: token)
+    }
+    public override func push(payload: [AnyHashable : Any], event: EventName?) {
+        instance.receivedRemoteNotification(payload)
+    }
 }

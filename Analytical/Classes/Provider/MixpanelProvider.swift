@@ -86,4 +86,17 @@ public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
     public func purchase(amount: NSDecimalNumber, properties: Properties?) {
         instance.people.trackCharge(amount: amount.doubleValue, properties: properties as? [String : MixpanelType])
     }
+    
+    public override func addDevice(token: Data) {
+        instance.people.addPushDeviceToken(token)
+    }
+    
+    public override func push(payload: [AnyHashable : Any], event: EventName?) {
+        if let event = event {
+            instance.trackPushNotification(payload, event: event)
+        }
+        else {
+            instance.trackPushNotification(payload)
+        }
+    }
 }

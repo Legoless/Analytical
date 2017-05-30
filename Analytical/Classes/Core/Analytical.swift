@@ -47,8 +47,9 @@ public enum Property : String {
  - ScreenView: Log a screen view
  */
 public enum DefaultEvent : String {
-    case purchase       = "AnalyticalEventPurchase"
-    case screenView     = "AnalyticalEventScreenView"
+    case purchase           = "AnalyticalEventPurchase"
+    case screenView         = "AnalyticalEventScreenView"
+    case pushNotification   = "AnalyticalPushNotification"
 }
 
 public protocol Analytical {
@@ -171,5 +172,5 @@ public protocol Analytical {
      - parameter payload:   push notification payload
      - parameter event:     action of the push
      */
-    func push(payload: [AnyHashable : Any]?, event: EventName?)
+    func push(payload: [AnyHashable : Any], event: EventName?)
 }

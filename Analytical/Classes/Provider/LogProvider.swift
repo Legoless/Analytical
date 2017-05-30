@@ -67,4 +67,9 @@ open class LogProvider : Provider<XCGLogger>, Analytical {
     open func purchase(amount: NSDecimalNumber, properties: Properties?) {
         instance.debug("Purchase for \(amount) was triggered with properties: \(properties)")
     }
+    
+    open override func addDevice(token: Data) {
+        let deviceToken = token.map { String(format: "%02.2hhx", $0) }.joined()
+        instance.debug("Added device token: \(deviceToken)")
+    }
 }

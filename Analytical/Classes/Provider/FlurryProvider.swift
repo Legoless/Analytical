@@ -91,5 +91,5 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
     
     public func purchase(amount: NSDecimalNumber, properties: Properties?) {
         event(name: DefaultEvent.purchase.rawValue, properties: properties)
-    }    
+    }
 }

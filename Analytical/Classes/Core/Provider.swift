@@ -51,4 +51,15 @@ open class Provider <T> : NSObject {
         
         event(name: name, properties: properties)
     }
+    
+    open func addDevice(token: Data) {
+        // No push feature
+    }
+    open func push(payload: [AnyHashable : Any], event: EventName?) {
+        // No push logging feature, so we log a default event
+        
+        let properties : Properties? = (payload as? Properties) ?? nil
+        
+        self.event(name: DefaultEvent.pushNotification.rawValue, properties: properties)
+    }
 }

@@ -82,10 +82,10 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
         FBSDKAppEvents.logPurchase(amount.doubleValue, currency: currency, parameters: finalParameters)
     }
     
-    public func addDevice(token: Data) {
+    public override func addDevice(token: Data) {
         FBSDKAppEvents.setPushNotificationsDeviceToken(token)
     }
-    public func push(payload: [AnyHashable : Any]?, event: EventName?) {
+    public override func push(payload: [AnyHashable : Any], event: EventName?) {
         FBSDKAppEvents.logPushNotificationOpen(payload, action: event)
     }
     

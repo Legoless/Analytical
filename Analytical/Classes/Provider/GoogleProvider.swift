@@ -156,7 +156,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         instance.send(transaction.parsed)
         instance.send(itemTransaction.parsed)
     }
-    
+        
     //
     // MARK: Private Methods
     //
