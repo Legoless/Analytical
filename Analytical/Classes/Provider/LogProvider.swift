@@ -13,7 +13,7 @@ open class LogProvider : Provider<XCGLogger>, Analytical {
         instance = XCGLogger(identifier: "com.unifiedsense.analytical.logger", includeDefaultDestinations: true)
         instance.setup(level: .verbose, showLogIdentifier: false, showFunctionName: false, showThreadName: false, showLevel: false, showFileNames: false, showLineNumbers: false)
         
-        instance.debug("Setup LogProvider with properties: \(properties)")
+        instance.debug("Setup LogProvider with properties: \(String(describing: properties))")
     }
     
     open override func activate() {
@@ -29,27 +29,27 @@ open class LogProvider : Provider<XCGLogger>, Analytical {
     }
     
     open override func event(name: EventName, properties: Properties?) {
-        instance.debug("Event \(name) was logged with properties: \(properties)")
+        instance.debug("Event \(name) was logged with properties: \(String(describing: properties))")
     }
     
     open func screen(name: EventName, properties: Properties?) {
-        instance.debug("Screen \(name) was logged with properties: \(properties)")
+        instance.debug("Screen \(name) was logged with properties: \(String(describing: properties))")
     }
     
     open override func time (name: EventName, properties: Properties?) {
         super.time(name: name, properties: properties)
         
-        instance.debug("Timed event \(name) was started with properties: \(properties)")
+        instance.debug("Timed event \(name) was started with properties: \(String(describing: properties))")
     }
     
     open override func finish (name: EventName, properties: Properties?) {
         super.finish(name: name, properties: properties)
         
-        instance.debug("Event \(name) was completed with properties in time \(self.events): \(properties)")
+        instance.debug("Event \(name) was completed with properties in time \(self.events): \(String(describing: properties))")
     }
     
     open func identify(userId: String, properties: Properties?) {
-        instance.debug("User \(userId) was identified with properties: \(properties)")
+        instance.debug("User \(userId) was identified with properties: \(String(describing: properties))")
     }
     
     open func alias(userId: String, forId: String) {
@@ -65,7 +65,7 @@ open class LogProvider : Provider<XCGLogger>, Analytical {
     }
     
     open override func purchase(amount: NSDecimalNumber, properties: Properties?) {
-        instance.debug("Purchase for \(amount) was triggered with properties: \(properties)")
+        instance.debug("Purchase for \(amount) was triggered with properties: \(String(describing: properties))")
     }
     
     open override func addDevice(token: Data) {
