@@ -34,8 +34,6 @@ PODS:
   - Fabric (1.6.11)
   - FBSDKCoreKit (4.23.0):
     - Bolts (~> 1.7)
-  - Firebase/Analytics (3.17.0):
-    - Firebase/Core
   - Firebase/Core (3.17.0):
     - FirebaseAnalytics (= 3.9.0)
     - FirebaseCore (= 3.6.0)
@@ -71,7 +69,7 @@ PODS:
 DEPENDENCIES:
   - Analytical (from `../`)
   - Answers
-  - Firebase/Analytics
+  - Firebase/Core
   - Google/Analytics
   - Nimble
   - Quick
@@ -101,6 +99,6 @@ SPEC CHECKSUMS:
   Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
   XCGLogger: 0b43697155d41e4a1b15fc776f319c2141646b09
 
-PODFILE CHECKSUM: 9b851e2c648f7c6b80da6aa0ae4bdc2a46eabcf4
+PODFILE CHECKSUM: 07dd65a0dccfc78aee2573de27ac94e573e8d7ca
 
 COCOAPODS: 1.2.1
