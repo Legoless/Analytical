@@ -104,7 +104,7 @@ public class SegmentProvider : Provider <SEGAnalytics>, Analytical {
         
     }
     
-    open func purchase(amount: NSDecimalNumber, properties: Properties?) {
+    open override func purchase(amount: NSDecimalNumber, properties: Properties?) {
         var properties = properties
         
         if properties == nil {

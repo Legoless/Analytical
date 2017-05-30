@@ -48,7 +48,7 @@ public class AnswersProvider : Provider<Answers>, Analytical {
         
     }
     
-    public func purchase(amount: NSDecimalNumber, properties: Properties?) {
+    public override func purchase(amount: NSDecimalNumber, properties: Properties?) {
         Answers.logPurchase(withPrice: amount, currency: properties?[Property.Purchase.currency.rawValue] as? String, success: true, itemName: properties?[Property.Purchase.item.rawValue] as? String, itemType: properties?[Property.category.rawValue] as? String, itemId: properties?[Property.Purchase.sku.rawValue] as? String, customAttributes: properties)
     }
 }

@@ -69,7 +69,7 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
         FBSDKAppEvents.logEvent(property, valueToSum: number.doubleValue)
     }
     
-    public func purchase(amount: NSDecimalNumber, properties: Properties?) {
+    public override func purchase(amount: NSDecimalNumber, properties: Properties?) {
         let properties = prepareProperties(properties)
         
         let currency = properties[Property.Purchase.currency.rawValue] as? String

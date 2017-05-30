@@ -83,7 +83,7 @@ public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
         instance.people.increment(property: property, by: number.doubleValue)
     }
     
-    public func purchase(amount: NSDecimalNumber, properties: Properties?) {
+    public override func purchase(amount: NSDecimalNumber, properties: Properties?) {
         instance.people.trackCharge(amount: amount.doubleValue, properties: properties as? [String : MixpanelType])
     }
     

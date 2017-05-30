@@ -64,7 +64,7 @@ open class LogProvider : Provider<XCGLogger>, Analytical {
         instance.debug("Property \(property) was increased by number: \(number)")
     }
     
-    open func purchase(amount: NSDecimalNumber, properties: Properties?) {
+    open override func purchase(amount: NSDecimalNumber, properties: Properties?) {
         instance.debug("Purchase for \(amount) was triggered with properties: \(properties)")
     }
     

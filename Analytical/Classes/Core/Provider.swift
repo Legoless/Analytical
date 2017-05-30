@@ -52,6 +52,10 @@ open class Provider <T> : NSObject {
         event(name: name, properties: properties)
     }
     
+    open func purchase(amount: NSDecimalNumber, properties: Properties?) {
+        event(name: DefaultEvent.purchase.rawValue, properties: properties)
+    }
+    
     open func addDevice(token: Data) {
         // No push feature
     }

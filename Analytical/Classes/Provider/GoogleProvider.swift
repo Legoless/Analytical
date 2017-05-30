@@ -47,7 +47,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         else {
             var configureError:NSError?
             GGLContext.sharedInstance().configureWithError(&configureError)
-            assert(configureError == nil, "Error configuring Google services: \(configureError)")
+            assert(configureError == nil, "Error configuring Google services: \(configureError?.localizedDescription ?? "")")
             
             instance = gai.defaultTracker
         }
@@ -135,7 +135,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         //
     }
     
-    public func purchase(amount: NSDecimalNumber, properties: Properties? = nil) {
+    public override func purchase(amount: NSDecimalNumber, properties: Properties? = nil) {
         let properties = prepareProperties(properties: properties)
         
         let transactionId = properties[Property.Purchase.transactionId.rawValue] as? String

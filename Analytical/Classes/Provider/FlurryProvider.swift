@@ -88,8 +88,4 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
     public func increment(property: String, by number: NSDecimalNumber) {
         
     }
-    
-    public func purchase(amount: NSDecimalNumber, properties: Properties?) {
-        event(name: DefaultEvent.purchase.rawValue, properties: properties)
-    }
 }
