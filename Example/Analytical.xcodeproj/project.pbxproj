@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		101401060142E6D86C633F32 /* Pods_Analytical_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6C4C83E41085A2D5BD2DAF /* Pods_Analytical_Example.framework */; };
-		380845481D8AF6D8007E1D2D /* GoogleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380845471D8AF6D8007E1D2D /* GoogleProvider.swift */; };
 		3808454A1D8AF708007E1D2D /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380845491D8AF708007E1D2D /* Analytics.swift */; };
+		38829E211EDDCD3B0061173B /* AnswersProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38829E201EDDCD3B0061173B /* AnswersProvider.swift */; };
+		38829E231EDDD57B0061173B /* FirebaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38829E221EDDD57B0061173B /* FirebaseProvider.swift */; };
+		38829E241EDDD57E0061173B /* GoogleProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380845471D8AF6D8007E1D2D /* GoogleProvider.swift */; };
 		38ED74361E128A7D008B77E4 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38ED74341E128330008B77E4 /* iAd.framework */; };
 		38F4CE771DE316E700B93EC0 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F4CE761DE316E700B93EC0 /* SecondViewController.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
@@ -38,6 +40,8 @@
 		380845491D8AF708007E1D2D /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		3808454B1D8AF759007E1D2D /* Analytical-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Analytical-Bridging-Header.h"; sourceTree = "<group>"; };
 		38829E1F1EDDBE3D0061173B /* Analytical_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Analytical_Example.entitlements; sourceTree = SOURCE_ROOT; };
+		38829E201EDDCD3B0061173B /* AnswersProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnswersProvider.swift; path = ../Analytical/Classes/Provider/AnswersProvider.swift; sourceTree = "<group>"; };
+		38829E221EDDD57B0061173B /* FirebaseProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseProvider.swift; path = ../Analytical/Classes/Provider/FirebaseProvider.swift; sourceTree = "<group>"; };
 		38ED74341E128330008B77E4 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		38F4CE761DE316E700B93EC0 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* Analytical_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Analytical_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +98,8 @@
 		3808454C1D8AF7B7007E1D2D /* Analytical */ = {
 			isa = PBXGroup;
 			children = (
+				38829E201EDDCD3B0061173B /* AnswersProvider.swift */,
+				38829E221EDDD57B0061173B /* FirebaseProvider.swift */,
 				380845471D8AF6D8007E1D2D /* GoogleProvider.swift */,
 			);
 			name = Analytical;
@@ -393,11 +399,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				380845481D8AF6D8007E1D2D /* GoogleProvider.swift in Sources */,
 				607FACD81AFB9204008FA782 /* FirstViewController.swift in Sources */,
+				38829E231EDDD57B0061173B /* FirebaseProvider.swift in Sources */,
 				3808454A1D8AF708007E1D2D /* Analytics.swift in Sources */,
 				38F4CE771DE316E700B93EC0 /* SecondViewController.swift in Sources */,
+				38829E211EDDCD3B0061173B /* AnswersProvider.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				38829E241EDDD57E0061173B /* GoogleProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

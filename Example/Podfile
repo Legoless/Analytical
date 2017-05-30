@@ -5,7 +5,12 @@ use_frameworks!
 target 'Analytical_Example' do
   pod 'Analytical', :path => '../'
   
+  #
+  # Add this Podspec and re-add Google Provider to the target, to test it.
+  #
   pod 'Google/Analytics'
+  pod 'Firebase/Analytics'
+  pod 'Answers'
 
   target 'Analytical_Tests' do
     inherit! :search_paths

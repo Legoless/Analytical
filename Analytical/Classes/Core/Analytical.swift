@@ -12,8 +12,8 @@ public typealias Properties = [String : Any]
 public typealias EventName = String
 
 public enum Property : String {
-    case category       = "category"
-    case time           = "time"
+    case category           = "category"
+    case time               = "time"
     
     public enum Launch : String {
         case application    = "application"
@@ -33,9 +33,14 @@ public enum Property : String {
         case transactionId  = "transactionId"
     }
     
+    public enum Content : String {
+        case identifier     = "identifier"
+    }
+    
     public enum User : String {
-        case age        = "age"
-        case gender     = "gender"
+        case age            = "age"
+        case gender         = "gender"
+        case type           = "type"
     }
 }
 
@@ -43,13 +48,16 @@ public enum Property : String {
  Some providers may not support logging certain events separately. Analytical still logs those events,
  using Analytical methods, but default event names are used instead and are tracked as normal events.
  
- - Purchase:   Log a purchase
- - ScreenView: Log a screen view
+ - Purchase:            Log a purchase
+ - ScreenView:          Log a screen view
+ - PushNotification:    Log a received push notification
+ - SignUp:              Log a sign up
  */
 public enum DefaultEvent : String {
     case purchase           = "AnalyticalEventPurchase"
     case screenView         = "AnalyticalEventScreenView"
-    case pushNotification   = "AnalyticalPushNotification"
+    case pushNotification   = "AnalyticalEventPushNotification"
+    case signUp             = "AnalyticalEventSignUp"
 }
 
 public protocol Analytical {

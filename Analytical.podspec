@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Analytical'
-  s.version          = '0.4.8'
+  s.version          = '0.5.0'
   s.summary          = 'Analytical is a lightweight analytics library wrapper.'
 
   s.description      = <<-DESC
@@ -29,22 +29,31 @@ Pod::Spec.new do |s|
   #   subspec.dependency 'Google/Analytics'
   #end
 
-  #s.subspec 'Firebase' do |subspec|
-  #   subspec.source_files = 'Analytical/Classes/Provider/FirebaseProvider.swift'
-  #   subspec.dependency 'Analytical/Core'
-  #   subspec.dependency 'Firebase/Core'
+  #
+  # Until Twitter releases dynamic framework, we cannot use this, we need to manually install Answers Provider. 
+  #
+  #s.subspec 'Answers' do |subspec|
+  #  subspec.source_files = 'Analytical/Classes/Provider/AnswersProvider.swift'
+  #  subspec.dependency 'Analytical/Core'
+  #  subspec.dependency 'Answers'
   #end
 
-  s.subspec 'Mixpanel' do |subspec|
-    subspec.source_files = 'Analytical/Classes/Provider/MixpanelProvider.swift'
-    subspec.dependency 'Analytical/Core'
-    subspec.dependency 'Mixpanel-swift'
-  end
+  #s.subspec 'Firebase' do |subspec|
+  #  subspec.source_files = 'Analytical/Classes/Provider/FirebaseProvider.swift'
+  #  subspec.dependency 'Analytical/Core'
+  #  subspec.dependency 'Firebase/Analytics'
+  #end
 
   s.subspec 'Facebook' do |subspec|
     subspec.source_files = 'Analytical/Classes/Provider/FacebookProvider.swift'
     subspec.dependency 'Analytical/Core'
     subspec.dependency 'FBSDKCoreKit'
+  end
+
+  s.subspec 'Mixpanel' do |subspec|
+    subspec.source_files = 'Analytical/Classes/Provider/MixpanelProvider.swift'
+    subspec.dependency 'Analytical/Core'
+    subspec.dependency 'Mixpanel-swift'
   end
 
   s.subspec 'Flurry' do |subspec|
