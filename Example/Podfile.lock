@@ -1,66 +1,64 @@
 PODS:
-  - Analytical (0.4.6):
-    - Analytical/Core (= 0.4.6)
-    - Analytical/Facebook (= 0.4.6)
-    - Analytical/Flurry (= 0.4.6)
-    - Analytical/Log (= 0.4.6)
-    - Analytical/Mixpanel (= 0.4.6)
-    - Analytical/Segment (= 0.4.6)
-  - Analytical/Core (0.4.6)
-  - Analytical/Facebook (0.4.6):
+  - Analytical (0.4.8):
+    - Analytical/Core (= 0.4.8)
+    - Analytical/Facebook (= 0.4.8)
+    - Analytical/Flurry (= 0.4.8)
+    - Analytical/Log (= 0.4.8)
+    - Analytical/Mixpanel (= 0.4.8)
+    - Analytical/Segment (= 0.4.8)
+  - Analytical/Core (0.4.8)
+  - Analytical/Facebook (0.4.8):
     - Analytical/Core
     - FBSDKCoreKit
-  - Analytical/Flurry (0.4.6):
+  - Analytical/Flurry (0.4.8):
     - Analytical/Core
     - Flurry-iOS-SDK/FlurrySDK
-  - Analytical/Log (0.4.6):
+  - Analytical/Log (0.4.8):
     - Analytical/Core
     - XCGLogger
-  - Analytical/Mixpanel (0.4.6):
+  - Analytical/Mixpanel (0.4.8):
     - Analytical/Core
     - Mixpanel-swift
-  - Analytical/Segment (0.4.6):
+  - Analytical/Segment (0.4.8):
     - Analytical/Core
     - Analytics
-  - Analytics (3.5.6)
+  - Analytics (3.6.1)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - FBSDKCoreKit (4.18.0):
+  - FBSDKCoreKit (4.23.0):
     - Bolts (~> 1.7)
-  - FirebaseAnalytics (3.6.0):
-    - FirebaseCore (~> 3.4)
+  - FirebaseAnalytics (3.9.0):
+    - FirebaseCore (~> 3.6)
     - FirebaseInstanceID (~> 1.0)
-    - GoogleInterchangeUtilities (~> 1.2)
-    - GoogleSymbolUtilities (~> 1.1)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseCore (3.4.7):
-    - GoogleInterchangeUtilities (~> 1.2)
-    - GoogleSymbolUtilities (~> 1.1)
+  - FirebaseCore (3.6.0):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseInstanceID (1.0.8)
-  - Flurry-iOS-SDK/FlurrySDK (7.9.2)
+  - FirebaseInstanceID (1.0.10):
+    - FirebaseCore (~> 3.6)
+  - Flurry-iOS-SDK/FlurrySDK (8.0.2)
   - Google/Analytics (3.0.3):
     - Google/Core
     - GoogleAnalytics (~> 3.12)
   - Google/Core (3.0.3):
     - FirebaseAnalytics (~> 3.2)
   - GoogleAnalytics (3.17.0)
-  - GoogleInterchangeUtilities (1.2.2):
-    - GoogleSymbolUtilities (~> 1.1)
-  - GoogleSymbolUtilities (1.1.2)
   - GoogleToolboxForMac/Defines (2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
-  - Mixpanel-swift (2.1.2)
-  - Nimble (5.1.1)
-  - Quick (1.0.0)
-  - XCGLogger (4.0.0):
-    - XCGLogger/Core (= 4.0.0)
-  - XCGLogger/Core (4.0.0)
+  - Mixpanel-swift (2.1.6)
+  - Nimble (7.0.0)
+  - ObjcExceptionBridging (1.0.1):
+    - ObjcExceptionBridging/ObjcExceptionBridging (= 1.0.1)
+  - ObjcExceptionBridging/ObjcExceptionBridging (1.0.1)
+  - Quick (1.1.0)
+  - XCGLogger (5.0.1):
+    - XCGLogger/Core (= 5.0.1)
+  - XCGLogger/Core (5.0.1):
+    - ObjcExceptionBridging
 
 DEPENDENCIES:
   - Analytical (from `../`)
@@ -73,24 +71,23 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Analytical: 3e8877caa3e39d7c67d060ae6d3592aee6bd41f7
-  Analytics: 3f083546175de3e62185a72c14670aa00ca6a201
+  Analytical: ff9552f7f37d9a516b9806545044fed7288758ff
+  Analytics: 32f2d1e0e5499c493450192726b0b42d43606b82
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  FBSDKCoreKit: 15fef8804a4629f98c6f4e55e81a76c9d725d85e
-  FirebaseAnalytics: 9c67af0ebeb8d2146c9b4ea2616439affa947b58
-  FirebaseCore: 46afaf2c2e0419ea7d3acfb08cf26a461a75fe85
-  FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
-  Flurry-iOS-SDK: 300dc1d78443dea3d433a38e76292f20f14f0a96
+  FBSDKCoreKit: d7829f5a69901cd7296105328e4c3c3fc7da6518
+  FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
+  FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
+  FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
+  Flurry-iOS-SDK: 6d47c244428d2cab3f25c97bdba9b2f4d4a5935f
   Google: 813c467362eabc11385f5a5cc9ad0cb651a58f4e
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
-  GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
-  GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
-  Mixpanel-swift: e6234affa94d14f76c856f301693dc43cae5dcb0
-  Nimble: 415e3aa3267e7bc2c96b05fa814ddea7bb686a29
-  Quick: 8024e4a47e6cc03a9d5245ef0948264fc6d27cff
-  XCGLogger: 38063ea89b4c8b23232d18efd2e12eb0005f3ea4
+  Mixpanel-swift: 5e7ed752055d70253f3bf5d7804634ad85d050ea
+  Nimble: 874982b605d4d752fcac6be695d13c502de84b1b
+  ObjcExceptionBridging: c30e00eb3700467e695faeea30e26e18bd445001
+  Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
+  XCGLogger: 0b43697155d41e4a1b15fc776f319c2141646b09
 
 PODFILE CHECKSUM: b6c4c83efab8841bf90f755f21505a88f1c468e7
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1
