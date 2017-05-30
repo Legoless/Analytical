@@ -19,10 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         analytics.identify(userId: analytics.deviceId)
         
+        application.registerForRemoteNotifications()
+        
         return true
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         analytics.activate()
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("Token: \(deviceToken)")
     }
 }
