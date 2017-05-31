@@ -111,16 +111,10 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
         
         for (property, value) in properties {
             
-            // Flurry will stop working and not send any property data, there is an object of date
-            if let value = value as? Date {
-                finalProperties[property] = value.description
-            }
-            else {
-                finalProperties[property] = value
-            }
+            // Flurry will stop working and not send any property data, if there is an object that does not respond to "length"
+            finalProperties[property] = String(describing: value)
         }
         
         return finalProperties
     }
-
 }
