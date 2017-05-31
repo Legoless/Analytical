@@ -87,6 +87,9 @@ public class Analytics : Analytical {
     public func activate() {
         providers.forEach { $0.activate() }
     }
+    public func resign() {
+        providers.forEach { $0.resign() }
+    }    
     public func flush() {
         providers.forEach { $0.flush() }
     }
