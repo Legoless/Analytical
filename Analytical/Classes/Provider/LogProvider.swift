@@ -60,6 +60,10 @@ open class LogProvider : Provider<XCGLogger>, Analytical {
         instance.debug("Properties \(properties) were set for the user.")
     }
     
+    open override func global(properties: Properties, overwrite: Bool) {
+        instance.debug("Global properties \(properties) were set with overwrite: \(overwrite).")
+    }
+    
     open func increment(property: String, by number: NSDecimalNumber) {
         instance.debug("Property \(property) was increased by number: \(number)")
     }

@@ -47,22 +47,22 @@ public class SegmentProvider : Provider <SEGAnalytics>, Analytical {
     }
     
     open override func event(name: EventName, properties: Properties?) {
-        instance.track(name, properties: properties)
+        let finalProperties = mergeGlobal(properties: properties, overwrite: true)
+        
+        instance.track(name, properties: finalProperties)
     }
     
     open func screen(name: EventName, properties: Properties?) {
-        instance.screen(name, properties: properties)
+        let finalProperties = mergeGlobal(properties: properties, overwrite: true)
+        
+        instance.screen(name, properties: finalProperties)
     }
     
     open func finishTime(_ name: EventName, properties: Properties?) {
         
-        var properties = properties
+        var properties = mergeGlobal(properties: properties, overwrite: true)
         
-        if properties == nil {
-            properties = [:]
-        }
-        
-        properties![Property.time.rawValue] = events[name]
+        properties[Property.time.rawValue] = events[name]
         
         instance.track(name, properties: properties)
     }
@@ -105,13 +105,10 @@ public class SegmentProvider : Provider <SEGAnalytics>, Analytical {
     }
     
     open override func purchase(amount: NSDecimalNumber, properties: Properties?) {
-        var properties = properties
         
-        if properties == nil {
-            properties = [:]
-        }
+        var properties = mergeGlobal(properties: properties, overwrite: true)
         
-        properties![Property.Purchase.price.rawValue] = amount
+        properties[Property.Purchase.price.rawValue] = amount
         
         instance.track(DefaultEvent.purchase.rawValue, properties: properties)
     }

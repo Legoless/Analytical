@@ -40,7 +40,10 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
     }
     
     public override func event(name: EventName, properties: Properties?) {
-        FBSDKAppEvents.logEvent(name, parameters: properties)
+        
+        let finalProperties = mergeGlobal(properties: properties, overwrite: true)
+        
+        FBSDKAppEvents.logEvent(name, parameters: finalProperties)
     }
     
     public func screen(name: EventName, properties: Properties?) {
@@ -70,7 +73,7 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
     }
     
     public override func purchase(amount: NSDecimalNumber, properties: Properties?) {
-        let properties = prepareProperties(properties)
+        let properties = prepare(properties: mergeGlobal(properties: properties, overwrite: true))
         
         let currency = properties[Property.Purchase.currency.rawValue] as? String
         
@@ -89,7 +92,7 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
         FBSDKAppEvents.logPushNotificationOpen(payload, action: event)
     }
     
-    fileprivate func prepareProperties(_ properties: Properties?) -> Properties {
+    fileprivate func prepare(properties: Properties?) -> Properties {
         var currentProperties : Properties! = properties
         
         if currentProperties == nil {

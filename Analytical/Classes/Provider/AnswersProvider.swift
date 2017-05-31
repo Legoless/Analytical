@@ -23,7 +23,7 @@ public class AnswersProvider : Provider<Answers>, Analytical {
     }
     
     public override func event(name: EventName, properties: Properties?) {
-        Answers.logCustomEvent(withName: name, customAttributes: properties)
+        Answers.logCustomEvent(withName: name, customAttributes: mergeGlobal(properties: properties, overwrite: true))
     }
     
     public func screen(name: EventName, properties: Properties?) {
@@ -49,6 +49,6 @@ public class AnswersProvider : Provider<Answers>, Analytical {
     }
     
     public override func purchase(amount: NSDecimalNumber, properties: Properties?) {
-        Answers.logPurchase(withPrice: amount, currency: properties?[Property.Purchase.currency.rawValue] as? String, success: true, itemName: properties?[Property.Purchase.item.rawValue] as? String, itemType: properties?[Property.category.rawValue] as? String, itemId: properties?[Property.Purchase.sku.rawValue] as? String, customAttributes: properties)
+        Answers.logPurchase(withPrice: amount, currency: properties?[Property.Purchase.currency.rawValue] as? String, success: true, itemName: properties?[Property.Purchase.item.rawValue] as? String, itemType: properties?[Property.category.rawValue] as? String, itemId: properties?[Property.Purchase.sku.rawValue] as? String, customAttributes: mergeGlobal(properties: properties, overwrite: true))
     }
 }

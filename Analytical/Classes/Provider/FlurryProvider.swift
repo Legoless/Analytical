@@ -40,22 +40,31 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
     }
     
     public override func event(name: EventName, properties: Properties?) {
-        Flurry.logEvent(name, withParameters: properties)
+        let finalProperties = prepare(properties: mergeGlobal(properties: properties, overwrite: true))
+        
+        Flurry.logEvent(name, withParameters: finalProperties)
     }
     
     public func screen(name: EventName, properties: Properties?) {
-        Flurry.logEvent(name, withParameters: properties)
+        let finalProperties = prepare(properties: mergeGlobal(properties: properties, overwrite: true))
+        
+        Flurry.logEvent(name, withParameters: finalProperties)
         Flurry.logPageView()
     }
     
     public override func time(name: EventName, properties: Properties?) {
         super.time(name: name, properties: properties)
         
-        Flurry.logEvent(name, withParameters: properties, timed: true)
+        let finalProperties = prepare(properties: mergeGlobal(properties: properties, overwrite: true))
+        
+        Flurry.logEvent(name, withParameters: finalProperties, timed: true)
     }
     
     public func finishTime(_ name: EventName, properties: Properties?) {
-        Flurry.endTimedEvent(name, withParameters: properties)
+        
+        let finalProperties = prepare(properties: mergeGlobal(properties: properties, overwrite: true))
+        
+        Flurry.endTimedEvent(name, withParameters: finalProperties)
     }
     
     public func identify(userId: String, properties: Properties?) {
@@ -82,10 +91,36 @@ public class FlurryProvider : Provider<Flurry>, Analytical {
             Flurry.setGender(gender)
         }
         
-        Flurry.sessionProperties(properties)
+        Flurry.sessionProperties(prepare(properties: properties)!)
     }
     
     public func increment(property: String, by number: NSDecimalNumber) {
         
     }
+    
+    //
+    // MARK: Private Methods
+    //
+    
+    private func prepare(properties: Properties?) -> [String : Any]? {
+        guard let properties = properties else {
+            return nil
+        }
+        
+        var finalProperties : [String : Any] = [:]
+        
+        for (property, value) in properties {
+            
+            // Flurry will stop working and not send any property data, there is an object of date
+            if let value = value as? Date {
+                finalProperties[property] = value.description
+            }
+            else {
+                finalProperties[property] = value
+            }
+        }
+        
+        return finalProperties
+    }
+
 }

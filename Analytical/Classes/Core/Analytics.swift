@@ -117,6 +117,9 @@ public class Analytics : Analytical {
     public func set(properties: Properties) {
         providers.forEach { $0.set(properties: properties) }
     }
+    public func global(properties: Properties, overwrite: Bool) {
+        providers.forEach { $0.global(properties: properties, overwrite: overwrite) }
+    }
     public func increment(property: String, by number: NSDecimalNumber) {
         providers.forEach { $0.increment(property: property, by: number) }
     }

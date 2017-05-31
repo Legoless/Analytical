@@ -71,7 +71,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         // where both Category and Action are required.
         //
         
-        let properties = prepareProperties(properties: properties)
+        let properties = prepareProperties(properties: mergeGlobal(properties: properties, overwrite: true))
         
         instance.send(GAIDictionaryBuilder.createEvent(withCategory: properties["category"] as? String, action: name, label: properties["label"] as? String, value: properties["value"] as? NSNumber).parsed)
     }
@@ -94,7 +94,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
         
         event(name: name, properties: properties)
         
-        let properties = prepareProperties(properties: properties)
+        let properties = prepareProperties(properties: mergeGlobal(properties: properties, overwrite: true))
         
         let interval = NSNumber(value: NSDate().timeIntervalSince(startDate))
         
@@ -136,7 +136,7 @@ public class GoogleProvider : Provider<GAITracker>, Analytical {
     }
     
     public override func purchase(amount: NSDecimalNumber, properties: Properties? = nil) {
-        let properties = prepareProperties(properties: properties)
+        let properties = prepareProperties(properties: mergeGlobal(properties: properties, overwrite: true))
         
         let transactionId = properties[Property.Purchase.transactionId.rawValue] as? String
         let affilation = properties[Property.Purchase.affiliation.rawValue] as? String

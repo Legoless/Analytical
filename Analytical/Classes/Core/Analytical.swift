@@ -160,6 +160,14 @@ public protocol Analytical {
     func set(properties: Properties)
     
     /*!
+     Sets global properties to be sent on all events.
+ 
+     - parameter properties: properties
+     - paramater overwrite:  if properties should be overwritten, if previously set.
+     */
+    func global(properties: Properties, overwrite: Bool)
+    
+    /*!
      Increments currently set property by a number.
      
      - parameter property: property to increment

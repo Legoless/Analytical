@@ -70,13 +70,30 @@ public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
         instance.createAlias(userId, distinctId: forId)
         instance.identify(distinctId: forId)
     }
-    
+        
     public func set(properties: Properties) {
         guard let properties = prepare(properties: properties) else {
             return
         }
         
         instance.people.set(properties: properties)
+    }
+    
+    public override func global(properties: Properties, overwrite: Bool) {
+        //
+        // Mixpanel has it's own global property system, so just use it.
+        //
+        
+        guard let properties = properties as? [String : MixpanelType] else {
+            return
+        }
+        
+        if overwrite {
+            instance.registerSuperProperties(properties)
+        }
+        else {
+            instance.registerSuperPropertiesOnce(properties)
+        }
     }
     
     public func increment(property: String, by number: NSDecimalNumber) {

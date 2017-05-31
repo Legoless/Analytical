@@ -32,19 +32,15 @@ public class FirebaseProvider : Provider<FIRAnalytics>, Analytical {
     }
     
     public override func event(name: EventName, properties: Properties?) {
-        FIRAnalytics.logEvent(withName: name, parameters: properties)
+        FIRAnalytics.logEvent(withName: name, parameters: mergeGlobal(properties: properties, overwrite: true))
     }
     
     public func screen(name: EventName, properties: Properties?) {
         FIRAnalytics.setScreenName(name, screenClass: nil)
     }
     
-    public override func time(name: EventName, properties: Properties?) {
-        super.time(name: name, properties: properties)
-
-    }
-    
     public func finishTime(_ name: EventName, properties: Properties?) {
+        FIRAnalytics.logEvent(withName: name, parameters: mergeGlobal(properties: properties, overwrite: true))
     }
     
     public func identify(userId: String, properties: Properties?) {

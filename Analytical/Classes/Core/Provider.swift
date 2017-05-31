@@ -8,7 +8,16 @@
 
 import Foundation
 
+///
+/// Provider generic class
+///
+/// Analytics provider generic class provides some common analytics functionality.
+///
 open class Provider <T> : NSObject {
+    
+    // Stores global properties
+    private var globalProperties : Properties?
+    
     open var events : [EventName : Date] = [:]
     open var properties : [EventName : Properties] = [:]
     
@@ -31,6 +40,10 @@ open class Provider <T> : NSObject {
         // A Generic Provider has no way to know how to send events.
         //
         assert(false)
+    }
+    
+    open func global(properties: Properties, overwrite: Bool = true) {
+        globalProperties = mergeGlobal(properties: properties, overwrite: overwrite)
     }
     
     open func time(name: EventName, properties: Properties? = nil) {
@@ -69,5 +82,19 @@ open class Provider <T> : NSObject {
         let properties : Properties? = (payload as? Properties) ?? nil
         
         self.event(name: DefaultEvent.pushNotification.rawValue, properties: properties)
+    }
+    
+    public func mergeGlobal(properties: Properties?, overwrite: Bool) -> Properties {
+        var final : Properties = globalProperties ?? [:]
+        
+        if let properties = properties {
+            for (property, value) in properties {
+                if final[property] == nil || overwrite == true {
+                    final[property] = value
+                }
+            }
+        }
+        
+        return final
     }
 }
