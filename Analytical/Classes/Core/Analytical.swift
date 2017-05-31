@@ -41,6 +41,9 @@ public enum Property : String {
         case age            = "age"
         case gender         = "gender"
         case type           = "type"
+        case email          = "email"
+        case name           = "name"
+        case lastLogin      = "lastLogin"
     }
 }
 

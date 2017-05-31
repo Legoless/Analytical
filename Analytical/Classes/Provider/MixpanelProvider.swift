@@ -61,8 +61,8 @@ public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
         
         instance.identify(distinctId: userId)
         
-        if let properties = properties as? [String : MixpanelType] {
-            instance.registerSuperProperties(properties)
+        if let properties = properties {
+            set(properties: properties)
         }
     }
     
@@ -72,7 +72,7 @@ public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
     }
     
     public func set(properties: Properties) {
-        guard let properties = properties as? [String : MixpanelType] else {
+        guard let properties = prepare(properties: properties) else {
             return
         }
         
@@ -98,5 +98,34 @@ public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
         else {
             instance.trackPushNotification(payload)
         }
+    }
+    
+    //
+    // MARK: Private Methods
+    //
+    
+    private func prepare(properties: Properties) -> [String : MixpanelType]? {
+        guard let properties = properties as? [String : MixpanelType] else {
+            return nil
+        }
+        
+        let mapping : [String : String] = [
+            Property.User.email.rawValue : "$email",
+            Property.User.name.rawValue : "$name",
+            Property.User.lastLogin.rawValue : "$last_login"
+        ]
+        
+        var finalProperties : [String : MixpanelType] = [:]
+        
+        for (property, value) in properties {
+            if let map = mapping[property] {
+                finalProperties[map] = value
+            }
+            else {
+                finalProperties[property] = value
+            }
+        }
+        
+        return finalProperties
     }
 }
