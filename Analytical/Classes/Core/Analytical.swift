@@ -73,9 +73,14 @@ public protocol Analytical {
     func setup(with properties: Properties?)
     
     /*!
-     Called when app is activated.
+     Should be called when app is becomes active.
      */
     func activate()
+    
+    /*!
+     Should be called when app resigns active.
+     */
+    func resign()
     
     /*!
      Manually force the current loaded events to be dispatched.

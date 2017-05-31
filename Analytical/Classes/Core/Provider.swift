@@ -22,6 +22,10 @@ open class Provider <T> : NSObject {
         
     }
     
+    open func resign() {
+        
+    }
+    
     open func event(name: EventName, properties: Properties? = nil) {
         //
         // A Generic Provider has no way to know how to send events.
