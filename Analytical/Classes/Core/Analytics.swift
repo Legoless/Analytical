@@ -12,7 +12,7 @@ import UIKit
 ///
 /// Serves as a bounce wrapper for Analytics providers
 ///
-public class Analytics : Analytical {
+open class Analytics : Analytical {
     private static let DeviceKey = "AnalyticsDeviceKey"
     
     private var userDefaults = UserDefaults.standard
@@ -55,7 +55,7 @@ public class Analytics : Analytical {
      - parameter application:   UIApplication instance
      - parameter launchOptions: launch options
      */
-    public func setup(with application: UIApplication?, launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+    open func setup(with application: UIApplication?, launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
         var properties : Properties = [:]
         
         if let application = application {
@@ -69,7 +69,7 @@ public class Analytics : Analytical {
         setup(with: properties)
     }
     
-    public func provider<T : Analytical>(_ type: T.Type) -> T? {
+    public func provider<T : Analytical>(ofType type: T.Type) -> T? {
         return providers.filter { return ($0 is T) }.first as? T
     }
     
