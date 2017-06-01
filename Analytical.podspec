@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Analytical'
-  s.version          = '0.5.4'
+  s.version          = '0.5.5'
   s.summary          = 'Analytical is a lightweight analytics library wrapper.'
 
   s.description      = <<-DESC

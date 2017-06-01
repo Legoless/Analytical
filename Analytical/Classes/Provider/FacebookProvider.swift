@@ -41,7 +41,7 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
     
     public override func event(name: EventName, properties: Properties?) {
         
-        let finalProperties = mergeGlobal(properties: properties, overwrite: true)
+        let finalProperties = prepare(properties: mergeGlobal(properties: properties, overwrite: true))
         
         FBSDKAppEvents.logEvent(name, parameters: finalProperties)
     }
@@ -65,7 +65,7 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
     }
     
     public func set(properties: Properties) {
-        FBSDKAppEvents.updateUserProperties(properties, handler: nil)
+        FBSDKAppEvents.updateUserProperties(prepare(properties: properties), handler: nil)
     }
     
     public func increment(property: String, by number: NSDecimalNumber) {
@@ -73,7 +73,7 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
     }
     
     public override func purchase(amount: NSDecimalNumber, properties: Properties?) {
-        let properties = prepare(properties: mergeGlobal(properties: properties, overwrite: true))
+        let properties = preparePurchase(properties: mergeGlobal(properties: properties, overwrite: true))
         
         let currency = properties[Property.Purchase.currency.rawValue] as? String
         
@@ -92,7 +92,34 @@ public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
         FBSDKAppEvents.logPushNotificationOpen(payload, action: event)
     }
     
-    fileprivate func prepare(properties: Properties?) -> Properties {
+    
+    //
+    // MARK: Private Methods
+    //
+    
+    private func prepare(properties: Properties?) -> Properties? {
+        guard let properties = properties else {
+            return nil
+        }
+        
+        var finalProperties : Properties = [:]
+        
+        for (property, value) in properties {
+            
+            if value is String || value is Int || value is Bool || value is Double || value is Float {
+                finalProperties[property] = value
+            }
+            else {
+                finalProperties[property] = String(describing: value)
+            }
+            
+        }
+        
+        return finalProperties
+    }
+    
+    
+    private func preparePurchase(properties: Properties?) -> Properties {
         var currentProperties : Properties! = properties
         
         if currentProperties == nil {
