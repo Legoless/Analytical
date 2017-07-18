@@ -43,7 +43,10 @@ public enum Property : String {
         case type           = "type"
         case email          = "email"
         case name           = "name"
+        case firstName      = "firstName"
+        case lastName       = "lastName"
         case lastLogin      = "lastLogin"
+        case created        = "created"
     }
 }
 

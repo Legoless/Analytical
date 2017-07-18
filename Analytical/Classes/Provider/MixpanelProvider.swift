@@ -129,7 +129,10 @@ public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
         let mapping : [String : String] = [
             Property.User.email.rawValue : "$email",
             Property.User.name.rawValue : "$name",
-            Property.User.lastLogin.rawValue : "$last_login"
+            Property.User.lastLogin.rawValue : "$last_login",
+            Property.User.created.rawValue : "$created",
+            Property.User.firstName.rawValue : "$first_name",
+            Property.User.lastName.rawValue : "$last_name"
         ]
         
         var finalProperties : [String : MixpanelType] = [:]
