@@ -109,12 +109,15 @@ public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
     }
     
     public override func push(payload: [AnyHashable : Any], event: EventName?) {
+        /*
+         Mixpanel tracks pushes automatically in latest versions.
+
         if let event = event {
             instance.trackPushNotification(payload, event: event)
         }
         else {
             instance.trackPushNotification(payload)
-        }
+        }*/
     }
     
     //
