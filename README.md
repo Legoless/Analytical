@@ -50,7 +50,7 @@ The `Log` subspec will install a simple logger to output tracking calls to Xcode
 
 Analytical includes Google Analytics provider, but due to it's incompatibility between static libraries and CocoaPods Swift frameworks, it must be installed manually. To do this there are 5 steps required:
 
-1. Add `pod "Google/Analytics"` and `pod "Analytical/Core"` to your targets's podfile.
+1. Add both `pod "Google/Analytics"` and `pod "Analytical/Core"` to your target's podfile.
 2. Run `pod install`
 3. Add `#import <Google/Analytics.h>` to your Application Bridging Header.
 4. Drag & drop `GoogleProvider.swift` to your project.
