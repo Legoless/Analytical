@@ -46,9 +46,9 @@ pod 'Analytical/Segment'
 ```
 The `Log` subspec will install a simple logger to output tracking calls to Xcode Console.
 
-## Google Analytics
+## Google Analytics / Firebase
 
-Analytical includes Google Analytics provider, but due to it's incompatibility between static libraries and CocoaPods Swift frameworks, it must be installed manually. To do this there are 5 steps required:
+Analytical includes both Google Analytics and Firebase providers, but due to it's incompatibility between static libraries and  Swift dynamic frameworks, it must be installed manually. To do this there are 5 steps required (sample below is for the GA, but works the same with Firebase):
 
 1. Add both `pod "Google/Analytics"` and `pod "Analytical/Core"` to your target's podfile.
 2. Run `pod install`
