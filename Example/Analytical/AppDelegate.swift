@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         analytics.identify(userId: analytics.deviceId)
         
+        
+        
         application.registerUserNotificationSettings(UIUserNotificationSettings(types: .alert, categories: nil))
         application.registerForRemoteNotifications()
         

@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 use_frameworks!
 
@@ -12,10 +12,13 @@ target 'Analytical_Example' do
   pod 'Firebase/Core'
   pod 'Answers'
 
+  # Swift 4 Pods
+  pod 'Mixpanel-swift', :git => 'https://github.com/mixpanel/mixpanel-swift.git', :branch => 'swift4'
+
   target 'Analytical_Tests' do
     inherit! :search_paths
 
-    pod 'Quick'
-    pod 'Nimble'
+#pod 'Quick'
+#pod 'Nimble'
   end
 end

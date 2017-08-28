@@ -1,5 +1,6 @@
 // https://github.com/Quick/Quick
 
+/*
 import Quick
 import Nimble
 import Analytical
@@ -47,4 +48,4 @@ class TableOfContentsSpec: QuickSpec {
             }
         }
     }
-}
+}*/
