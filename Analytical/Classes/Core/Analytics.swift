@@ -188,6 +188,8 @@ open class Analytics : Analytical {
         // Return advertising selector
         //
         
+        typealias adIdentifierFunc = @convention(c) (AnyObject, Selector) -> NSUUID
+        
         let advertisingSelector = NSSelectorFromString("advertisingIdentifier")
         
         if !manager.responds(to: advertisingSelector) {
