@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,9 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         analytics.identify(userId: analytics.deviceId)
         
-        
-        
-        application.registerUserNotificationSettings(UIUserNotificationSettings(types: .alert, categories: nil))
+        UNUserNotificationCenter.current().requestAuthorization(options: .alert) { success, error in
+            
+        }
         application.registerForRemoteNotifications()
         
         return true
