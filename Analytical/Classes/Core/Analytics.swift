@@ -144,63 +144,46 @@ open class Analytics : Analytical {
      *  so no direct dependency to iAd is created in Swift.
      */
     private var advertisingIdentifier : UUID? {
-        guard let managerClass = NSClassFromString("ASIdentifierManager") as? NSObjectProtocol else {
+        guard let ASIdentifierManagerClass = NSClassFromString("ASIdentifierManager") else {
             return nil
         }
         
-        //
-        // To ensure the dynamic code works correctly and it is future proof, we check for each call that can crash it.
-        //
+        let sharedManagerSelector = NSSelectorFromString("sharedManager")
         
-        let sharedSelector = NSSelectorFromString("sharedManager")
-        
-        if !managerClass.responds(to: sharedSelector) {
+        guard let sharedManagerIMP = ASIdentifierManagerClass.method(for: sharedManagerSelector) else {
             return nil
         }
         
-        guard let shared = managerClass.perform(sharedSelector) as? NSObjectProtocol else {
+        typealias sharedManagerFunc = @convention(c) (AnyObject, Selector) -> AnyObject!
+        let curriedImplementation = unsafeBitCast(sharedManagerIMP, to: sharedManagerFunc.self)
+        
+        guard let sharedManager = curriedImplementation(ASIdentifierManagerClass.self, sharedManagerSelector) else {
             return nil
         }
         
-        guard let managerPointer = shared as? Swift.Unmanaged<AnyObject> else {
+        let advertisingTrackingEnabledSelector = NSSelectorFromString("isAdvertisingTrackingEnabled")
+        
+        guard let isTrackingEnabledIMP = sharedManager.method(for: advertisingTrackingEnabledSelector) else {
             return nil
         }
         
-        guard let manager = managerPointer.takeUnretainedValue() as? NSObject else {
+        typealias isTrackingEnabledFunc = @convention(c) (AnyObject, Selector) -> Bool
+        let curriedImplementation2 = unsafeBitCast(isTrackingEnabledIMP, to: isTrackingEnabledFunc.self)
+        let isTrackingEnabled = curriedImplementation2(self, advertisingTrackingEnabledSelector)
+        
+        guard isTrackingEnabled else {
             return nil
         }
         
-        //
-        // Check if advertising is enabled to respect Apple's policy
-        //
-        
-        let enabledSelector = NSSelectorFromString("isAdvertisingTrackingEnabled")
-        
-        if !manager.responds(to: enabledSelector) {
+        let advertisingIdentifierSelector = NSSelectorFromString("advertisingIdentifier")
+        guard let advertisingIdentifierIMP = sharedManager.method(for: advertisingIdentifierSelector) else {
             return nil
         }
         
-        guard let _ = manager.perform(enabledSelector) else {
-            return nil
-        }
-                
-        //
-        // Return advertising selector
-        //
+        typealias adIdentifierFunc = @convention(c) (AnyObject, Selector) -> UUID
+        let curriedImplementation3 = unsafeBitCast(advertisingIdentifierIMP, to: adIdentifierFunc.self)
         
-        typealias adIdentifierFunc = @convention(c) (AnyObject, Selector) -> NSUUID
-        
-        let advertisingSelector = NSSelectorFromString("advertisingIdentifier")
-        
-        if !manager.responds(to: advertisingSelector) {
-            return nil
-        }
-        
-        guard let identifier = manager.perform(advertisingSelector) else {
-            return nil
-        }
-        
-        return identifier.takeUnretainedValue() as? UUID
+        return curriedImplementation3(self, advertisingIdentifierSelector)
     }
     
     private static func randomId(_ length: Int = 64) -> String {
