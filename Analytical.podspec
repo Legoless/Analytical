@@ -41,7 +41,7 @@ Pod::Spec.new do |s|
   s.subspec 'Firebase' do |subspec|
     subspec.source_files = 'Analytical/Classes/Provider/FirebaseProvider.swift'
     subspec.dependency 'Analytical/Core'
-    subspec.dependency 'Firebase/Analytics'
+    subspec.dependency 'Firebase/Core'
   end
 
   s.subspec 'Facebook' do |subspec|
