@@ -17,6 +17,8 @@ open class Analytics : AnalyticalProvider {
     
     private var userDefaults = UserDefaults.standard
     
+    public weak var delegate : AnalyticalProviderDelegate?
+    
     public private(set) var providers : [AnalyticalProvider] = []
     
     public var deviceId : String {
@@ -96,18 +98,22 @@ open class Analytics : AnalyticalProvider {
     public func reset() {
         providers.forEach { $0.reset() }
     }
-    public func event(name: EventName, properties: Properties? = nil) {
-        providers.forEach { $0.event(name: name, properties: properties) }
+    public func event(_ event: AnalyticalEvent) {
+        var event = event
+        
+        // Ask delegate for event. If delegate returns nil, skip the event delivery.
+        if let delegate = delegate, let updatedEvent = delegate.analyticalProviderShouldSendEvent(self, event: event) {
+            event = updatedEvent
+        }
+        else if delegate != nil {
+            return
+        }
+        
+        providers.forEach { $0.event(event) }
+        
+        delegate?.analyticalProviderDidSendEvent(self, event: event)
     }
-    public func screen(name: EventName, properties: Properties? = nil) {
-        providers.forEach { $0.screen(name: name, properties: properties) }
-    }
-    public func time (name: EventName, properties: Properties? = nil) {
-        providers.forEach { $0.time(name: name, properties: properties) }
-    }
-    public func finish (name: EventName, properties: Properties? = nil) {
-        providers.forEach { $0.finish(name: name, properties: properties) }
-    }
+    
     public func identify(userId: String, properties: Properties? = nil) {
         providers.forEach { $0.identify(userId: userId, properties: properties) }
     }

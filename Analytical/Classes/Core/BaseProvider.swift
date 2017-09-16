@@ -18,6 +18,9 @@ open class BaseProvider <T> : NSObject {
     // Stores global properties
     private var globalProperties : Properties?
     
+    // Delegate
+    public weak var delegate : AnalyticalProviderDelegate?
+    
     open var events : [EventName : Date] = [:]
     open var properties : [EventName : Properties] = [:]
     
@@ -35,40 +38,50 @@ open class BaseProvider <T> : NSObject {
         
     }
     
-    open func event(name: EventName, properties: Properties? = nil) {
-        //
-        // A Generic Provider has no way to know how to send events.
-        //
-        assert(false)
+    open func event(_ event: AnalyticalEvent) {
+        switch event.type {
+        case .time:
+            events[name] = Date()
+            
+            if let properties = properties {
+                self.properties[name] = properties
+            }
+        case .finishTime:
+            
+            var properties = properties
+            
+            if properties == nil {
+                properties = [:]
+            }
+            
+            if let time = events[name] {
+                properties![Property.time.rawValue] = time.timeIntervalSinceNow as AnyObject?
+            }
+            
+            let finishEvent = AnalyticalEvent(type: .default, name: event.name, properties: event.properties)
+            
+            event(finishEvent)
+        default:
+            //
+            // A Generic Provider has no way to know how to send events.
+            //
+            assert(false)
+        }
+    }
+    
+    open func update(event: AnalyticalEvent) -> AnalyticalEvent? {
+        if let delegate = delegate {
+            return delegate.analyticalProviderWillSendEvent(self, event: event)
+        }
+        else {
+            return event
+        }
     }
     
     open func global(properties: Properties, overwrite: Bool = true) {
         globalProperties = mergeGlobal(properties: properties, overwrite: overwrite)
     }
-    
-    open func time(name: EventName, properties: Properties? = nil) {
-        events[name] = Date()
         
-        if let properties = properties {
-            self.properties[name] = properties
-        }
-    }
-    
-    open func finish(name: EventName, properties: Properties?) {
-        
-        var properties = properties
-        
-        if properties == nil {
-            properties = [:]
-        }
-        
-        if let time = events[name] {
-            properties![Property.time.rawValue] = time.timeIntervalSinceNow as AnyObject?
-        }
-        
-        event(name: name, properties: properties)
-    }
-    
     open func purchase(amount: NSDecimalNumber, properties: Properties?) {
         event(name: DefaultEvent.purchase.rawValue, properties: properties)
     }

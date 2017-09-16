@@ -9,7 +9,6 @@
 import Foundation
 
 public enum Property : String {
-    case category
     case type
     case time
     case success
@@ -25,6 +24,7 @@ public enum Property : String {
     }
     
     public enum Purchase : String {
+        case category
         case affiliation
         case country
         case currency

@@ -15,7 +15,24 @@ public protocol AnalyticalProviderDelegate : class {
     /*!
      *  This method will be called on the delegate, before the event is sent. If delegate returns nil, event will be discarded.
      */
-    func analyticalProviderWillSendEvent(_ provider: AnalyticalProvider, event: AnalyticalEvent) -> AnalyticalEvent?
+    func analyticalProviderShouldSendEvent(_ provider: AnalyticalProvider, event: AnalyticalEvent) -> AnalyticalEvent?
+    
+    /*!
+     *  Called when provider finishes sending an event.
+     */
+    func analyticalProviderDidSendEvent(_ provider: AnalyticalProvider, event: AnalyticalEvent)
+}
+
+/*!
+ * Default implementation of delegate, to make both methods optional without Obj-C runtime.
+ */
+public extension AnalyticalProviderDelegate {
+    func analyticalProviderWillSendEvent(_ provider: AnalyticalProvider, event: AnalyticalEvent) -> AnalyticalEvent? {
+        return event
+    }
+    
+    func analyticalProviderDidSendEvent(_ provider: AnalyticalProvider, event: AnalyticalEvent) {
+    }
 }
 
 /*!
@@ -136,3 +153,19 @@ public protocol AnalyticalProvider {
      */
     func push(payload: [AnyHashable : Any], event: EventName?)
 }
+
+public extension AnalyticalProvider {
+    public func event(name: EventName, properties: Properties? = nil) {
+        event(AnalyticalEvent(type: .default, name: name, properties: properties))
+    }
+    public func screen(name: EventName, properties: Properties? = nil) {
+        event(AnalyticalEvent(type: .screen, name: name, properties: properties))
+    }
+    public func time (name: EventName, properties: Properties? = nil) {
+        event(AnalyticalEvent(type: .time, name: name, properties: properties))
+    }
+    public func finish (name: EventName, properties: Properties? = nil) {
+        event(AnalyticalEvent(type: .finishTime, name: name, properties: properties))
+    }
+}
+

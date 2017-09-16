@@ -3,45 +3,10 @@
 //  Analytical
 //
 //  Created by Dal Rupnik on 18/07/16.
-//  Copyright © 2016 Unified Sense. All rights reserved.
+//  Copyright © 2017 Unified Sense. All rights reserved.
 //
 
 import FBSDKCoreKit
-
-/*
-extension FacebookProvider {
-    func completedRegistration () {
-        event(name: FBSDKAppEventNameCompletedRegistration, properties: nil)
-    }
-    
-    func completedTutorial () {
-        event(name: FBSDKAppEventNameCompletedTutorial, properties: nil)
-    }
-    
-    func addToCart(product: Product, category: String) {
-        logEvent(name: FBSDKAppEventNameAddedToCart, product: product, category: category)
-    }
-    
-    func contentView(product: Product, category: String) {
-        logEvent(name: FBSDKAppEventNameViewedContent, product: product, category: category)
-    }
-    
-    func initiatedCheckout(product: Product, category: String) {
-        logEvent(name: FBSDKAppEventNameInitiatedCheckout, product: product, category: category)
-    }
-    
-    private func logEvent(name: String, product: Product, category: String) {
-        let properties = self.purchaseProperties(product: product, category: category)
-        
-        var finalProperties : [String : Any] = [:]
-        finalProperties[FBSDKAppEventParameterNameContentType] = category
-        finalProperties[FBSDKAppEventParameterNameContentID] = properties[Property.Purchase.sku.rawValue]
-        finalProperties[FBSDKAppEventParameterNameCurrency] = properties[Property.Purchase.currency.rawValue]
-        
-        FBSDKAppEvents.logEvent(name, valueToSum: product.price.doubleValue, parameters: finalProperties)
-    }
-}*/
-
 
 public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, AnalyticalProvider {
     public override init () {
@@ -74,15 +39,19 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
         //
     }
     
-    public override func event(name: EventName, properties: Properties?) {
-        
-        let finalProperties = prepare(properties: mergeGlobal(properties: properties, overwrite: true))
-        
-        FBSDKAppEvents.logEvent(name, parameters: finalProperties)
-    }
-    
-    public func screen(name: EventName, properties: Properties?) {
-        event(name: name, properties: properties)
+    public override func event(_ event: AnalyticalEvent) {
+        switch event.type {
+        case .finishTime, .time:
+            super.event(event)
+        default:
+            guard let event = update(event: event) else {
+                return
+            }
+            
+            FBSDKAppEvents.logEvent(event.name, parameters: finalProperties)
+            
+            delegate?.analyticalProviderDidSendEvent(self, event: event)
+        }
     }
     
     public func identify(userId: String, properties: Properties?) {
@@ -127,10 +96,47 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
         FBSDKAppEvents.logPushNotificationOpen(payload, action: event)
     }
     
+    public override func update(event: AnalyticalEvent) -> AnalyticalEvent? {
+        //
+        // Ensure Super gets a chance to update event.
+        //
+        guard var event = super.update(event: event) else {
+            return nil
+        }
+        
+        //
+        // Update event name and properties based on Facebook's values
+        //
+        
+        if let defaultName = DefaultEvent(rawValue: event.name), let updatedName = parse(name: defaultName) {
+            event.name = updatedName
+        }
+        
+        event.properties = prepare(properties: mergeGlobal(properties: event.properties, overwrite: true))
+        
+        return event
+    }
     
     //
     // MARK: Private Methods
     //
+    
+    private func parse(name: DefaultEvent) -> String? {
+        switch name {
+        case .completedRegistration:
+            return FBSDKAppEventNameCompletedRegistration
+        case .completedTutorial:
+            return FBSDKAppEventNameCompletedTutorial
+        case .addedToCart:
+            return FBSDKAppEventNameAddedToCart
+        case .viewContent:
+            return FBSDKAppEventNameViewedContent
+        case .initiatedCheckout:
+            return FBSDKAppEventNameInitiatedCheckout
+        default:
+            return nil
+        }
+    }
     
     private func prepare(properties: Properties?) -> Properties? {
         guard let properties = properties else {
@@ -140,6 +146,8 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
         var finalProperties : Properties = [:]
         
         for (property, value) in properties {
+            
+            let property = parse(property: property)
             
             if value is String || value is Int || value is Bool || value is Double || value is Float {
                 finalProperties[property] = value
@@ -153,7 +161,6 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
         return finalProperties
     }
     
-    
     private func preparePurchase(properties: Properties?) -> Properties {
         var currentProperties : Properties! = properties
         
@@ -162,5 +169,18 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
         }
         
         return currentProperties
+    }
+    
+    private func parse(property: String) -> String {
+        switch property {
+        case Property.Purchase.category.rawValue:
+            return FBSDKAppEventParameterNameContentType
+        case Property.Purchase.sku.rawValue:
+            return FBSDKAppEventParameterNameContentID
+        case Property.Purchase.currency.rawValue:
+            return FBSDKAppEventParameterNameCurrency
+        default:
+            return property
+        }
     }
 }

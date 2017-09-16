@@ -18,7 +18,7 @@ import Foundation
  - SignUp:              Log a sign up
  */
 public enum DefaultEvent : String {
-    case applicationOpen        = "AnalyticalApplicationOpen"
+    case activated              = "AnalyticalActivated"
     
     case purchase               = "AnalyticalEventPurchase"
     case screenView             = "AnalyticalEventScreenView"
@@ -62,4 +62,10 @@ public enum DefaultEvent : String {
     case viewItemList           = "AnalyticalViewItemList"
     
     case beganTutorial          = "AnalyticalBeganTutorial"
+}
+
+public extension DefaultEvent {
+    func event() -> AnalyticalEvent {
+        return AnalyticalEvent(type: .default, name: self.rawValue, properties: nil)
+    }
 }
