@@ -48,7 +48,11 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
                 return
             }
             
-            FBSDKAppEvents.logEvent(event.name, parameters: finalProperties)
+            if event.type == .purchase {
+            }
+            else {
+                FBSDKAppEvents.logEvent(event.name, parameters: finalProperties)
+            }
             
             delegate?.analyticalProviderDidSendEvent(self, event: event)
         }

@@ -17,6 +17,7 @@ public struct AnalyticalEvent {
         case screen
         case time
         case finishTime
+        case purchase
     }
     
     public var type = EventType.default

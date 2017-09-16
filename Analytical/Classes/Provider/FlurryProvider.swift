@@ -39,6 +39,10 @@ public class FlurryProvider : BaseProvider<Flurry>, AnalyticalProvider {
         
     }
     
+    public override func event(_ event: AnalyticalEvent) {
+        switch event.type
+    }
+    
     public override func event(name: EventName, properties: Properties?) {
         let finalProperties = prepare(properties: mergeGlobal(properties: properties, overwrite: true))
         
