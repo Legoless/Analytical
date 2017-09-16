@@ -9,6 +9,6 @@
 #ifndef Example_Bridging_Header_h
 #define Example_Bridging_Header_h
 
-#import <Google/Analytics.h>
+//#import <Google/Analytics.h>
 
 #endif /* Example_Bridging_Header_h */

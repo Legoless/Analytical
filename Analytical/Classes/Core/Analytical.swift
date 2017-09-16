@@ -66,7 +66,14 @@ public enum DefaultEvent : String {
     case signUp             = "AnalyticalEventSignUp"
 }
 
-public protocol Analytical {
+public protocol AnalyticalProviderDelegate {
+    
+}
+
+///
+/// Analytical provider protocol, that implements any
+///
+public protocol AnalyticalProvider {
     //
     // MARK: Common Methods
     //

@@ -8,7 +8,7 @@ target 'Analytical_Example' do
   #
   # Add this Podspec and re-add Google Provider to the target, to test it.
   #
-  pod 'Google/Analytics'
+  #pod 'Google/Analytics'
   pod 'Firebase/Core'
   pod 'Answers'
 

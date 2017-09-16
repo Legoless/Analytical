@@ -8,7 +8,7 @@
 
 import FBSDKCoreKit
 
-public class FacebookProvider : Provider<FBSDKApplicationDelegate>, Analytical {
+public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, AnalyticalProvider {
     public override init () {
         
     }

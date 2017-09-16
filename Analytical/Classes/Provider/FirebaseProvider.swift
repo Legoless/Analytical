@@ -9,19 +9,40 @@
 import Analytical
 import Firebase
 
-public class FirebaseProvider : Provider<FIRAnalytics>, Analytical {
-    private var key : String
+public class FirebaseProvider : BaseProvider<Firebase.Analytics>, AnalyticalProvider {
     
-    public static let ApiKey = "ApiKey"
-    
-    public init (key: String) {
-        self.key = key
-        
-        super.init()
-    }
+    public static let GoogleAppId = "GoogleAppIdKey"
+    public static let BundleId = "BundleIdKey"
+    public static let GCMSenderId = "GCMSenderID"
     
     public func setup(with properties: Properties?) {
-        FIRApp.configure()
+        
+        guard let googleAppId = properties?[FirebaseProvider.GoogleAppId] as? String, let gcmSenderId = properties?[FirebaseProvider.GCMSenderId] as? String else {
+            return
+        }
+        
+        let options = FirebaseOptions(googleAppID: googleAppId, gcmSenderID: gcmSenderId)
+        
+        if let bundleId = properties?[FirebaseProvider.BundleId] as? String {
+            options.bundleID = bundleId
+        }
+        
+        FirebaseApp.configure(options: options)
+    }
+    
+    
+    public override func event(name: EventName, properties: Properties?) {
+        //Analytics.logEvent(Ana, parameters: )
+        
+        //Analytics.logEvent(withName: name, parameters: mergeGlobal(properties: properties, overwrite: true))
+    }
+    
+    public func screen(name: EventName, properties: Properties?) {
+        //Analytics.setScreenName(name, screenClass: nil)
+    }
+    
+    public func finishTime(_ name: EventName, properties: Properties?) {
+        //Analytics.logEvent(withName: name, parameters: mergeGlobal(properties: properties, overwrite: true))
     }
     
     public func flush() {
@@ -31,20 +52,34 @@ public class FirebaseProvider : Provider<FIRAnalytics>, Analytical {
         
     }
     
-    public override func event(name: EventName, properties: Properties?) {
-        FIRAnalytics.logEvent(withName: name, parameters: mergeGlobal(properties: properties, overwrite: true))
+    
+    public override func time(name: EventName, properties: Properties?) {
+        
     }
     
-    public func screen(name: EventName, properties: Properties?) {
-        FIRAnalytics.setScreenName(name, screenClass: nil)
+    public override func activate() {
+        Analytics.logEvent(AnalyticsEventAppOpen, parameters: [:])
     }
     
-    public func finishTime(_ name: EventName, properties: Properties?) {
-        FIRAnalytics.logEvent(withName: name, parameters: mergeGlobal(properties: properties, overwrite: true))
+    public override func resign() {
+        
     }
+    
+    public override func global(properties: Properties, overwrite: Bool) {
+        
+    }
+    
+    public override func addDevice(token: Data) {
+        
+    }
+    
+    public override func push(payload: [AnyHashable : Any], event: EventName?) {
+        
+    }
+    
     
     public func identify(userId: String, properties: Properties?) {
-        FIRAnalytics.setUserID(userId)
+        Analytics.setUserID(userId)
         
         if let properties = properties {
             set(properties: properties)
@@ -55,15 +90,15 @@ public class FirebaseProvider : Provider<FIRAnalytics>, Analytical {
     }
     
     public func set(properties: Properties) {
-    
+        
         for (property, value) in properties {
             guard let value = value as? String else {
                 continue
             }
             
-            FIRAnalytics.setUserPropertyString(value, forName: property)
+            Analytics.setUserProperty(value, forName: property)
         }
-
+        
     }
     
     public func increment(property: String, by number: NSDecimalNumber) {

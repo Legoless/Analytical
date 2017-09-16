@@ -8,7 +8,7 @@
 
 import Flurry_iOS_SDK
 
-public class FlurryProvider : Provider<Flurry>, Analytical {
+public class FlurryProvider : BaseProvider<Flurry>, AnalyticalProvider {
     private var key : String
     
     public static let ApiKey = "ApiKey"

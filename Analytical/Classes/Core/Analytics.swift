@@ -12,12 +12,12 @@ import UIKit
 ///
 /// Serves as a bounce wrapper for Analytics providers
 ///
-open class Analytics : Analytical {
+open class Analytics : AnalyticalProvider {
     private static let DeviceKey = "AnalyticsDeviceKey"
     
     private var userDefaults = UserDefaults.standard
     
-    public private(set) var providers : [Analytical] = []
+    public private(set) var providers : [AnalyticalProvider] = []
     
     public var deviceId : String {
         if let advertisingIdentifier = advertisingIdentifier?.uuidString {
@@ -69,11 +69,11 @@ open class Analytics : Analytical {
         setup(with: properties)
     }
     
-    public func provider<T : Analytical>(ofType type: T.Type) -> T? {
+    public func provider<T : AnalyticalProvider>(ofType type: T.Type) -> T? {
         return providers.filter { return ($0 is T) }.first as? T
     }
     
-    public func addProvider(provider: Analytical) {
+    public func addProvider(provider: AnalyticalProvider) {
         providers.append(provider)
     }
     
@@ -220,7 +220,7 @@ precedencegroup AnalyticalPrecedence {
 
 infix operator <<~: AnalyticalPrecedence
 
-public func <<~ (left: Analytics, right: Analytical) -> Analytics {
+public func <<~ (left: Analytics, right: AnalyticalProvider) -> Analytics {
     left.addProvider(provider: right)
     
     return left

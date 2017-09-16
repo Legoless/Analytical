@@ -15,7 +15,7 @@ extension OSLog {
     }
 }
 
-open class LogProvider : Provider<OSLog>, Analytical {
+open class LogProvider : BaseProvider<OSLog>, AnalyticalProvider {
     open func setup(with properties: Properties?) {
         
         instance = OSLog(subsystem: "com.unifiedsense.analytical.logger", category: "Analytics")

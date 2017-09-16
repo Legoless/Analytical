@@ -9,7 +9,11 @@
 import Analytical
 import Foundation
 
-public class GoogleProvider : Provider<GAITracker>, Analytical {
+//
+// Google has been deprecated and is incompatible with Firebase Analytics in the same project.
+// This file is kept here for legacy purposes.
+//
+public class GoogleProvider : BaseProvider<GAITracker>, AnalyticalProvider {
     public static let TrackingId = "TrackingId"
     
     private var gai : GAI!

@@ -22,7 +22,7 @@ PODS:
     - Analytical/Core
     - Analytics
   - Analytics (3.6.7)
-  - Answers (1.3.5):
+  - Answers (1.3.6):
     - Fabric (~> 1.6.3)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
@@ -30,37 +30,37 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
-  - Fabric (1.6.12)
+  - Fabric (1.6.13)
   - FBSDKCoreKit (4.26.0):
     - Bolts (~> 1.7)
-  - Firebase/Core (3.17.0):
-    - FirebaseAnalytics (= 3.9.0)
-    - FirebaseCore (= 3.6.0)
-  - FirebaseAnalytics (3.9.0):
-    - FirebaseCore (~> 3.6)
-    - FirebaseInstanceID (~> 1.0)
+  - Firebase/Core (4.1.1):
+    - FirebaseAnalytics (= 4.0.3)
+    - FirebaseCore (= 4.0.6)
+  - FirebaseAnalytics (4.0.3):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseCore (3.6.0):
+    - nanopb (~> 0.3)
+  - FirebaseCore (4.0.6):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseInstanceID (1.0.10):
-    - FirebaseCore (~> 3.6)
-  - Flurry-iOS-SDK/FlurrySDK (8.2.0)
-  - Google/Analytics (3.1.0):
-    - Google/Core
-    - GoogleAnalytics (~> 3.12)
-  - Google/Core (3.1.0):
-    - FirebaseAnalytics (~> 3.2)
-  - GoogleAnalytics (3.17.0)
+    - nanopb (~> 0.3)
+  - FirebaseInstanceID (2.0.2):
+    - FirebaseCore (~> 4.0)
+  - Flurry-iOS-SDK/FlurrySDK (8.2.1)
   - GoogleToolboxForMac/Defines (2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
-  - Mixpanel-swift (2.1.8)
+  - Mixpanel-swift (2.2.2)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
 
 DEPENDENCIES:
   - Analytical (from `../`)
   - Answers
   - Firebase/Core
-  - Google/Analytics
   - Mixpanel-swift (from `https://github.com/mixpanel/mixpanel-swift.git`, branch `swift4`)
 
 EXTERNAL SOURCES:
@@ -72,26 +72,25 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Mixpanel-swift:
-    :commit: 226112d2bee04e671e0ffcd3d6e1e7ff3c0f5bfd
+    :commit: 7d7769e8964a0f92fc1a1d708437b800db3fc7eb
     :git: https://github.com/mixpanel/mixpanel-swift.git
 
 SPEC CHECKSUMS:
   Analytical: cb63e451505237362b64e386e800c2f828ec530d
   Analytics: 2c09a50e3478a3a7ced08a22d00c43ba6f7011e6
-  Answers: 567cbf43974855481b648db06692a3530de6b16e
+  Answers: ef6af16bc75366334db6323a87f37ea54e2dab71
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  Fabric: f050464eac45a2ce5a8e6e6a07e977c0df32fe28
+  Fabric: 2fb5676bc811af011a04513451f463dac6803206
   FBSDKCoreKit: c8b8582311ec11b145451d8b9717dc6cc2ae5a76
-  Firebase: 4b66b5b59c43edac745b87f0c87e42cdd0279c13
-  FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
-  FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
-  FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
-  Flurry-iOS-SDK: 5907f4767bbe538ced4d39f1268096730193b471
-  Google: 98da4b1a60ed0beb80a290387a28333406a1eb90
-  GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
+  Firebase: 052c0de688fc87b414996eea13e223dd9fee3fa2
+  FirebaseAnalytics: 76f754d37ca5b04f36856729b6af3ca0152d1069
+  FirebaseCore: 28def3c643989c97ea5a69ea5000f5fa9902b9fd
+  FirebaseInstanceID: c4c7fca62c7b7330caee5da04f19a37ea37bb1c1
+  Flurry-iOS-SDK: b0dcfbdb6e87c55b9e41ad4441945be492348132
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
-  Mixpanel-swift: b9c650b077a1255681cc31e34bb987e060c1844a
+  Mixpanel-swift: 6a56053d1092a287e2626cf5aa7e78bfaad47374
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
 
-PODFILE CHECKSUM: c0ba75adb69830216f3dc531d9e2c0073784092b
+PODFILE CHECKSUM: 3ed708ff4a2f65edb7bf0c8af2ae12aae8160fd9
 
 COCOAPODS: 1.3.1

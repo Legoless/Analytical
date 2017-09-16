@@ -8,7 +8,7 @@
 
 import Analytics
 
-public class SegmentProvider : Provider <SEGAnalytics>, Analytical {
+public class SegmentProvider : BaseProvider <SEGAnalytics>, AnalyticalProvider {
     public static let Configuration = "Configuration" // Needs a type SEGAnalyticsConfiguration
     public static let WriteKey      = "WriteKey"    // Needs a String
     

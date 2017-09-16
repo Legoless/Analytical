@@ -10,7 +10,7 @@ import Analytical
 import Answers
 import Fabric
 
-public class AnswersProvider : Provider<Answers>, Analytical {
+public class AnswersProvider : BaseProvider<Answers>, AnalyticalProvider {
     public func setup(with properties: Properties?) {
         Fabric.with([ Answers.self ])
     }

@@ -1,5 +1,5 @@
 //
-//  Provider.swift
+//  BaseProvider.swift
 //  Analytical
 //
 //  Created by Dal Rupnik on 18/07/16.
@@ -13,7 +13,7 @@ import Foundation
 ///
 /// Analytics provider generic class provides some common analytics functionality.
 ///
-open class Provider <T> : NSObject {
+open class BaseProvider <T> : NSObject {
     
     // Stores global properties
     private var globalProperties : Properties?

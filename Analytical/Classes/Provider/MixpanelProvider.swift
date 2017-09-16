@@ -8,7 +8,7 @@
 
 import Mixpanel
 
-public class MixpanelProvider : Provider<MixpanelInstance>, Analytical {
+public class MixpanelProvider : BaseProvider<MixpanelInstance>, AnalyticalProvider {
     private var token : String
     
     public static let ApiToken = "ApiToken"
