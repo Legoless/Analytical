@@ -8,18 +8,14 @@
 
 import Foundation
 
-public typealias Properties = [String : Any]
-public typealias EventName = String
-
-
-
-
 /*!
  *  Set provider delegate to modify certain analyics events on a single point of entry.
  */
 public protocol AnalyticalProviderDelegate : class {
-    func shouldSendEvent(_ provider: AnalyticalProvider, name: EventName, properties: Properties?) -> Bool
-    func shouldSendScreen(_ provider: AnalyticalProvider, name: EventName, properties: Properties?) -> Bool
+    /*!
+     *  This method will be called on the delegate, before the event is sent. If delegate returns nil, event will be discarded.
+     */
+    func analyticalProviderWillSendEvent(_ provider: AnalyticalProvider, event: AnalyticalEvent) -> AnalyticalEvent?
 }
 
 /*!
@@ -29,7 +25,7 @@ public protocol AnalyticalProvider {
     //
     // MARK: Delegate
     //
-    //weak var delegate : AnalyticalProviderDelegate? { get set }
+    weak var delegate : AnalyticalProviderDelegate? { get set }
     
     //
     // MARK: Common Methods
@@ -69,34 +65,9 @@ public protocol AnalyticalProvider {
     /*!
      Logs a specific event to analytics.
      
-     - parameter name:       name of the event
-     - parameter properties: additional properties
+     - parameter event: event struct
      */
-    func event(name: EventName, properties: Properties?)
-    
-    /*!
-     Logs a specific screen to analytics.
-     
-     - parameter name:       name of the screen
-     - parameter properties: additional properties
-     */
-    func screen(name: EventName, properties: Properties?)
-    
-    /*!
-     Track time for event name
-     
-     - parameter name:       name of the event
-     - parameter properties: properties
-     */
-    func time (name: EventName, properties: Properties?)
-    
-    /*!
-     Finish tracking time for event
-     
-     - parameter name:       event
-     - parameter properties: properties
-     */
-    func finish (name: EventName, properties: Properties?)
+    func event(_ event: AnalyticalEvent)
     
     //
     // MARK: User Tracking

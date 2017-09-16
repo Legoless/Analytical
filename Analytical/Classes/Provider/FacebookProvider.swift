@@ -8,6 +8,41 @@
 
 import FBSDKCoreKit
 
+/*
+extension FacebookProvider {
+    func completedRegistration () {
+        event(name: FBSDKAppEventNameCompletedRegistration, properties: nil)
+    }
+    
+    func completedTutorial () {
+        event(name: FBSDKAppEventNameCompletedTutorial, properties: nil)
+    }
+    
+    func addToCart(product: Product, category: String) {
+        logEvent(name: FBSDKAppEventNameAddedToCart, product: product, category: category)
+    }
+    
+    func contentView(product: Product, category: String) {
+        logEvent(name: FBSDKAppEventNameViewedContent, product: product, category: category)
+    }
+    
+    func initiatedCheckout(product: Product, category: String) {
+        logEvent(name: FBSDKAppEventNameInitiatedCheckout, product: product, category: category)
+    }
+    
+    private func logEvent(name: String, product: Product, category: String) {
+        let properties = self.purchaseProperties(product: product, category: category)
+        
+        var finalProperties : [String : Any] = [:]
+        finalProperties[FBSDKAppEventParameterNameContentType] = category
+        finalProperties[FBSDKAppEventParameterNameContentID] = properties[Property.Purchase.sku.rawValue]
+        finalProperties[FBSDKAppEventParameterNameCurrency] = properties[Property.Purchase.currency.rawValue]
+        
+        FBSDKAppEvents.logEvent(name, valueToSum: product.price.doubleValue, parameters: finalProperties)
+    }
+}*/
+
+
 public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, AnalyticalProvider {
     public override init () {
         
