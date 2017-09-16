@@ -1,5 +1,5 @@
 //
-//  Analytical
+//  AnalyticalProvider
 //  Analytical
 //
 //  Created by Dal Rupnik on 18/07/16.
@@ -11,69 +11,26 @@ import Foundation
 public typealias Properties = [String : Any]
 public typealias EventName = String
 
-public enum Property : String {
-    case category           = "category"
-    case time               = "time"
-    
-    public enum Launch : String {
-        case application    = "application"
-        case options        = "launchOptions"
-    }
-    
-    public enum Purchase : String {
-        case affiliation    = "affiliation"
-        case country        = "country"
-        case currency       = "currency"
-        case item           = "item"
-        case price          = "price"
-        case sku            = "sku"
-        case shipping       = "shipping"
-        case quantity       = "quantity"
-        case tax            = "tax"
-        case transactionId  = "transactionId"
-    }
-    
-    public enum Content : String {
-        case identifier     = "identifier"
-    }
-    
-    public enum User : String {
-        case age            = "age"
-        case gender         = "gender"
-        case type           = "type"
-        case email          = "email"
-        case name           = "name"
-        case firstName      = "firstName"
-        case lastName       = "lastName"
-        case lastLogin      = "lastLogin"
-        case created        = "created"
-    }
+
+
+
+/*!
+ *  Set provider delegate to modify certain analyics events on a single point of entry.
+ */
+public protocol AnalyticalProviderDelegate : class {
+    func shouldSendEvent(_ provider: AnalyticalProvider, name: EventName, properties: Properties?) -> Bool
+    func shouldSendScreen(_ provider: AnalyticalProvider, name: EventName, properties: Properties?) -> Bool
 }
 
 /*!
- Some providers may not support logging certain events separately. Analytical still logs those events,
- using Analytical methods, but default event names are used instead and are tracked as normal events.
- 
- - Purchase:            Log a purchase
- - ScreenView:          Log a screen view
- - PushNotification:    Log a received push notification
- - SignUp:              Log a sign up
+ *  Analytical provider protocol, that implements any
  */
-public enum DefaultEvent : String {
-    case purchase           = "AnalyticalEventPurchase"
-    case screenView         = "AnalyticalEventScreenView"
-    case pushNotification   = "AnalyticalEventPushNotification"
-    case signUp             = "AnalyticalEventSignUp"
-}
-
-public protocol AnalyticalProviderDelegate {
-    
-}
-
-///
-/// Analytical provider protocol, that implements any
-///
 public protocol AnalyticalProvider {
+    //
+    // MARK: Delegate
+    //
+    //weak var delegate : AnalyticalProviderDelegate? { get set }
+    
     //
     // MARK: Common Methods
     //

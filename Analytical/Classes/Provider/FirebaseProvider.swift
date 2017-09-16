@@ -9,6 +9,21 @@
 import Analytical
 import Firebase
 
+public enum FirebaseProperties : String {
+    case customOne
+    case creativeName
+    case creativeSlot
+    case groupId
+    case index
+    case locationId
+    
+    case numberOfNights
+    case numberOfPassengers
+    case numberOfRooms
+    
+    case travelClass
+}
+
 public class FirebaseProvider : BaseProvider<Firebase.Analytics>, AnalyticalProvider {
     
     public static let GoogleAppId = "GoogleAppIdKey"
