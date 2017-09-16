@@ -129,9 +129,6 @@ open class Analytics : AnalyticalProvider {
     public func increment(property: String, by number: NSDecimalNumber) {
         providers.forEach { $0.increment(property: property, by: number) }
     }
-    public func purchase(amount: NSDecimalNumber, properties: Properties?) {
-        providers.forEach { $0.purchase(amount: amount, properties: properties) }
-    }
     public func addDevice(token: Data) {
         providers.forEach { $0.addDevice(token: token) }
     }

@@ -81,10 +81,6 @@ open class BaseProvider <T> : NSObject {
     open func global(properties: Properties, overwrite: Bool = true) {
         globalProperties = mergeGlobal(properties: properties, overwrite: overwrite)
     }
-        
-    open func purchase(amount: NSDecimalNumber, properties: Properties?) {
-        event(name: DefaultEvent.purchase.rawValue, properties: properties)
-    }
     
     open func addDevice(token: Data) {
         // No push feature

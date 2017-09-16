@@ -40,7 +40,9 @@ public class FlurryProvider : BaseProvider<Flurry>, AnalyticalProvider {
     }
     
     public override func event(_ event: AnalyticalEvent) {
-        switch event.type
+        switch event.type {
+            case 
+        }
     }
     
     public override func event(name: EventName, properties: Properties?) {
@@ -100,6 +102,27 @@ public class FlurryProvider : BaseProvider<Flurry>, AnalyticalProvider {
     
     public func increment(property: String, by number: NSDecimalNumber) {
         
+    }
+    
+    public override func update(event: AnalyticalEvent) -> AnalyticalEvent? {
+        //
+        // Ensure Super gets a chance to update event.
+        //
+        guard var event = super.update(event: event) else {
+            return nil
+        }
+        
+        //
+        // Update event name and properties based on Facebook's values
+        //
+        
+        if let defaultName = DefaultEvent(rawValue: event.name), let updatedName = parse(name: defaultName) {
+            event.name = updatedName
+        }
+        
+        event.properties = prepare(properties: mergeGlobal(properties: event.properties, overwrite: true))
+        
+        return event
     }
     
     //

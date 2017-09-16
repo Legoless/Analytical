@@ -9,9 +9,6 @@
 import FBSDKCoreKit
 
 public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, AnalyticalProvider {
-    public override init () {
-        
-    }
     
     //
     // MARK: Analyical
@@ -48,10 +45,11 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
                 return
             }
             
-            if event.type == .purchase {
+            if let price = event.properties?[Property.Purchase.price.rawValue] as? NSDecimalNumber, let currency = event.properties?[Property.Purchase.currency.rawValue] as? String, event.type == .purchase {
+                FBSDKAppEvents.logPurchase(price.doubleValue, currency: currency, parameters: event.properties!)
             }
             else {
-                FBSDKAppEvents.logEvent(event.name, parameters: finalProperties)
+                FBSDKAppEvents.logEvent(event.name, parameters: event.properties)
             }
             
             delegate?.analyticalProviderDidSendEvent(self, event: event)
@@ -78,19 +76,6 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
     
     public func increment(property: String, by number: NSDecimalNumber) {
         FBSDKAppEvents.logEvent(property, valueToSum: number.doubleValue)
-    }
-    
-    public override func purchase(amount: NSDecimalNumber, properties: Properties?) {
-        let properties = preparePurchase(properties: mergeGlobal(properties: properties, overwrite: true))
-        
-        let currency = properties[Property.Purchase.currency.rawValue] as? String
-        
-        var finalParameters : [String : Any] = [:]
-        finalParameters[FBSDKAppEventParameterNameContentType] = properties[Property.category.rawValue]
-        finalParameters[FBSDKAppEventParameterNameContentID] = properties[Property.Purchase.sku.rawValue]
-        finalParameters[FBSDKAppEventParameterNameCurrency] = currency
-        
-        FBSDKAppEvents.logPurchase(amount.doubleValue, currency: currency, parameters: finalParameters)
     }
     
     public override func addDevice(token: Data) {

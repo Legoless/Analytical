@@ -131,14 +131,6 @@ public protocol AnalyticalProvider {
     func increment(property: String, by number: NSDecimalNumber)
     
     /*!
-     Make a purchase for the current user.
-     
-     - parameter amount:     amount
-     - parameter properties: properties, such as SKU, Product ID, Tax, etc.
-     */
-    func purchase(amount: NSDecimalNumber, properties: Properties?)
-    
-    /*!
      Add device token to the provider for push notification support.
  
      - parameter token: token
