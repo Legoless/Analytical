@@ -41,24 +41,29 @@ open class LogProvider : BaseProvider<OSLog>, AnalyticalProvider {
         instance.debug("LogProvider user data was reset.")
     }
     
-    open override func event(name: EventName, properties: Properties?) {
-        instance.debug("Event %@ was logged with properties: %@", name, String(describing: properties))
-    }
-    
-    open func screen(name: EventName, properties: Properties?) {
-        instance.debug("Screen %@ was logged with properties: %@", name, String(describing: properties))
-    }
-    
-    open override func time (name: EventName, properties: Properties?) {
-        super.time(name: name, properties: properties)
+    open override func event(_ event: AnalyticalEvent) {
+        guard let event = update(event: event) else {
+            return
+        }
         
-        instance.debug("Timed event %@ was started with properties: %@", name, String(describing: properties))
-    }
-    
-    open override func finish (name: EventName, properties: Properties?) {
-        super.finish(name: name, properties: properties)
+        switch event.type {
+        case .screen:
+            instance.debug("Screen %@ was logged with properties: %@", name, String(describing: properties))
+        case .time:
+            super.event(event)
+            
+            instance.debug("Timed event %@ was started with properties: %@", name, String(describing: properties))
+        case .purchase:
+            instance.debug("Purchase for %@ was triggered with properties: %@", amount, String(describing: properties))
+        case .finishTime:
+            super.event(event)
+            
+            instance.debug("Event %@ was completed with properties in time %@: %@", name, self.events, String(describing: properties))
+        default:
+            instance.debug("Event %@ was logged with properties: %@", name, String(describing: properties))
+        }
         
-        instance.debug("Event %@ was completed with properties in time %@: %@", name, self.events, String(describing: properties))
+        delegate?.analyticalProviderDidSendEvent(self, event: event)
     }
     
     open func identify(userId: String, properties: Properties?) {
@@ -79,10 +84,6 @@ open class LogProvider : BaseProvider<OSLog>, AnalyticalProvider {
     
     open func increment(property: String, by number: NSDecimalNumber) {
         instance.debug("Property %@ was increased by number: %@", property, number)
-    }
-    
-    open override func purchase(amount: NSDecimalNumber, properties: Properties?) {
-        instance.debug("Purchase for %@ was triggered with properties: %@", amount, String(describing: properties))
     }
     
     open override func addDevice(token: Data) {

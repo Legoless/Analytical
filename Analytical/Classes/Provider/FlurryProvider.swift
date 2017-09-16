@@ -40,37 +40,23 @@ public class FlurryProvider : BaseProvider<Flurry>, AnalyticalProvider {
     }
     
     public override func event(_ event: AnalyticalEvent) {
-        switch event.type {
-            case 
+        guard let event = update(event: event) else {
+            return
         }
-    }
-    
-    public override func event(name: EventName, properties: Properties?) {
-        let finalProperties = prepare(properties: mergeGlobal(properties: properties, overwrite: true))
         
-        Flurry.logEvent(name, withParameters: finalProperties)
-    }
-    
-    public func screen(name: EventName, properties: Properties?) {
-        let finalProperties = prepare(properties: mergeGlobal(properties: properties, overwrite: true))
+        switch event.type {
+        case .time:
+            Flurry.logEvent(event.name, withParameters: event.properties, timed: true)
+        case .finishTime:
+            Flurry.endTimedEvent(event.name, withParameters: event.properties)
+        case .screen:
+            Flurry.logEvent(event.name, withParameters: event.properties)
+            Flurry.logPageView()
+        default:
+            Flurry.logEvent(event.name, withParameters: event.properties)
+        }
         
-        Flurry.logEvent(name, withParameters: finalProperties)
-        Flurry.logPageView()
-    }
-    
-    public override func time(name: EventName, properties: Properties?) {
-        super.time(name: name, properties: properties)
-        
-        let finalProperties = prepare(properties: mergeGlobal(properties: properties, overwrite: true))
-        
-        Flurry.logEvent(name, withParameters: finalProperties, timed: true)
-    }
-    
-    public func finishTime(_ name: EventName, properties: Properties?) {
-        
-        let finalProperties = prepare(properties: mergeGlobal(properties: properties, overwrite: true))
-        
-        Flurry.endTimedEvent(name, withParameters: finalProperties)
+        delegate?.analyticalProviderDidSendEvent(self, event: event)
     }
     
     public func identify(userId: String, properties: Properties?) {
@@ -112,14 +98,6 @@ public class FlurryProvider : BaseProvider<Flurry>, AnalyticalProvider {
             return nil
         }
         
-        //
-        // Update event name and properties based on Facebook's values
-        //
-        
-        if let defaultName = DefaultEvent(rawValue: event.name), let updatedName = parse(name: defaultName) {
-            event.name = updatedName
-        }
-        
         event.properties = prepare(properties: mergeGlobal(properties: event.properties, overwrite: true))
         
         return event
@@ -137,7 +115,6 @@ public class FlurryProvider : BaseProvider<Flurry>, AnalyticalProvider {
         var finalProperties : [String : Any] = [:]
         
         for (property, value) in properties {
-            
             // Flurry will stop working and not send any property data, if there is an object that does not respond to "length"
             finalProperties[property] = String(describing: value)
         }
