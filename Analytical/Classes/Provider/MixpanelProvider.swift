@@ -46,7 +46,7 @@ public class MixpanelProvider : BaseProvider<MixpanelInstance>, AnalyticalProvid
         }
         
         switch event.type {
-        case .default, .screen:
+        case .default, .screen, .finishTime:
             instance.track(event: event.name, properties: event.properties as? [String : MixpanelType])
         case .time:
             super.event(event)
@@ -58,13 +58,10 @@ public class MixpanelProvider : BaseProvider<MixpanelInstance>, AnalyticalProvid
             }
             
             instance.people.trackCharge(amount: amount.doubleValue, properties: event.properties as? [String : MixpanelType])
-        default:
-            super.event(event)
         }
         
         delegate?.analyticalProviderDidSendEvent(self, event: event)
     }
-    
     
     public func identify(userId: String, properties: Properties? = nil) {
         

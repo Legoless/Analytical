@@ -37,23 +37,27 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
     }
     
     public override func event(_ event: AnalyticalEvent) {
+        guard let event = update(event: event) else {
+            return
+        }
+        
         switch event.type {
-        case .finishTime, .time:
+        case .time:
             super.event(event)
-        default:
-            guard let event = update(event: event) else {
-                return
-            }
+        case .finishTime:
+            super.event(event)
             
+            FBSDKAppEvents.logEvent(event.name, parameters: event.properties)
+        default:
             if let price = event.properties?[Property.Purchase.price.rawValue] as? NSDecimalNumber, let currency = event.properties?[Property.Purchase.currency.rawValue] as? String, event.type == .purchase {
                 FBSDKAppEvents.logPurchase(price.doubleValue, currency: currency, parameters: event.properties!)
             }
             else {
                 FBSDKAppEvents.logEvent(event.name, parameters: event.properties)
             }
-            
-            delegate?.analyticalProviderDidSendEvent(self, event: event)
         }
+        
+        delegate?.analyticalProviderDidSendEvent(self, event: event)
     }
     
     public func identify(userId: String, properties: Properties?) {

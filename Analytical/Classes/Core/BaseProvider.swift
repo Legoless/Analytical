@@ -57,10 +57,6 @@ open class BaseProvider <T> : NSObject {
             if let time = events[event.name] {
                 properties![Property.time.rawValue] = time.timeIntervalSinceNow as AnyObject?
             }
-            
-            let finishEvent = AnalyticalEvent(type: .default, name: event.name, properties: event.properties)
-            
-            self.event(finishEvent)
         default:
             //
             // A Generic Provider has no way to know how to send events.

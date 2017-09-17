@@ -50,21 +50,20 @@ public class FirebaseProvider : BaseProvider<Firebase.Analytics>, AnalyticalProv
             return
         }
         
-        delegate?.analyticalProviderDidSendEvent(self, event: event)
-    }
-    
-    public func event(name: EventName, properties: Properties?) {
-        //Analytics.logEvent(Ana, parameters: )
+        switch event.type {
+        case .default:
+            Analytics.logEvent(event.name, parameters: mergeGlobal(properties: event.properties, overwrite: true))
+        case .screen:
+            Analytics.setScreenName(event.name, screenClass: nil)
+        case .finishTime:
+            super.event(event)
+            
+            Analytics.logEvent(event.name, parameters: mergeGlobal(properties: event.properties, overwrite: true))
+        default:
+            super.event(event)
+        }
         
-        //Analytics.logEvent(withName: name, parameters: mergeGlobal(properties: properties, overwrite: true))
-    }
-    
-    public func screen(name: EventName, properties: Properties?) {
-        //Analytics.setScreenName(name, screenClass: nil)
-    }
-    
-    public func finishTime(_ name: EventName, properties: Properties?) {
-        //Analytics.logEvent(withName: name, parameters: mergeGlobal(properties: properties, overwrite: true))
+        delegate?.analyticalProviderDidSendEvent(self, event: event)
     }
     
     public func flush() {
@@ -74,31 +73,9 @@ public class FirebaseProvider : BaseProvider<Firebase.Analytics>, AnalyticalProv
         
     }
     
-    
-    public func time(name: EventName, properties: Properties?) {
-        
-    }
-    
     public override func activate() {
         Analytics.logEvent(AnalyticsEventAppOpen, parameters: [:])
     }
-    
-    public override func resign() {
-        
-    }
-    
-    public override func global(properties: Properties, overwrite: Bool) {
-        
-    }
-    
-    public override func addDevice(token: Data) {
-        
-    }
-    
-    public override func push(payload: [AnyHashable : Any], event: EventName?) {
-        
-    }
-    
     
     public func identify(userId: String, properties: Properties?) {
         Analytics.setUserID(userId)
