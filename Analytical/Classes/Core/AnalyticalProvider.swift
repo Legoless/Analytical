@@ -116,7 +116,7 @@ public protocol AnalyticalProvider {
     
     /*!
      Sets global properties to be sent on all events.
- 
+     
      - parameter properties: properties
      - paramater overwrite:  if properties should be overwritten, if previously set.
      */
@@ -132,21 +132,27 @@ public protocol AnalyticalProvider {
     
     /*!
      Add device token to the provider for push notification support.
- 
+     
      - parameter token: token
      */
     func addDevice(token: Data)
     
     /*!
      Log push notification to the provider.
- 
+     
      - parameter payload:   push notification payload
      - parameter event:     action of the push
      */
     func push(payload: [AnyHashable : Any], event: EventName?)
 }
 
+/*!
+ *  Convenience extensions
+ */
 public extension AnalyticalProvider {
+    public func event(_ defaultEvent: DefaultEvent, properties: Properties? = nil) {
+        event(name: defaultEvent.rawValue, properties: properties)
+    }
     public func event(name: EventName, properties: Properties? = nil) {
         event(AnalyticalEvent(type: .default, name: name, properties: properties))
     }
@@ -160,4 +166,3 @@ public extension AnalyticalProvider {
         event(AnalyticalEvent(type: .finishTime, name: name, properties: properties))
     }
 }
-
