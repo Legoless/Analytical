@@ -23,4 +23,11 @@ public struct AnalyticalEvent {
     public var type = EventType.default
     public var name : EventName
     public var properties : Properties?
+    
+    public init(type: EventType, name: EventName, properties: Properties? = nil) {
+        self.type = type
+        self.name = name
+        self.properties = properties
+    }
 }
+
