@@ -10,7 +10,7 @@ import Foundation
 import os.log
 
 extension OSLog {
-    func debug (_ message: StaticString, _ args: CVarArg...) {
+    fileprivate func debug (_ message: StaticString, _ args: CVarArg...) {
         os_log(message, log: self, type: .debug, args)
     }
 }
@@ -48,19 +48,19 @@ open class LogProvider : BaseProvider<OSLog>, AnalyticalProvider {
         
         switch event.type {
         case .screen:
-            instance.debug("Screen %@ was logged with properties: %@", name, String(describing: properties))
+            instance.debug("Screen %@ was logged with properties: %@", event.name, String(describing: properties))
         case .time:
             super.event(event)
             
-            instance.debug("Timed event %@ was started with properties: %@", name, String(describing: properties))
+            instance.debug("Timed event %@ was started with properties: %@", event.name, String(describing: properties))
         case .purchase:
-            instance.debug("Purchase for %@ was triggered with properties: %@", amount, String(describing: properties))
+            instance.debug("Purchase for %@ was triggered with properties: %@", event.properties?[Property.Purchase.price.rawValue] as! CVarArg, String(describing: properties))
         case .finishTime:
             super.event(event)
             
-            instance.debug("Event %@ was completed with properties in time %@: %@", name, self.events, String(describing: properties))
+            instance.debug("Event %@ was completed with properties in time %@: %@", event.name, self.events, String(describing: properties))
         default:
-            instance.debug("Event %@ was logged with properties: %@", name, String(describing: properties))
+            instance.debug("Event %@ was logged with properties: %@", event.name, String(describing: properties))
         }
         
         delegate?.analyticalProviderDidSendEvent(self, event: event)

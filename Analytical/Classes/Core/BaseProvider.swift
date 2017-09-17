@@ -41,26 +41,26 @@ open class BaseProvider <T> : NSObject {
     open func event(_ event: AnalyticalEvent) {
         switch event.type {
         case .time:
-            events[name] = Date()
+            events[event.name] = Date()
             
-            if let properties = properties {
-                self.properties[name] = properties
+            if let properties = event.properties {
+                self.properties[event.name] = properties
             }
         case .finishTime:
             
-            var properties = properties
+            var properties = event.properties
             
             if properties == nil {
                 properties = [:]
             }
             
-            if let time = events[name] {
+            if let time = events[event.name] {
                 properties![Property.time.rawValue] = time.timeIntervalSinceNow as AnyObject?
             }
             
             let finishEvent = AnalyticalEvent(type: .default, name: event.name, properties: event.properties)
             
-            event(finishEvent)
+            self.event(finishEvent)
         default:
             //
             // A Generic Provider has no way to know how to send events.
@@ -70,8 +70,8 @@ open class BaseProvider <T> : NSObject {
     }
     
     open func update(event: AnalyticalEvent) -> AnalyticalEvent? {
-        if let delegate = delegate {
-            return delegate.analyticalProviderWillSendEvent(self, event: event)
+        if let delegate = delegate, let selfProvider = self as? AnalyticalProvider {
+            return delegate.analyticalProviderWillSendEvent(selfProvider, event: event)
         }
         else {
             return event
@@ -90,7 +90,9 @@ open class BaseProvider <T> : NSObject {
         
         let properties : Properties? = (payload as? Properties) ?? nil
         
-        self.event(name: DefaultEvent.pushNotification.rawValue, properties: properties)
+        let defaultEvent = AnalyticalEvent(type: .default, name: DefaultEvent.pushNotification.rawValue, properties: properties)
+        
+        self.event(defaultEvent)
     }
     
     public func mergeGlobal(properties: Properties?, overwrite: Bool) -> Properties {

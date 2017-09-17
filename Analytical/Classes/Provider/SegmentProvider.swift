@@ -46,25 +46,35 @@ public class SegmentProvider : BaseProvider <SEGAnalytics>, AnalyticalProvider {
         instance.reset()
     }
     
-    open override func event(name: EventName, properties: Properties?) {
-        let finalProperties = mergeGlobal(properties: properties, overwrite: true)
+    open override func event(_ event: AnalyticalEvent) {
+        guard let event = update(event: event) else {
+            return
+        }
+        switch event.type {
+        case .default:
+            let finalProperties = mergeGlobal(properties: event.properties, overwrite: true)
+            
+            instance.track(event.name, properties: finalProperties)
+        case .screen:
+            let finalProperties = mergeGlobal(properties: event.properties, overwrite: true)
+            
+            instance.screen(event.name, properties: finalProperties)
+        case .finishTime:
+            
+            var properties = mergeGlobal(properties: event.properties, overwrite: true)
+            
+            properties[Property.time.rawValue] = events[event.name]
+            
+            instance.track(event.name, properties: properties)
+        case .purchase:
+            let properties = mergeGlobal(properties: event.properties, overwrite: true)
+            
+            instance.track(DefaultEvent.purchase.rawValue, properties: properties)
+        default:
+            super.event(event)
+        }
         
-        instance.track(name, properties: finalProperties)
-    }
-    
-    open func screen(name: EventName, properties: Properties?) {
-        let finalProperties = mergeGlobal(properties: properties, overwrite: true)
-        
-        instance.screen(name, properties: finalProperties)
-    }
-    
-    open func finishTime(_ name: EventName, properties: Properties?) {
-        
-        var properties = mergeGlobal(properties: properties, overwrite: true)
-        
-        properties[Property.time.rawValue] = events[name]
-        
-        instance.track(name, properties: properties)
+        delegate?.analyticalProviderDidSendEvent(self, event: event)
     }
     
     open func identify(userId: String, properties: Properties?) {
@@ -102,15 +112,6 @@ public class SegmentProvider : BaseProvider <SEGAnalytics>, AnalyticalProvider {
     
     open func increment(property: String, by number: NSDecimalNumber) {
         
-    }
-    
-    open override func purchase(amount: NSDecimalNumber, properties: Properties?) {
-        
-        var properties = mergeGlobal(properties: properties, overwrite: true)
-        
-        properties[Property.Purchase.price.rawValue] = amount
-        
-        instance.track(DefaultEvent.purchase.rawValue, properties: properties)
     }
     
     public override func addDevice(token: Data) {

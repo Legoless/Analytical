@@ -45,8 +45,15 @@ public class FirebaseProvider : BaseProvider<Firebase.Analytics>, AnalyticalProv
         FirebaseApp.configure(options: options)
     }
     
+    public override func event(_ event: AnalyticalEvent) {
+        guard let event = update(event: event) else {
+            return
+        }
+        
+        delegate?.analyticalProviderDidSendEvent(self, event: event)
+    }
     
-    public override func event(name: EventName, properties: Properties?) {
+    public func event(name: EventName, properties: Properties?) {
         //Analytics.logEvent(Ana, parameters: )
         
         //Analytics.logEvent(withName: name, parameters: mergeGlobal(properties: properties, overwrite: true))
@@ -68,7 +75,7 @@ public class FirebaseProvider : BaseProvider<Firebase.Analytics>, AnalyticalProv
     }
     
     
-    public override func time(name: EventName, properties: Properties?) {
+    public func time(name: EventName, properties: Properties?) {
         
     }
     

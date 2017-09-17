@@ -40,22 +40,31 @@ public class MixpanelProvider : BaseProvider<MixpanelInstance>, AnalyticalProvid
         instance.reset()
     }
     
-    public override func event(name: EventName, properties: Properties? = nil) {
-        instance.track(event: name, properties: properties as? [String : MixpanelType])
-    }
-    
-    public func screen(name: EventName, properties: Properties? = nil) {
-        //
-        // Mixpanel does not specifically track screens, so just send out an event.
-        //
-        instance.track(event: name, properties: properties as? [String : MixpanelType])
-    }
-    
-    public override func time(name: EventName, properties: Properties? = nil) {
-        super.time(name: name, properties: properties)
+    public override func event(_ event: AnalyticalEvent) {
+        guard let event = update(event: event) else {
+            return
+        }
         
-        instance.time(event: name)
+        switch event.type {
+        case .default, .screen:
+            instance.track(event: event.name, properties: event.properties as? [String : MixpanelType])
+        case .time:
+            super.event(event)
+            
+            instance.time(event: event.name)
+        case .purchase:
+            guard let amount = event.properties?[Property.Purchase.price.rawValue] as? NSDecimalNumber else {
+                return
+            }
+            
+            instance.people.trackCharge(amount: amount.doubleValue, properties: event.properties as? [String : MixpanelType])
+        default:
+            super.event(event)
+        }
+        
+        delegate?.analyticalProviderDidSendEvent(self, event: event)
     }
+    
     
     public func identify(userId: String, properties: Properties? = nil) {
         
@@ -100,9 +109,6 @@ public class MixpanelProvider : BaseProvider<MixpanelInstance>, AnalyticalProvid
         instance.people.increment(property: property, by: number.doubleValue)
     }
     
-    public override func purchase(amount: NSDecimalNumber, properties: Properties?) {
-        instance.people.trackCharge(amount: amount.doubleValue, properties: properties as? [String : MixpanelType])
-    }
     
     public override func addDevice(token: Data) {
         instance.people.addPushDeviceToken(token)
