@@ -126,6 +126,20 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
             return FBSDKAppEventNameViewedContent
         case .initiatedCheckout:
             return FBSDKAppEventNameInitiatedCheckout
+        case .rating:
+            return FBSDKAppEventNameRated
+        case .addedPaymentInfo:
+            return FBSDKAppEventNameAddedPaymentInfo
+        case .achievedLevel:
+            return FBSDKAppEventNameAchievedLevel
+        case .addedToWishlist:
+            return FBSDKAppEventNameAddedToWishlist
+        case .search:
+            return FBSDKAppEventNameSearched
+        case .spendCredits:
+            return FBSDKAppEventNameSpentCredits
+        case .unlockedAchievement:
+            return FBSDKAppEventNameUnlockedAchievement
         default:
             return nil
         }
