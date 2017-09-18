@@ -51,7 +51,7 @@ public class FirebaseProvider : BaseProvider<Firebase.Analytics>, AnalyticalProv
         }
         
         switch event.type {
-        case .default:
+        case .default, .purchase:
             Analytics.logEvent(event.name, parameters: mergeGlobal(properties: event.properties, overwrite: true))
         case .screen:
             Analytics.setScreenName(event.name, screenClass: nil)
