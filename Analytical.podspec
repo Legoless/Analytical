@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Analytical'
-  s.version          = '0.6.0'
+  s.version          = '0.6.1'
   s.summary          = 'Analytical is a lightweight analytics library wrapper.'
 
   s.description      = <<-DESC
@@ -21,17 +21,13 @@ Pod::Spec.new do |s|
   end
 
   #
-  # Until Google releases dynamic framework, we cannot use this, we need to manually install Google Provider. 
+  # Those are providers that do not have dynamic libraries. Manual installation is required.
   #
   #s.subspec 'Google' do |subspec|
   #   subspec.source_files = 'Analytical/Classes/Provider/GoogleProvider.swift'
   #   subspec.dependency 'Analytical/Core'
   #   subspec.dependency 'Google/Analytics'
   #end
-
-  #
-  # Until Twitter releases dynamic framework, we cannot use this, we need to manually install Answers Provider. 
-  #
   #s.subspec 'Answers' do |subspec|
   #  subspec.source_files = 'Analytical/Classes/Provider/AnswersProvider.swift'
   #  subspec.dependency 'Analytical/Core'
@@ -42,6 +38,12 @@ Pod::Spec.new do |s|
   #  subspec.source_files = 'Analytical/Classes/Provider/FirebaseProvider.swift'
   #  subspec.dependency 'Analytical/Core'
   #  subspec.dependency 'Firebase/Core'
+  #end
+  
+  #s.subspec 'AppFlyer' do |subspec|
+  #  subspec.source_files = 'Analytical/Classes/Provider/AppFlyerProvider.swift'
+  #  subspec.dependency 'Analytical/Core'
+  #  subspec.dependency 'AppsFlyerFramework'
   #end
 
   s.subspec 'Facebook' do |subspec|
@@ -65,7 +67,6 @@ Pod::Spec.new do |s|
   s.subspec 'Log' do |subspec|
     subspec.source_files = 'Analytical/Classes/Provider/LogProvider.swift'
     subspec.dependency 'Analytical/Core'
-    #subspec.dependency 'XCGLogger'
   end
 
   s.subspec 'Segment' do |subspec|

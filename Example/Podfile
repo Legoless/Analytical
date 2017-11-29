@@ -11,6 +11,7 @@ target 'Analytical_Example' do
   #pod 'Google/Analytics'
   pod 'Firebase/Core'
   pod 'Answers'
+  pod 'AppsFlyerFramework'
 
   # Swift 4 Pods
   pod 'Mixpanel-swift', :git => 'https://github.com/mixpanel/mixpanel-swift.git', :branch => 'swift4'
