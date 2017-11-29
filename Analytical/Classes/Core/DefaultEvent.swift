@@ -24,6 +24,7 @@ public enum DefaultEvent : String {
     case screenView             = "AnalyticalEventScreenView"
     case pushNotification       = "AnalyticalEventPushNotification"
     case signUp                 = "AnalyticalSignUp"
+    case login                  = "AnalyticalLogin"
     case viewContent            = "AnalyticalViewContent"
     case share                  = "AnalyticalShare"
     case search                 = "AnalyticalSearch"
@@ -62,6 +63,10 @@ public enum DefaultEvent : String {
     case viewItemList           = "AnalyticalViewItemList"
     
     case beganTutorial          = "AnalyticalBeganTutorial"
+    
+    // Common events from AppsFlyer SDK
+    case invite                 = "AnalyticalEventInvite"
+    case travelBooking          = "AnalyticalEventTravelBooking"
 }
 
 public extension DefaultEvent {
