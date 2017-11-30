@@ -90,12 +90,16 @@ public class FirebaseProvider : BaseProvider<Firebase.Analytics>, AnalyticalProv
     
     public func set(properties: Properties) {
         
+        let properties = prepare(properties: properties)!
+        
         for (property, value) in properties {
-            guard let value = value as? String else {
-                continue
+            if let value = value as? String {
+                Analytics.setUserProperty(value, forName: property)
+            }
+            else {
+                Analytics.setUserProperty(String(describing: value), forName: property)
             }
             
-            Analytics.setUserProperty(value, forName: property)
         }
         
     }
@@ -203,7 +207,9 @@ public class FirebaseProvider : BaseProvider<Firebase.Analytics>, AnalyticalProv
             
             let property = parse(property: property)
             
-            finalProperties[property] = value
+            if let parsed = parse(value: value) {
+                finalProperties[property] = parsed
+            }
         }
         
         return finalProperties
@@ -247,5 +253,39 @@ public class FirebaseProvider : BaseProvider<Firebase.Analytics>, AnalyticalProv
         default:
             return property
         }
+    }
+    
+    private func parse(value: Any) -> Any? {
+        if let string = value as? String {
+            if string.count > 35 {
+                let maxTextSize = string.index(string.startIndex, offsetBy: 35)
+                let substring = string[..<maxTextSize]
+                return String(substring)
+            }
+            
+            return value
+        }
+        
+        if let number = value as? Int {
+            return NSNumber(value: number)
+        }
+        
+        if let number = value as? UInt {
+            return NSNumber(value: number)
+        }
+        
+        if let number = value as? Bool {
+            return NSNumber(value: number)
+        }
+        
+        if let number = value as? Float {
+            return NSNumber(value: number)
+        }
+        
+        if let number = value as? Double {
+            return NSNumber(value: number)
+        }
+        
+        return nil
     }
 }
