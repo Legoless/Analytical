@@ -64,8 +64,15 @@ open class AppsFlyerProvider : BaseProvider<AppsFlyerTracker>, AnalyticalProvide
         }
         
         switch event.type {
-        case .default, .screen, .finishTime, .purchase:
+        case .default, .screen, .finishTime:
             instance.trackEvent(event.name, withValues: event.properties)
+        case .purchase:
+            if let price = event.properties?[Property.Purchase.price.rawValue] as? NSDecimalNumber {
+                instance.validateAndTrack(inAppPurchase: event.properties?[Property.Purchase.sku.rawValue] as? String, price: price.stringValue, currency: event.properties?[Property.Purchase.currency.rawValue] as? String, transactionId: event.properties?[Property.Purchase.transactionId.rawValue] as? String, additionalParameters: event.properties, success: { object in }, failure: { error, object in })
+            }
+            else {
+                instance.trackEvent(event.name, withValues: event.properties)
+            }
         case .time:
             super.event(event)
         }

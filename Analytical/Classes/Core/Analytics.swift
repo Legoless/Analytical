@@ -191,9 +191,9 @@ open class Analytics : AnalyticalProvider {
     
     private static func randomId(_ length: Int = 64) -> String {
         let charactersString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let charactersArray : [Character] = Array(charactersString.characters)
+        let charactersArray : [Character] = Array(charactersString)
         
-        let count = UInt32(charactersArray.count)
+        let count = UInt32(charactersString.count)
         
         var string = ""
         
