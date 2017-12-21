@@ -28,11 +28,11 @@ Pod::Spec.new do |s|
   #   subspec.dependency 'Analytical/Core'
   #   subspec.dependency 'Google/Analytics'
   #end
-  #s.subspec 'Answers' do |subspec|
-  #  subspec.source_files = 'Analytical/Classes/Provider/AnswersProvider.swift'
-  #  subspec.dependency 'Analytical/Core'
-  #  subspec.dependency 'Answers'
-  #end
+  s.subspec 'Answers' do |subspec|
+    subspec.source_files = 'Analytical/Classes/Provider/AnswersProvider.swift'
+    subspec.dependency 'Analytical/Core'
+    subspec.dependency 'Answers'
+  end
 
   #s.subspec 'Firebase' do |subspec|
   #  subspec.source_files = 'Analytical/Classes/Provider/FirebaseProvider.swift'
