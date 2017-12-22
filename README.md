@@ -11,13 +11,15 @@ Analytical is a simple lightweight analytics wrapper for iOS Swift projects. Ins
 
 Currently available analytics providers:
 
+- [Answers](https://fabric.io/kits/ios/answers)
+- [AppFlyer](https://www.appflyer.com)
 - [Facebook](https://developers.facebook.com/products/analytics)
 - [Firebase](https://developers.google.com/analytics/devguides/collection/ios/v3/)
 - [Flurry](https://github.com/flurry/flurry-ios-sdk)
 - [Google Analytics](https://developers.google.com/analytics/devguides/collection/ios/v3/)
 - [Mixpanel](https://mixpanel.com/help/reference/ios)
 - [Segment.io](https://segment.com/docs/sources/mobile/ios/)
-- AppFlyer
+
 
 A special set of providers:
 - [Logging provider](https://github.com/Legoless/Analytical/blob/master/Analytical/Classes/Provider/LogProvider.swift)
@@ -47,7 +49,7 @@ pod 'Analytical/Segment'
 ```
 The `Log` subspec will install a simple logger to output tracking calls to Xcode Console using `os_log` API.
 
-## Google Analytics / Firebase
+## Google Analytics / Firebase / Answers / AppFlyer
 
 Analytical includes both Google Analytics and Firebase providers, but due to it's incompatibility between static libraries and  Swift dynamic frameworks, it must be installed manually. To do this there are 5 steps required (sample below is for the GA, but works the same with Firebase):
 
