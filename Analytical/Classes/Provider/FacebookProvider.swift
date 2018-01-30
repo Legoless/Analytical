@@ -3,7 +3,7 @@
 //  Analytical
 //
 //  Created by Dal Rupnik on 18/07/16.
-//  Copyright © 2017 Unified Sense. All rights reserved.
+//  Copyright © 2018 Unified Sense. All rights reserved.
 //
 
 import FBSDKCoreKit
@@ -11,14 +11,14 @@ import FBSDKCoreKit
 public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, AnalyticalProvider {
     
     //
-    // MARK: Analyical
+    // MARK: Analytical
     //
     
     public func setup(with properties: Properties?) {
         instance = FBSDKApplicationDelegate.sharedInstance()
         
-        if let launchOptions = properties?[Property.Launch.options.rawValue] as? [UIApplicationLaunchOptionsKey: Any], let application = properties?[Property.Launch.application.rawValue] as? UIApplication {
-            instance.application(application, didFinishLaunchingWithOptions: launchOptions)
+        if let application = properties?[Property.Launch.application.rawValue] as? UIApplication {
+            instance.application(application, didFinishLaunchingWithOptions: properties?[Property.Launch.options.rawValue] as? [UIApplicationLaunchOptionsKey: Any])
         }
     }
     
