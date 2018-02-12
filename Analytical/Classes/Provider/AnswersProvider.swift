@@ -3,7 +3,7 @@
 //  Analytical
 //
 //  Created by Dal Rupnik on 30/05/17.
-//  Copyright © 2017 Unified Sense. All rights reserved.
+//  Copyright © 2018 Unified Sense. All rights reserved.
 //
 import Analytical
 import Crashlytics
@@ -78,5 +78,79 @@ public class AnswersProvider : BaseProvider<Answers>, AnalyticalProvider {
     
     public func increment(property: String, by number: NSDecimalNumber) {
         
+    }
+    
+    public override func update(event: AnalyticalEvent) -> AnalyticalEvent? {
+        //
+        // Ensure Super gets a chance to update event.
+        //
+        guard var event = super.update(event: event) else {
+            return nil
+        }
+        
+        event.properties = prepare(properties: mergeGlobal(properties: event.properties, overwrite: true))
+        
+        return event
+    }
+    
+    private func prepare(properties: Properties?) -> Properties? {
+        guard let properties = properties else {
+            return nil
+        }
+        
+        var finalProperties : Properties = properties
+        
+        for (property, value) in properties {
+            
+            let property = parse(property: property)
+            
+            if let parsed = parse(value: value) {
+                finalProperties[property] = parsed
+            }
+        }
+        
+        return finalProperties
+    }
+    
+    
+    private func parse(property: String) -> String {
+        switch property {
+        default:
+            return property
+        }
+    }
+    
+    private func parse(value: Any) -> Any? {
+        if let string = value as? String {
+            if string.count > 35 {
+                let maxTextSize = string.index(string.startIndex, offsetBy: 35)
+                let substring = string[..<maxTextSize]
+                return String(substring)
+            }
+            
+            return value
+        }
+        
+        if let number = value as? Int {
+            return NSNumber(value: number)
+        }
+        
+        if let number = value as? UInt {
+            return NSNumber(value: number)
+        }
+        
+        if let number = value as? Bool {
+            return NSNumber(value: number)
+        }
+        
+        if let number = value as? Float {
+            return NSNumber(value: number)
+        }
+        
+        if let number = value as? Double {
+            return NSNumber(value: number)
+        }
+        
+        return nil
     }
 }
