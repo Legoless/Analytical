@@ -3,7 +3,7 @@
 //  Analytical
 //
 //  Created by Dal Rupnik on 30/05/17.
-//  Copyright © 2018 Unified Sense. All rights reserved.
+//  Copyright © 2017 Unified Sense. All rights reserved.
 //
 import Analytical
 import Crashlytics
@@ -32,31 +32,31 @@ public class AnswersProvider : BaseProvider<Answers>, AnalyticalProvider {
                 return
             }
             
-            Answers.logPurchase(withPrice: amount, currency: event.properties?[Property.Purchase.currency.rawValue] as? String, success: true, itemName: event.properties?[Property.Purchase.item.rawValue] as? String, itemType: event.properties?[Property.Purchase.category.rawValue] as? String, itemId: event.properties?[Property.Purchase.sku.rawValue] as? String, customAttributes: mergeGlobal(properties: event.properties, overwrite: true))
+            Answers.logPurchase(withPrice: amount, currency: event.properties?[Property.Purchase.currency.rawValue] as? String, success: true, itemName: event.properties?[Property.Purchase.item.rawValue] as? String, itemType: event.properties?[Property.Purchase.category.rawValue] as? String, itemId: event.properties?[Property.Purchase.sku.rawValue] as? String, customAttributes: event.properties)
         case .screen:
-            Answers.logContentView(withName: event.name, contentType: "screen", contentId: event.properties?[Property.Content.identifier.rawValue] as? String, customAttributes: properties)
+            Answers.logContentView(withName: event.name, contentType: "screen", contentId: event.properties?[Property.Content.identifier.rawValue] as? String, customAttributes: event.properties)
         case .default:
             switch event.name {
             case DefaultEvent.signUp.rawValue:
-                Answers.logSignUp(withMethod: event.properties?[Property.User.registrationMethod.rawValue] as? String, success: NSNumber(value: true), customAttributes: mergeGlobal(properties: properties, overwrite: true))
+                Answers.logSignUp(withMethod: event.properties?[Property.User.registrationMethod.rawValue] as? String, success: NSNumber(value: true), customAttributes: event.properties)
             case DefaultEvent.login.rawValue:
-                Answers.logLogin(withMethod: event.properties?[Property.User.registrationMethod.rawValue] as? String, success: NSNumber(value: true), customAttributes: mergeGlobal(properties: properties, overwrite: true))
+                Answers.logLogin(withMethod: event.properties?[Property.User.registrationMethod.rawValue] as? String, success: NSNumber(value: true), customAttributes: event.properties)
             case DefaultEvent.share.rawValue:
-                Answers.logShare(withMethod: nil, contentName: event.properties?[Property.Content.description.rawValue] as? String, contentType: event.properties?[Property.Content.type.rawValue] as? String, contentId: event.properties?[Property.Content.identifier.rawValue] as? String, customAttributes: mergeGlobal(properties: properties, overwrite: true))
+                Answers.logShare(withMethod: nil, contentName: event.properties?[Property.Content.description.rawValue] as? String, contentType: event.properties?[Property.Content.type.rawValue] as? String, contentId: event.properties?[Property.Content.identifier.rawValue] as? String, customAttributes: event.properties)
             case DefaultEvent.invite.rawValue:
-                Answers.logInvite(withMethod: nil, customAttributes: mergeGlobal(properties: properties, overwrite: true))
+                Answers.logInvite(withMethod: nil, customAttributes: event.properties)
             case DefaultEvent.achievedLevel.rawValue:
-                Answers.logLevelEnd(event.properties?[Property.Content.identifier.rawValue] as? String, score: NSNumber(value: (event.properties?[Property.Content.identifier.rawValue] as? Double) ?? 0.0), success: NSNumber(value: true), customAttributes: mergeGlobal(properties: properties, overwrite: true))
+                Answers.logLevelEnd(event.properties?[Property.Content.identifier.rawValue] as? String, score: NSNumber(value: (event.properties?[Property.Content.identifier.rawValue] as? Double) ?? 0.0), success: NSNumber(value: true), customAttributes: event.properties)
             case DefaultEvent.addedToCart.rawValue:
-                Answers.logAddToCart(withPrice: event.properties?[Property.Purchase.price.rawValue] as? NSDecimalNumber, currency: event.properties?[Property.Purchase.currency.rawValue] as? String, itemName: event.properties?[Property.Purchase.item.rawValue] as? String, itemType: event.properties?[Property.Purchase.category.rawValue] as? String, itemId: event.properties?[Property.Purchase.sku.rawValue] as? String, customAttributes: mergeGlobal(properties: properties, overwrite: true))
+                Answers.logAddToCart(withPrice: event.properties?[Property.Purchase.price.rawValue] as? NSDecimalNumber, currency: event.properties?[Property.Purchase.currency.rawValue] as? String, itemName: event.properties?[Property.Purchase.item.rawValue] as? String, itemType: event.properties?[Property.Purchase.category.rawValue] as? String, itemId: event.properties?[Property.Purchase.sku.rawValue] as? String, customAttributes: event.properties)
             case DefaultEvent.initiatedCheckout.rawValue:
-                Answers.logStartCheckout(withPrice: event.properties?[Property.Purchase.price.rawValue] as? NSDecimalNumber, currency: event.properties?[Property.Purchase.currency.rawValue] as? String, itemCount: NSNumber(value: (event.properties?[Property.Content.identifier.rawValue] as? Int) ?? 0), customAttributes: mergeGlobal(properties: properties, overwrite: true))
+                Answers.logStartCheckout(withPrice: event.properties?[Property.Purchase.price.rawValue] as? NSDecimalNumber, currency: event.properties?[Property.Purchase.currency.rawValue] as? String, itemCount: NSNumber(value: (event.properties?[Property.Content.identifier.rawValue] as? Int) ?? 0), customAttributes: event.properties)
             case DefaultEvent.rating.rawValue:
-                Answers.logRating(nil, contentName: event.properties?[Property.Content.description.rawValue] as? String, contentType: event.properties?[Property.Content.type.rawValue] as? String, contentId: event.properties?[Property.Content.identifier.rawValue] as? String, customAttributes: mergeGlobal(properties: properties, overwrite: true))
+                Answers.logRating(nil, contentName: event.properties?[Property.Content.description.rawValue] as? String, contentType: event.properties?[Property.Content.type.rawValue] as? String, contentId: event.properties?[Property.Content.identifier.rawValue] as? String, customAttributes: event.properties)
             case DefaultEvent.search.rawValue:
-                Answers.logSearch(withQuery: event.properties?[Property.Content.searchTerm.rawValue] as? String, customAttributes: mergeGlobal(properties: properties, overwrite: true))
+                Answers.logSearch(withQuery: event.properties?[Property.Content.searchTerm.rawValue] as? String, customAttributes: event.properties)
             default:
-                Answers.logCustomEvent(withName: event.name, customAttributes: mergeGlobal(properties: properties, overwrite: true))
+                Answers.logCustomEvent(withName: event.name, customAttributes: event.properties)
             }
             
         default:
