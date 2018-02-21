@@ -49,8 +49,16 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
             
             FBSDKAppEvents.logEvent(event.name, parameters: event.properties)
         default:
-            if let price = event.properties?[Property.Purchase.price.rawValue] as? NSDecimalNumber, let currency = event.properties?[Property.Purchase.currency.rawValue] as? String, event.type == .purchase {
-                FBSDKAppEvents.logPurchase(price.doubleValue, currency: currency, parameters: event.properties!)
+            if event.type == .purchase {
+                
+                let price = (event.properties?[Property.Purchase.price.rawValue] as? NSDecimalNumber)?.doubleValue
+                var currency = event.properties?[Property.Purchase.currency.rawValue] as? String
+                
+                if currency == nil {
+                    currency = event.properties?[FBSDKAppEventParameterNameCurrency] as? String
+                }
+                
+                FBSDKAppEvents.logPurchase(price ?? 0.0, currency: currency, parameters: event.properties!)
             }
             else {
                 FBSDKAppEvents.logEvent(event.name, parameters: event.properties)
