@@ -229,7 +229,7 @@ public class FirebaseProvider : BaseProvider<Firebase.Analytics>, AnalyticalProv
         case Property.Purchase.source.rawValue:
             return AnalyticsParameterItemLocationID
         case Property.Purchase.price.rawValue:
-            return AnalyticsParameterPrice
+            return AnalyticsParameterValue
         case Property.Purchase.currency.rawValue:
             return AnalyticsParameterCurrency
         case Property.Location.origin.rawValue:
