@@ -157,7 +157,7 @@ open class Analytics : AnalyticalProvider {
             return nil
         }
         
-        typealias sharedManagerFunc = @convention(c) (AnyObject, Selector) -> AnyObject!
+        typealias sharedManagerFunc = @convention(c) (AnyObject, Selector) -> AnyObject?
         let curriedImplementation = unsafeBitCast(sharedManagerIMP, to: sharedManagerFunc.self)
         
         guard let sharedManager = curriedImplementation(ASIdentifierManagerClass.self, sharedManagerSelector) else {

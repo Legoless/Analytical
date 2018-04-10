@@ -1,57 +1,58 @@
 PODS:
-  - Analytical (0.6.1):
-    - Analytical/Core (= 0.6.1)
-    - Analytical/Facebook (= 0.6.1)
-    - Analytical/Flurry (= 0.6.1)
-    - Analytical/Log (= 0.6.1)
-    - Analytical/Mixpanel (= 0.6.1)
-    - Analytical/Segment (= 0.6.1)
-  - Analytical/Core (0.6.1)
-  - Analytical/Facebook (0.6.1):
+  - Analytical (0.7.0):
+    - Analytical/Core (= 0.7.0)
+    - Analytical/Facebook (= 0.7.0)
+    - Analytical/Flurry (= 0.7.0)
+    - Analytical/Log (= 0.7.0)
+    - Analytical/Mixpanel (= 0.7.0)
+    - Analytical/Segment (= 0.7.0)
+  - Analytical/Core (0.7.0)
+  - Analytical/Facebook (0.7.0):
     - Analytical/Core
     - FBSDKCoreKit
-  - Analytical/Flurry (0.6.1):
+  - Analytical/Flurry (0.7.0):
     - Analytical/Core
     - Flurry-iOS-SDK/FlurrySDK
-  - Analytical/Log (0.6.1):
+  - Analytical/Log (0.7.0):
     - Analytical/Core
-  - Analytical/Mixpanel (0.6.1):
+  - Analytical/Mixpanel (0.7.0):
     - Analytical/Core
     - Mixpanel-swift
-  - Analytical/Segment (0.6.1):
+  - Analytical/Segment (0.7.0):
     - Analytical/Core
     - Analytics
-  - Analytics (3.6.8)
-  - Answers (1.3.6):
-    - Fabric (~> 1.6.3)
-  - AppsFlyerFramework (4.8.1)
-  - Bolts (1.8.4):
-    - Bolts/AppLinks (= 1.8.4)
-    - Bolts/Tasks (= 1.8.4)
-  - Bolts/AppLinks (1.8.4):
+  - Analytics (3.6.9)
+  - AppsFlyerFramework (4.8.4)
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
-  - Bolts/Tasks (1.8.4)
-  - Fabric (1.6.13)
-  - FBSDKCoreKit (4.28.0):
+  - Bolts/Tasks (1.9.0)
+  - Crashlytics (3.10.1):
+    - Fabric (~> 1.7.5)
+  - Fabric (1.7.6)
+  - FBSDKCoreKit (4.31.1):
     - Bolts (~> 1.7)
-  - Firebase/Core (4.6.0):
-    - FirebaseAnalytics (= 4.0.5)
-    - FirebaseCore (= 4.0.11)
-  - FirebaseAnalytics (4.0.5):
+  - Firebase/Core (4.11.0):
+    - FirebaseAnalytics (= 4.1.0)
+    - FirebaseCore (= 4.0.18)
+  - FirebaseAnalytics (4.1.0):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - nanopb (~> 0.3)
-  - FirebaseCore (4.0.11):
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseInstanceID (2.0.6)
-  - Flurry-iOS-SDK/FlurrySDK (8.3.2)
+  - FirebaseCore (4.0.18):
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+  - FirebaseInstanceID (2.0.10):
+    - FirebaseCore (~> 4.0)
+  - Flurry-iOS-SDK/FlurrySDK (8.4.0)
   - GoogleToolboxForMac/Defines (2.1.3)
-  - GoogleToolboxForMac/NSData+zlib (2.1.3):
+  - "GoogleToolboxForMac/NSData+zlib (2.1.3)":
     - GoogleToolboxForMac/Defines (= 2.1.3)
-  - Mixpanel-swift (2.2.2):
-    - Mixpanel-swift/Complete (= 2.2.2)
-  - Mixpanel-swift/Complete (2.2.2)
+  - Mixpanel-swift (2.3.3):
+    - Mixpanel-swift/Complete (= 2.3.3)
+  - Mixpanel-swift/Complete (2.3.3)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
@@ -60,40 +61,56 @@ PODS:
 
 DEPENDENCIES:
   - Analytical (from `../`)
-  - Answers
   - AppsFlyerFramework
+  - Crashlytics
+  - Fabric
   - Firebase/Core
-  - Mixpanel-swift (from `https://github.com/mixpanel/mixpanel-swift.git`, branch `swift4`)
+  - Mixpanel-swift (from `https://github.com/mixpanel/mixpanel-swift.git`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Analytics
+    - AppsFlyerFramework
+    - Bolts
+    - Crashlytics
+    - Fabric
+    - FBSDKCoreKit
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - Flurry-iOS-SDK
+    - GoogleToolboxForMac
+    - nanopb
 
 EXTERNAL SOURCES:
   Analytical:
-    :path: ../
+    :path: "../"
   Mixpanel-swift:
-    :branch: swift4
     :git: https://github.com/mixpanel/mixpanel-swift.git
 
 CHECKOUT OPTIONS:
   Mixpanel-swift:
-    :commit: 405ec3cda00b78c96ed9e436faaf1e2e9084b919
+    :commit: 111beaa9ddbcfa587fc4e5281e07b4285a1a6212
     :git: https://github.com/mixpanel/mixpanel-swift.git
 
 SPEC CHECKSUMS:
-  Analytical: 5e9d3343c18b1e53ee55b9106a83648064989631
-  Analytics: 6f00cff963ca3b9a4ffdfe3b6dc5564405431f60
-  Answers: ef6af16bc75366334db6323a87f37ea54e2dab71
-  AppsFlyerFramework: 4f6fe2b018e1c2ca4f390652f3548a8ee799a610
-  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
-  Fabric: 2fb5676bc811af011a04513451f463dac6803206
-  FBSDKCoreKit: ca961e279113f691fd83dc634c0bbad9d4e3f370
-  Firebase: 27321a925aa85520618255a7c630859e0502ccbd
-  FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
-  FirebaseCore: 2a946ece8fbe3ce1fdeeb55324f273caade22df9
-  FirebaseInstanceID: 24958382a1011bba5aaff37e334e7a650b9118f5
-  Flurry-iOS-SDK: 499b7ac3b8d83dda274206c1f1f2335d3fab87f6
+  Analytical: 71bf92fd737e18b4b6109862a9b54d8c1157a81d
+  Analytics: 6541ce337e99d9f7a2240a8b3953940a7be5f998
+  AppsFlyerFramework: c45bbd289a6f9e9a19976ee270b44edea646aab6
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  Crashlytics: aee1a064cbbf99b32efa3f056a5f458d846bc8ff
+  Fabric: f8d42c893bb187326a7968b62abe55c36a987a46
+  FBSDKCoreKit: e08ccfcefa7bc1347a07c276dac9bf6c7fe57024
+  Firebase: cc13dfab1038c8b45d7903e01fc690451d6d0b24
+  FirebaseAnalytics: 3dfae28d4a5e06f86c4fae830efc2ad3fadb19bc
+  FirebaseCore: b981f47e5254cbcfdeb483355300d743f6fcab2c
+  FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
+  Flurry-iOS-SDK: 0c4488af4e4289e2678f81755d3e9c204c0e8bba
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
-  Mixpanel-swift: 2cd7aac92ad4e9ba2957479c6e6db9b9170944bb
+  Mixpanel-swift: 6758dfe92c1f1173a7319e5722ab454f7cd15879
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
 
-PODFILE CHECKSUM: 6969c651f12773cad48d38dd9658a55af1cca0a5
+PODFILE CHECKSUM: 291ea16f7c350aa3f447a344d1314755f004385b
 
-COCOAPODS: 1.4.0.beta.2
+COCOAPODS: 1.5.0

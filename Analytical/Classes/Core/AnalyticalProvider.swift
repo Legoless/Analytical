@@ -42,7 +42,7 @@ public protocol AnalyticalProvider {
     //
     // MARK: Delegate
     //
-    weak var delegate : AnalyticalProviderDelegate? { get set }
+    var delegate : AnalyticalProviderDelegate? { get set }
     
     //
     // MARK: Common Methods

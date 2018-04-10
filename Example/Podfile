@@ -10,11 +10,15 @@ target 'Analytical_Example' do
   #
   #pod 'Google/Analytics'
   pod 'Firebase/Core'
-  pod 'Answers'
+  
+  #pod 'Answers'
+  pod 'Fabric'
+  pod 'Crashlytics'
+  
   pod 'AppsFlyerFramework'
 
   # Swift 4 Pods
-  pod 'Mixpanel-swift', :git => 'https://github.com/mixpanel/mixpanel-swift.git', :branch => 'swift4'
+  pod 'Mixpanel-swift', :git => 'https://github.com/mixpanel/mixpanel-swift.git'
 
   target 'Analytical_Tests' do
     inherit! :search_paths
