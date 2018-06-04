@@ -67,7 +67,7 @@ open class BaseProvider <T> : NSObject {
     
     open func update(event: AnalyticalEvent) -> AnalyticalEvent? {
         if let delegate = delegate, let selfProvider = self as? AnalyticalProvider {
-            return delegate.analyticalProviderWillSendEvent(selfProvider, event: event)
+            return delegate.analyticalProviderShouldSendEvent(selfProvider, event: event)
         }
         else {
             return event

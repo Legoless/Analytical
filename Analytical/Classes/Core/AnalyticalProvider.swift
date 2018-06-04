@@ -27,7 +27,7 @@ public protocol AnalyticalProviderDelegate : class {
  * Default implementation of delegate, to make both methods optional without Obj-C runtime.
  */
 public extension AnalyticalProviderDelegate {
-    func analyticalProviderWillSendEvent(_ provider: AnalyticalProvider, event: AnalyticalEvent) -> AnalyticalEvent? {
+    func analyticalProviderShouldSendEvent(_ provider: AnalyticalProvider, event: AnalyticalEvent) -> AnalyticalEvent? {
         return event
     }
     
