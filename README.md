@@ -12,6 +12,7 @@ Analytical is a simple lightweight analytics wrapper for iOS Swift projects. Ins
 Currently available analytics providers:
 
 - [Answers](https://fabric.io/kits/ios/answers)
+- [Adjust](https://www.adjust.com/)
 - [AppFlyer](https://www.appflyer.com)
 - [Facebook](https://developers.facebook.com/products/analytics)
 - [Firebase](https://developers.google.com/analytics/devguides/collection/ios/v3/)
