@@ -50,7 +50,7 @@ pod 'Analytical/Segment'
 ```
 The `Log` subspec will install a simple logger to output tracking calls to Xcode Console using `os_log` API.
 
-## Google Analytics / Firebase / Answers / AppFlyer
+## Google Analytics / Firebase / Adjust / Answers / AppFlyer
 
 Analytical includes both Google Analytics and Firebase providers, but due to it's incompatibility between static libraries and  Swift dynamic frameworks, it must be installed manually. To do this there are 5 steps required (sample below is for the GA, but works the same with Firebase):
 
