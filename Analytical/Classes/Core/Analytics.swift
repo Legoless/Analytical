@@ -57,7 +57,7 @@ open class Analytics : AnalyticalProvider {
      - parameter application:   UIApplication instance
      - parameter launchOptions: launch options
      */
-    open func setup(with application: UIApplication?, launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+    open func setup(with application: UIApplication?, launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         var properties : Properties = [:]
         
         if let application = application {

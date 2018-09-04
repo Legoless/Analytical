@@ -18,7 +18,7 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
         instance = FBSDKApplicationDelegate.sharedInstance()
         
         if let application = properties?[Property.Launch.application.rawValue] as? UIApplication {
-            instance.application(application, didFinishLaunchingWithOptions: properties?[Property.Launch.options.rawValue] as? [UIApplicationLaunchOptionsKey: Any])
+            instance.application(application, didFinishLaunchingWithOptions: properties?[Property.Launch.options.rawValue] as? [UIApplication.LaunchOptionsKey: Any])
         }
     }
     
