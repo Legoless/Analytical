@@ -46,6 +46,18 @@ public enum DefaultEvent : String {
     
     case unlockedAchievement    = "AnalyticalUnlockedAchievement"
     
+    case contact                = "AnalyticalContact"
+    case customizeProduct       = "AnalyticalCustomizeProduct"
+    case donate                 = "AnalyticalDonate"
+    case findLocation           = "AnalyticalFindLocation"
+    case schedule               = "AnalyticalSchedule"
+    
+    case startTrial             = "AnalyticalStartTrial"
+    case submitApplication      = "AnalyticalSubmitApplication"
+    case subscribe              = "AnalyticalSubscribe"
+    case adImpression           = "AnalyticalAdImpression"
+    case adClick                = "AnalyticalAdClick"
+    
     // Common events from Firebase SDK
     case checkoutProgress       = "AnalyticalCheckoutProgress"
     case campaignEvent          = "AnalyticalCampaignEvent"
@@ -62,7 +74,7 @@ public enum DefaultEvent : String {
     case viewItem               = "AnalyticalViewItem"
     case viewItemList           = "AnalyticalViewItemList"
     
-    case beganTutorial          = "AnalyticalBeganTutorial"
+    case beginTutorial          = "AnalyticalBeginTutorial"
     
     // Common events from AppsFlyer SDK
     case invite                 = "AnalyticalEventInvite"

@@ -181,7 +181,7 @@ public class FirebaseProvider : BaseProvider<Firebase.Analytics>, AnalyticalProv
             return AnalyticsEventSignUp
         case .spendCredits:
             return AnalyticsEventSpendVirtualCurrency
-        case .beganTutorial:
+        case .beginTutorial:
             return AnalyticsEventTutorialBegin
         case .unlockedAchievement:
             return AnalyticsEventUnlockAchievement

@@ -148,6 +148,26 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
             return FBSDKAppEventNameSpentCredits
         case .unlockedAchievement:
             return FBSDKAppEventNameUnlockedAchievement
+        case .contact:
+            return FBSDKAppEventNameContact
+        case .customizeProduct:
+            return FBSDKAppEventNameCustomizeProduct
+        case .donate:
+            return FBSDKAppEventNameDonate
+        case .findLocation:
+            return FBSDKAppEventNameFindLocation
+        case .schedule:
+            return FBSDKAppEventNameSchedule
+        case .startTrial:
+            return FBSDKAppEventNameStartTrial
+        case .submitApplication:
+            return FBSDKAppEventNameSubmitApplication
+        case .subscribe:
+            return FBSDKAppEventNameSubscribe
+        case .adImpression:
+            return FBSDKAppEventNameAdImpression
+        case .adClick:
+            return FBSDKAppEventNameAdClick
         default:
             return nil
         }
