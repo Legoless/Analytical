@@ -151,6 +151,16 @@ open class AppsFlyerProvider : BaseProvider<AppsFlyerTracker>, AnalyticalProvide
             return AFEventInvite
         case .login:
             return AFEventLogin
+        case .findLocation:
+            return AFEventLocation
+        case .subscribe:
+            return AFEventSubscribe
+        case .startTrial:
+            return AFEventStartTrial
+        case .adImpression:
+            return AFEventAdView
+        case .adClick:
+            return AFEventAdClick
         default:
             return nil
         }
