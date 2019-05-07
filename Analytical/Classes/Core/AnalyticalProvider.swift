@@ -150,19 +150,19 @@ public protocol AnalyticalProvider {
  *  Convenience extensions
  */
 public extension AnalyticalProvider {
-    public func event(_ defaultEvent: DefaultEvent, properties: Properties? = nil) {
+    func event(_ defaultEvent: DefaultEvent, properties: Properties? = nil) {
         event(name: defaultEvent.rawValue, properties: properties)
     }
-    public func event(name: EventName, properties: Properties? = nil) {
+    func event(name: EventName, properties: Properties? = nil) {
         event(AnalyticalEvent(type: .default, name: name, properties: properties))
     }
-    public func screen(name: EventName, properties: Properties? = nil) {
+    func screen(name: EventName, properties: Properties? = nil) {
         event(AnalyticalEvent(type: .screen, name: name, properties: properties))
     }
-    public func time (name: EventName, properties: Properties? = nil) {
+    func time (name: EventName, properties: Properties? = nil) {
         event(AnalyticalEvent(type: .time, name: name, properties: properties))
     }
-    public func finish (name: EventName, properties: Properties? = nil) {
+    func finish (name: EventName, properties: Properties? = nil) {
         event(AnalyticalEvent(type: .finishTime, name: name, properties: properties))
     }
 }
