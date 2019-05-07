@@ -8,14 +8,14 @@
 
 import FBSDKCoreKit
 
-public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, AnalyticalProvider {
+public class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalProvider {
     
     //
     // MARK: Analytical
     //
     
     public func setup(with properties: Properties?) {
-        instance = FBSDKApplicationDelegate.sharedInstance()
+        instance = ApplicationDelegate.shared
         
         if let application = properties?[Property.Launch.application.rawValue] as? UIApplication {
             instance.application(application, didFinishLaunchingWithOptions: properties?[Property.Launch.options.rawValue] as? [UIApplication.LaunchOptionsKey: Any])
@@ -23,11 +23,11 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
     }
     
     public override func activate() {
-        FBSDKAppEvents.activateApp()
+        AppEvents.activateApp()
     }
     
     public func flush() {
-        FBSDKAppEvents.flush()
+        AppEvents.flush()
     }
     
     public func reset() {
@@ -47,7 +47,7 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
         case .finishTime:
             super.event(event)
             
-            FBSDKAppEvents.logEvent(event.name, parameters: event.properties)
+            AppEvents.logEvent(AppEvents.Name(rawValue: event.name), parameters: event.properties ?? [:])
         default:
             if event.type == .purchase {
                 
@@ -55,13 +55,13 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
                 var currency = event.properties?[Property.Purchase.currency.rawValue] as? String
                 
                 if currency == nil {
-                    currency = event.properties?[FBSDKAppEventParameterNameCurrency] as? String
+                    currency = event.properties?[AppEvents.ParameterName.currency.rawValue] as? String
                 }
                 
-                FBSDKAppEvents.logPurchase(price ?? 0.0, currency: currency, parameters: event.properties!)
+                AppEvents.logPurchase(price ?? 0.0, currency: currency ?? "USD", parameters: event.properties ?? [:])
             }
             else {
-                FBSDKAppEvents.logEvent(event.name, parameters: event.properties)
+                AppEvents.logEvent(AppEvents.Name(rawValue: event.name), parameters: event.properties ?? [:])
             }
         }
         
@@ -69,7 +69,7 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
     }
     
     public func identify(userId: String, properties: Properties?) {
-        FBSDKAppEvents.setUserID(userId)
+        AppEvents.setUser(email: userId, firstName: nil, lastName: nil, phone: nil, dateOfBirth: nil, gender: nil, city: nil, state: nil, zip: nil, country: nil)
         
         if let properties = properties {
             set(properties: properties)
@@ -83,18 +83,25 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
     }
     
     public func set(properties: Properties) {
-        FBSDKAppEvents.updateUserProperties(prepare(properties: properties), handler: nil)
+        guard let preparedProperties = prepare(properties: properties) else {
+            return
+        }
+        
+        AppEvents.updateUserProperties(preparedProperties, handler: nil)
     }
     
     public func increment(property: String, by number: NSDecimalNumber) {
-        FBSDKAppEvents.logEvent(property, valueToSum: number.doubleValue)
+        AppEvents.logEvent(AppEvents.Name(rawValue: property), valueToSum: number.doubleValue)
     }
     
     public override func addDevice(token: Data) {
-        FBSDKAppEvents.setPushNotificationsDeviceToken(token)
+        AppEvents.setPushNotificationsDeviceToken(token)
     }
     public override func push(payload: [AnyHashable : Any], event: EventName?) {
-        FBSDKAppEvents.logPushNotificationOpen(payload, action: event)
+        guard let event = event else {
+            return
+        }
+        AppEvents.logPushNotificationOpen(payload, action: event)
     }
     
     public override func update(event: AnalyticalEvent) -> AnalyticalEvent? {
@@ -125,49 +132,51 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
     private func parse(name: DefaultEvent) -> String? {
         switch name {
         case .completedRegistration:
-            return FBSDKAppEventNameCompletedRegistration
+            return AppEvents.Name.completedRegistration.rawValue
         case .completedTutorial:
-            return FBSDKAppEventNameCompletedTutorial
+            return AppEvents.Name.completedTutorial.rawValue
         case .addedToCart:
-            return FBSDKAppEventNameAddedToCart
+            return AppEvents.Name.addedToCart.rawValue
         case .viewContent:
-            return FBSDKAppEventNameViewedContent
+            return AppEvents.Name.viewedContent.rawValue
         case .initiatedCheckout:
-            return FBSDKAppEventNameInitiatedCheckout
+            return AppEvents.Name.initiatedCheckout.rawValue
         case .rating:
-            return FBSDKAppEventNameRated
+            return AppEvents.Name.rated.rawValue
         case .addedPaymentInfo:
-            return FBSDKAppEventNameAddedPaymentInfo
+            return AppEvents.Name.addedPaymentInfo.rawValue
         case .achievedLevel:
-            return FBSDKAppEventNameAchievedLevel
+            return AppEvents.Name.achievedLevel.rawValue
         case .addedToWishlist:
-            return FBSDKAppEventNameAddedToWishlist
+            return AppEvents.Name.addedToWishlist.rawValue
         case .search:
-            return FBSDKAppEventNameSearched
+            return AppEvents.Name.searched.rawValue
         case .spendCredits:
-            return FBSDKAppEventNameSpentCredits
+            return AppEvents.Name.spentCredits.rawValue
         case .unlockedAchievement:
-            return FBSDKAppEventNameUnlockedAchievement
+            return AppEvents.Name.unlockedAchievement.rawValue
         case .contact:
-            return FBSDKAppEventNameContact
+            return AppEvents.Name.contact.rawValue
         case .customizeProduct:
-            return FBSDKAppEventNameCustomizeProduct
+            return AppEvents.Name.customizeProduct.rawValue
         case .donate:
-            return FBSDKAppEventNameDonate
+            return AppEvents.Name.donate.rawValue
         case .findLocation:
-            return FBSDKAppEventNameFindLocation
+            return AppEvents.Name.findLocation.rawValue
         case .schedule:
-            return FBSDKAppEventNameSchedule
+            return AppEvents.Name.schedule.rawValue
+        case .subscriptionHeartbeat:
+            return AppEvents.Name.subscriptionHeartbeat.rawValue
         case .startTrial:
-            return FBSDKAppEventNameStartTrial
+            return AppEvents.Name.startTrial.rawValue
         case .submitApplication:
-            return FBSDKAppEventNameSubmitApplication
+            return AppEvents.Name.submitApplication.rawValue
         case .subscribe:
-            return FBSDKAppEventNameSubscribe
+            return AppEvents.Name.subscribe.rawValue
         case .adImpression:
-            return FBSDKAppEventNameAdImpression
+            return AppEvents.Name.adImpression.rawValue
         case .adClick:
-            return FBSDKAppEventNameAdClick
+            return AppEvents.Name.adClick.rawValue
         default:
             return nil
         }
@@ -209,11 +218,11 @@ public class FacebookProvider : BaseProvider<FBSDKApplicationDelegate>, Analytic
     private func parse(property: String) -> String {
         switch property {
         case Property.Purchase.category.rawValue:
-            return FBSDKAppEventParameterNameContentType
+            return AppEvents.ParameterName.contentType.rawValue
         case Property.Purchase.sku.rawValue:
-            return FBSDKAppEventParameterNameContentID
+            return AppEvents.ParameterName.contentID.rawValue
         case Property.Purchase.currency.rawValue:
-            return FBSDKAppEventParameterNameCurrency
+            return AppEvents.ParameterName.currency.rawValue
         default:
             return property
         }

@@ -55,6 +55,7 @@ public enum DefaultEvent : String {
     case startTrial             = "AnalyticalStartTrial"
     case submitApplication      = "AnalyticalSubmitApplication"
     case subscribe              = "AnalyticalSubscribe"
+    case subscriptionHeartbeat  = "AnalyticalSubscriptionHeartbeat"
     case adImpression           = "AnalyticalAdImpression"
     case adClick                = "AnalyticalAdClick"
     
