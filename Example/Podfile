@@ -21,6 +21,7 @@ target 'Analytical_Example' do
   pod 'Mixpanel-swift', :git => 'https://github.com/mixpanel/mixpanel-swift.git'
   
   pod 'Adjust'
+  pod 'Smartlook'
 
   target 'Analytical_Tests' do
     inherit! :search_paths

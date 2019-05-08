@@ -74,5 +74,11 @@ Pod::Spec.new do |s|
     subspec.dependency 'Analytical/Core'
     subspec.dependency 'Analytics'
   end
+  
+  #s.subspec 'Smartlook' do |subspec|
+  #  subspec.source_files = 'Analytical/Classes/Provider/SmartlookProvider.swift'
+  #  subspec.dependency 'Analytical/Core'
+  #  subspec.dependency 'Smartlook'
+  #end
 
 end

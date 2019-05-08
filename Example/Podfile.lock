@@ -89,6 +89,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - Smartlook (0.1.12)
 
 DEPENDENCIES:
   - Adjust
@@ -98,6 +99,7 @@ DEPENDENCIES:
   - Fabric
   - Firebase/Core
   - Mixpanel-swift (from `https://github.com/mixpanel/mixpanel-swift.git`)
+  - Smartlook
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -115,6 +117,7 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleUtilities
     - nanopb
+    - Smartlook
 
 EXTERNAL SOURCES:
   Analytical:
@@ -144,7 +147,8 @@ SPEC CHECKSUMS:
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   Mixpanel-swift: eea98bb65fd80e992a9ecb3a0a421eca542ea72f
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Smartlook: f9be8dcb835d390031c10c9ade6caa793afb92f3
 
-PODFILE CHECKSUM: 7e2c27d1b4638fc55b03cdc42fe0bb3854beaf67
+PODFILE CHECKSUM: ccfdb79e295b064958ce8dc362ea4e1768fdd230
 
 COCOAPODS: 1.6.1
