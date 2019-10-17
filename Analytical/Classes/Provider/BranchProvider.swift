@@ -32,7 +32,7 @@ public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
         }
     }
     
-    public func initSession(with launchOptions: [UIApplication.LaunchOptionsKey : Any]?) {
+    public func initSession() {
         instance.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: { params, error in
             
         })
