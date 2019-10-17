@@ -11,23 +11,25 @@ import Branch
 
 public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
     
+    public static let ShouldUseTestKey = false
+    public static let IsDebugEnabled = false
+    
+    private var launchOptions = [UIApplication.LaunchOptionsKey: Any]?
+    
     public func setup(with properties: Properties?) {
         
-        #if PRODUCTION
-            if UIApplication.environment == .testFlight {
-                Branch.setUseTestBranchKey(true)
-            }
-        #else
-            Branch.setUseTestBranchKey(true)
-        #endif
+        guard let shouldUseTestKey = properties?[BranchProvider.ShouldUseTestKey] as? Bool, let isDebugEnabled = properties?[BranchProvider.IsDebugEnabled] as? Bool else {
+            return
+        }
         
+        launchOptions = properties?[Property.Launch.options.rawValue] as? [UIApplication.LaunchOptionsKey: Any]
+        
+        Branch.setUseTestBranchKey(shouldUseTestKey)
         instance = Branch.getInstance()
         
-        #if !PRODUCTION
+        if isDebugEnabled {
             instance.setDebug()
-        #endif
-        
-        
+        }
     }
     
     public func initSession(with launchOptions: [UIApplication.LaunchOptionsKey : Any]?) {
