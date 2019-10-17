@@ -13,6 +13,7 @@ public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
     
     public static let ShouldUseTestKey = false
     public static let IsDebugEnabled = false
+    public static let ShouldStartSession = true
     
     private var launchOptions = [UIApplication.LaunchOptionsKey: Any]?
     
@@ -29,6 +30,10 @@ public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
         
         if isDebugEnabled {
             instance.setDebug()
+        }
+        
+        if let shouldStartSession = properties?[BranchProvider.ShouldStartSession] as? Bool, shouldStartSession {
+            initSession()
         }
     }
     
