@@ -22,6 +22,7 @@ target 'Analytical_Example' do
   
   pod 'Adjust'
   pod 'Smartlook'
+  pod 'Branch'
 
   target 'Analytical_Tests' do
     inherit! :search_paths

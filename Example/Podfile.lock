@@ -26,6 +26,9 @@ PODS:
     - Analytics
   - Analytics (3.6.10)
   - AppsFlyerFramework (4.9.0)
+  - Branch (0.29.3):
+    - Branch/Core (= 0.29.3)
+  - Branch/Core (0.29.3)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
   - Fabric (1.9.0)
@@ -95,6 +98,7 @@ DEPENDENCIES:
   - Adjust
   - Analytical (from `../`)
   - AppsFlyerFramework
+  - Branch
   - Crashlytics
   - Fabric
   - Firebase/Core
@@ -102,7 +106,7 @@ DEPENDENCIES:
   - Smartlook
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Adjust
     - Analytics
     - AppsFlyerFramework
@@ -118,6 +122,8 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - Smartlook
+  trunk:
+    - Branch
 
 EXTERNAL SOURCES:
   Analytical:
@@ -135,6 +141,7 @@ SPEC CHECKSUMS:
   Analytical: be4bf18fea464a21ba76633a98118dc566ae1b68
   Analytics: 63744ad4afa65c3bcdcdb7a94b62515bde5b3900
   AppsFlyerFramework: f57e5d590ad3124d3e594a76032a181bc91ec6cd
+  Branch: 9d40910c3d7f8516376fd166cb73a31cc7f73fcf
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   FBSDKCoreKit: ba361d4a9d4dc29ff218822b849b22d4f869c7bb
@@ -145,10 +152,10 @@ SPEC CHECKSUMS:
   Flurry-iOS-SDK: 5d782d740c5e95389c327d38245b3db4bb471fd7
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
-  Mixpanel-swift: eea98bb65fd80e992a9ecb3a0a421eca542ea72f
+  Mixpanel-swift: 56b19ba6786e24571671d110a16e022d0370cd8e
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Smartlook: f9be8dcb835d390031c10c9ade6caa793afb92f3
 
-PODFILE CHECKSUM: ccfdb79e295b064958ce8dc362ea4e1768fdd230
+PODFILE CHECKSUM: ecb3692248a1a543aa51098b31e4e78729356aff
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.8.3
