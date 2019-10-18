@@ -14,6 +14,7 @@ Currently available analytics providers:
 - [Answers](https://fabric.io/kits/ios/answers)
 - [Adjust](https://www.adjust.com/)
 - [AppFlyer](https://www.appflyer.com)
+- [Branch](https://branch.io)
 - [Facebook](https://developers.facebook.com/products/analytics)
 - [Firebase](https://developers.google.com/analytics/devguides/collection/ios/v3/)
 - [Flurry](https://github.com/flurry/flurry-ios-sdk)
