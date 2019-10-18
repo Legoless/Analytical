@@ -6,31 +6,35 @@
 //  Copyright © 2019 Unified Sense. All rights reserved.
 //
 
-import Analytical
 import Branch
+import UIKit
 
 public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
     
-    public static let ShouldUseTestKey = false
-    public static let IsDebugEnabled = false
-    public static let ShouldStartSession = true
+    public static let ShouldUseTestKey = "BranchShouldUseTestKey"
+    public static let IsDebugEnabled = "IsDebugEnabledKey"
+    public static let ShouldDelayStartSession = "ShouldDelayStartSessionKey"
     
-    private var launchOptions = [UIApplication.LaunchOptionsKey: Any]?
+    private var launchOptions : [UIApplication.LaunchOptionsKey: Any]?
     
     public func setup(with properties: Properties?) {
         launchOptions = properties?[Property.Launch.options.rawValue] as? [UIApplication.LaunchOptionsKey: Any]
         
-        if let shouldUseTestKey = properties?[BranchProvider.ShouldUseTestKey] as? Bool {
+        if let shouldUseTestKey = properties?[BranchProvider.ShouldUseTestKey] as? Bool, shouldUseTestKey {
             Branch.setUseTestBranchKey(shouldUseTestKey)
         }
         
         instance = Branch.getInstance()
         
-        if properties?[BranchProvider.IsDebugEnabled] as? Bool ?? false {
+        let isDebugEnabled = properties?[BranchProvider.IsDebugEnabled] as? Bool ?? false
+        
+        if isDebugEnabled {
             instance.setDebug()
         }
         
-        if let shouldStartSession = properties?[BranchProvider.ShouldStartSession] as? Bool, shouldStartSession {
+        let shouldStartSession = properties?[BranchProvider.ShouldDelayStartSession] as? Bool ?? true
+        
+        if shouldStartSession {
             initSession()
         }
     }

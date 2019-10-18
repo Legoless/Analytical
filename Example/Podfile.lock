@@ -1,14 +1,18 @@
 PODS:
-  - Adjust (4.17.2):
-    - Adjust/Core (= 4.17.2)
-  - Adjust/Core (4.17.2)
+  - Adjust (4.18.3):
+    - Adjust/Core (= 4.18.3)
+  - Adjust/Core (4.18.3)
   - Analytical (0.9.1):
+    - Analytical/Branch (= 0.9.1)
     - Analytical/Core (= 0.9.1)
     - Analytical/Facebook (= 0.9.1)
     - Analytical/Flurry (= 0.9.1)
     - Analytical/Log (= 0.9.1)
     - Analytical/Mixpanel (= 0.9.1)
     - Analytical/Segment (= 0.9.1)
+  - Analytical/Branch (0.9.1):
+    - Analytical/Core
+    - Branch
   - Analytical/Core (0.9.1)
   - Analytical/Facebook (0.9.1):
     - Analytical/Core
@@ -24,138 +28,151 @@ PODS:
   - Analytical/Segment (0.9.1):
     - Analytical/Core
     - Analytics
-  - Analytics (3.6.10)
-  - AppsFlyerFramework (4.9.0)
+  - Analytics (3.7.0)
+  - AppsFlyerFramework (4.11.0)
   - Branch (0.29.3):
     - Branch/Core (= 0.29.3)
   - Branch/Core (0.29.3)
-  - Crashlytics (3.12.0):
-    - Fabric (~> 1.9.0)
-  - Fabric (1.9.0)
-  - FBSDKCoreKit (5.0.0):
-    - FBSDKCoreKit/Basics (= 5.0.0)
-    - FBSDKCoreKit/Core (= 5.0.0)
-  - FBSDKCoreKit/Basics (5.0.0)
-  - FBSDKCoreKit/Core (5.0.0):
+  - Crashlytics (3.14.0):
+    - Fabric (~> 1.10.2)
+  - Fabric (1.10.2)
+  - FBSDKCoreKit (5.8.0):
+    - FBSDKCoreKit/Basics (= 5.8.0)
+    - FBSDKCoreKit/Core (= 5.8.0)
+  - FBSDKCoreKit/Basics (5.8.0)
+  - FBSDKCoreKit/Core (5.8.0):
     - FBSDKCoreKit/Basics
-  - Firebase/Core (5.20.2):
+  - Firebase/Core (6.10.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.8.1)
-  - Firebase/CoreOnly (5.20.2):
-    - FirebaseCore (= 5.4.1)
-  - FirebaseAnalytics (5.8.1):
-    - FirebaseCore (~> 5.4)
-    - FirebaseInstanceID (~> 3.8)
-    - GoogleAppMeasurement (= 5.8.1)
-    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
-    - GoogleUtilities/MethodSwizzler (~> 5.2)
-    - GoogleUtilities/Network (~> 5.2)
-    - "GoogleUtilities/NSData+zlib (~> 5.2)"
-    - nanopb (~> 0.3)
-  - FirebaseCore (5.4.1):
-    - GoogleUtilities/Environment (~> 5.2)
-    - GoogleUtilities/Logger (~> 5.2)
-  - FirebaseInstanceID (3.8.1):
-    - FirebaseCore (~> 5.2)
-    - GoogleUtilities/Environment (~> 5.2)
-    - GoogleUtilities/UserDefaults (~> 5.2)
-  - Flurry-iOS-SDK/FlurrySDK (9.3.1)
-  - GoogleAppMeasurement (5.8.1):
-    - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
-    - GoogleUtilities/MethodSwizzler (~> 5.2)
-    - GoogleUtilities/Network (~> 5.2)
-    - "GoogleUtilities/NSData+zlib (~> 5.2)"
-    - nanopb (~> 0.3)
-  - GoogleUtilities/AppDelegateSwizzler (5.8.0):
+    - FirebaseAnalytics (= 6.1.3)
+  - Firebase/CoreOnly (6.10.0):
+    - FirebaseCore (= 6.3.1)
+  - FirebaseAnalytics (6.1.3):
+    - FirebaseCore (~> 6.3)
+    - FirebaseInstanceID (~> 4.2)
+    - GoogleAppMeasurement (= 6.1.3)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 0.3.901)
+  - FirebaseCore (6.3.1):
+    - FirebaseCoreDiagnostics (~> 1.0)
+    - FirebaseCoreDiagnosticsInterop (~> 1.0)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Logger (~> 6.2)
+  - FirebaseCoreDiagnostics (1.1.1):
+    - FirebaseCoreDiagnosticsInterop (~> 1.0)
+    - GoogleDataTransportCCTSupport (~> 1.0)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Logger (~> 6.2)
+    - nanopb (~> 0.3.901)
+  - FirebaseCoreDiagnosticsInterop (1.0.0)
+  - FirebaseInstanceID (4.2.5):
+    - FirebaseCore (~> 6.0)
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/UserDefaults (~> 6.0)
+  - Flurry-iOS-SDK/FlurrySDK (10.0.2)
+  - GoogleAppMeasurement (6.1.3):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
+    - GoogleUtilities/MethodSwizzler (~> 6.0)
+    - GoogleUtilities/Network (~> 6.0)
+    - "GoogleUtilities/NSData+zlib (~> 6.0)"
+    - nanopb (~> 0.3.901)
+  - GoogleDataTransport (3.0.1)
+  - GoogleDataTransportCCTSupport (1.2.1):
+    - GoogleDataTransport (~> 3.0)
+    - nanopb (~> 0.3.901)
+  - GoogleUtilities/AppDelegateSwizzler (6.3.1):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (5.8.0)
-  - GoogleUtilities/Logger (5.8.0):
+  - GoogleUtilities/Environment (6.3.1)
+  - GoogleUtilities/Logger (6.3.1):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (5.8.0):
+  - GoogleUtilities/MethodSwizzler (6.3.1):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (5.8.0):
+  - GoogleUtilities/Network (6.3.1):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (5.8.0)"
-  - GoogleUtilities/Reachability (5.8.0):
+  - "GoogleUtilities/NSData+zlib (6.3.1)"
+  - GoogleUtilities/Reachability (6.3.1):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (5.8.0):
+  - GoogleUtilities/UserDefaults (6.3.1):
     - GoogleUtilities/Logger
-  - Mixpanel-swift (2.6.2):
-    - Mixpanel-swift/Complete (= 2.6.2)
-  - Mixpanel-swift/Complete (2.6.2)
+  - Mixpanel-swift (2.6.6):
+    - Mixpanel-swift/Complete (= 2.6.6)
+  - Mixpanel-swift/Complete (2.6.6)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - Smartlook (0.1.12)
+  - Smartlook (1.2.1)
 
 DEPENDENCIES:
   - Adjust
   - Analytical (from `../`)
   - AppsFlyerFramework
-  - Branch
   - Crashlytics
   - Fabric
   - Firebase/Core
-  - Mixpanel-swift (from `https://github.com/mixpanel/mixpanel-swift.git`)
+  - Mixpanel-swift
   - Smartlook
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Adjust
     - Analytics
     - AppsFlyerFramework
+    - Branch
     - Crashlytics
     - Fabric
     - FBSDKCoreKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCoreDiagnosticsInterop
     - FirebaseInstanceID
     - Flurry-iOS-SDK
     - GoogleAppMeasurement
+    - GoogleDataTransport
+    - GoogleDataTransportCCTSupport
     - GoogleUtilities
+    - Mixpanel-swift
     - nanopb
     - Smartlook
-  trunk:
-    - Branch
 
 EXTERNAL SOURCES:
   Analytical:
     :path: "../"
-  Mixpanel-swift:
-    :git: https://github.com/mixpanel/mixpanel-swift.git
-
-CHECKOUT OPTIONS:
-  Mixpanel-swift:
-    :commit: 46e746dae9f34cb0de1dc1d943403658587d9b01
-    :git: https://github.com/mixpanel/mixpanel-swift.git
 
 SPEC CHECKSUMS:
-  Adjust: 12ec935e78a5af3631a7ce7b3bef78315917636d
-  Analytical: be4bf18fea464a21ba76633a98118dc566ae1b68
-  Analytics: 63744ad4afa65c3bcdcdb7a94b62515bde5b3900
-  AppsFlyerFramework: f57e5d590ad3124d3e594a76032a181bc91ec6cd
+  Adjust: fef133f0bf610d439953b50306372c68c625d7e9
+  Analytical: f3dd78b2b79965443d3bcb13529c199156879aaa
+  Analytics: 77fd5fb102a4a5eedafa2c2b0245ceb7b7c15e45
+  AppsFlyerFramework: 7b95ec30d04db476e8834630048f4f44d9456eb7
   Branch: 9d40910c3d7f8516376fd166cb73a31cc7f73fcf
-  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
-  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
-  FBSDKCoreKit: ba361d4a9d4dc29ff218822b849b22d4f869c7bb
-  Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
-  FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
-  FirebaseCore: f1a9a8be1aee4bf71a2fc0f4096df6788bdfda61
-  FirebaseInstanceID: a122b0c258720cf250551bb2bedf48c699f80d90
-  Flurry-iOS-SDK: 5d782d740c5e95389c327d38245b3db4bb471fd7
-  GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
-  GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
-  Mixpanel-swift: 56b19ba6786e24571671d110a16e022d0370cd8e
+  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
+  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
+  FBSDKCoreKit: e7dcac0aabcfb09d0166998edd95fe3b05a0ce5d
+  Firebase: 5e6b7b12bf9adb90986688edc06b156c37e109cd
+  FirebaseAnalytics: 0e3ecff2c5d86070f7d4325e21f1edabfbd558dc
+  FirebaseCore: 064c2dd92a8ca5974bbdcb080df9921e46bd34cd
+  FirebaseCoreDiagnostics: af29e43048607588c050889d19204f4d7b758c9f
+  FirebaseCoreDiagnosticsInterop: 6829da2b8d1fc795ff1bd99df751d3788035d2cb
+  FirebaseInstanceID: 550df9be1f99f751d8fcde3ac342a1e21a0e6c42
+  Flurry-iOS-SDK: 71da0ebf2088b15d8899da71050efc8b33bfd21f
+  GoogleAppMeasurement: 434cc7be25e71dc04b8d0e3079125127b330e84a
+  GoogleDataTransport: 166f9b9f82cbf60a204e8fe2daa9db3e3ec1fb15
+  GoogleDataTransportCCTSupport: f6ab1962e9dc05ab1fb938b795e5b310209edeec
+  GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
+  Mixpanel-swift: 39c6c0331336d7d0d5ded8936db7c96955d5c11b
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  Smartlook: f9be8dcb835d390031c10c9ade6caa793afb92f3
+  Smartlook: 529b62c716e3d654ecb24850312a35b60eaedce9
 
-PODFILE CHECKSUM: ecb3692248a1a543aa51098b31e4e78729356aff
+PODFILE CHECKSUM: 7012330a7c19e91ff217a69e2594aa60e7468a88
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4

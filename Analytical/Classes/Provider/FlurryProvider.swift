@@ -51,7 +51,7 @@ public class FlurryProvider : BaseProvider<Flurry>, AnalyticalProvider {
             Flurry.endTimedEvent(event.name, withParameters: event.properties)
         case .screen:
             Flurry.logEvent(event.name, withParameters: event.properties)
-            Flurry.logPageView()
+            //Flurry.logPageView()
         default:
             Flurry.logEvent(event.name, withParameters: event.properties)
         }

@@ -165,8 +165,8 @@ public class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalPro
             return AppEvents.Name.findLocation.rawValue
         case .schedule:
             return AppEvents.Name.schedule.rawValue
-        case .subscriptionHeartbeat:
-            return AppEvents.Name.subscriptionHeartbeat.rawValue
+        //case .subscriptionHeartbeat:
+        //    return AppEvents.Name.subscriptionHeartbeat.rawValue
         case .startTrial:
             return AppEvents.Name.startTrial.rawValue
         case .submitApplication:

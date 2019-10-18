@@ -11,8 +11,6 @@ import Smartlook
 
 
 public class SmartlookProvider : BaseProvider<Smartlook>, AnalyticalProvider {
-
-    
     public static let Key = "SmartlookKey"
     
     //
@@ -24,11 +22,11 @@ public class SmartlookProvider : BaseProvider<Smartlook>, AnalyticalProvider {
             return
         }
         
-        Smartlook.start(withKey: key)
+        Smartlook.setup(withKey: key)
     }
     
     public override func activate() {
-
+        Smartlook.startRecording()
     }
     
     public func flush() {
@@ -49,9 +47,9 @@ public class SmartlookProvider : BaseProvider<Smartlook>, AnalyticalProvider {
         case .finishTime:
             super.event(event)
             
-            Smartlook.recordCustomEvent(withEventName: event.name, propertiesDictionary: prepare(properties: event.properties))
+            Smartlook.trackCustomEvent(name: event.name, props: prepare(properties: event.properties))
         default:            
-            Smartlook.recordCustomEvent(withEventName: event.name, propertiesDictionary: prepare(properties: event.properties))
+            Smartlook.trackCustomEvent(name: event.name, props: prepare(properties: event.properties))
         }
         
         delegate?.analyticalProviderDidSendEvent(self, event: event)
@@ -76,7 +74,11 @@ public class SmartlookProvider : BaseProvider<Smartlook>, AnalyticalProvider {
             return
         }
         
-        Smartlook.setUserPropertiesDictionary(preparedProperties)
+        //Smartlook.setUserPropertiesDictionary(preparedProperties)
+        
+        for (property, value) in preparedProperties {
+            Smartlook.setSessionProperty(value: value, forName: property)
+        }
     }
     
     private func prepare(properties: Properties?) -> [String : String]? {

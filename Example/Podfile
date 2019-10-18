@@ -17,12 +17,10 @@ target 'Analytical_Example' do
   
   pod 'AppsFlyerFramework'
 
-  # Swift 4 Pods
-  pod 'Mixpanel-swift', :git => 'https://github.com/mixpanel/mixpanel-swift.git'
+  pod 'Mixpanel-swift'
   
   pod 'Adjust'
   pod 'Smartlook'
-  pod 'Branch'
 
   target 'Analytical_Tests' do
     inherit! :search_paths
