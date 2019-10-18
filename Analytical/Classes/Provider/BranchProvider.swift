@@ -18,17 +18,15 @@ public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
     private var launchOptions = [UIApplication.LaunchOptionsKey: Any]?
     
     public func setup(with properties: Properties?) {
-        
-        guard let shouldUseTestKey = properties?[BranchProvider.ShouldUseTestKey] as? Bool, let isDebugEnabled = properties?[BranchProvider.IsDebugEnabled] as? Bool else {
-            return
-        }
-        
         launchOptions = properties?[Property.Launch.options.rawValue] as? [UIApplication.LaunchOptionsKey: Any]
         
-        Branch.setUseTestBranchKey(shouldUseTestKey)
+        if let shouldUseTestKey = properties?[BranchProvider.ShouldUseTestKey] as? Bool {
+            Branch.setUseTestBranchKey(shouldUseTestKey)
+        }
+        
         instance = Branch.getInstance()
         
-        if isDebugEnabled {
+        if properties?[BranchProvider.IsDebugEnabled] as? Bool ?? false {
             instance.setDebug()
         }
         
