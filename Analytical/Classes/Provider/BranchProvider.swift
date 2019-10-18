@@ -32,9 +32,9 @@ public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
             instance.setDebug()
         }
         
-        let shouldStartSession = properties?[BranchProvider.ShouldDelayStartSession] as? Bool ?? true
+        let shouldDelayStartSession = properties?[BranchProvider.ShouldDelayStartSession] as? Bool ?? false
         
-        if shouldStartSession {
+        if !shouldDelayStartSession {
             initSession()
         }
     }
