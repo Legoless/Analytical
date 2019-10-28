@@ -39,10 +39,8 @@ public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
         }
     }
     
-    public func initSession() {
-        instance.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: { params, error in
-            
-        })
+    public func initSession(with deepLinkHandler: (() -> ([String: String], Error?))? = nil) {
+        instance.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: deepLinkHandler)
     }
     
     public func flush() {
