@@ -39,7 +39,7 @@ public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
         }
     }
     
-    public func initSession(with deepLinkHandler: (() -> ([String: String], Error?))? = nil) {
+    public func initSession(with deepLinkHandler: (([String: Any]?, Error?) -> Void)? = nil) {
         instance.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: deepLinkHandler)
     }
     
