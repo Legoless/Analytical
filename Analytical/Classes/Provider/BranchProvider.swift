@@ -15,7 +15,9 @@ public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
     public static let IsDebugEnabled = "IsDebugEnabledKey"
     public static let ShouldDelayStartSession = "ShouldDelayStartSessionKey"
     
-    private var launchOptions : [UIApplication.LaunchOptionsKey: Any]?
+    public var deepLinkHandler: (([AnyHashable: Any]?, Error?) -> Void)?
+    
+    private var launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     
     public func setup(with properties: Properties?) {
         launchOptions = properties?[Property.Launch.options.rawValue] as? [UIApplication.LaunchOptionsKey: Any]
@@ -39,10 +41,8 @@ public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
         }
     }
     
-    public func initSession(with deepLinkHandler: (([String: Any]?, Error?) -> Void)? = nil) {
-        instance.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: { params, error in
-            deepLinkHandler?(params as? [String: Any], error)
-        })
+    public func initSession() {
+        instance.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: deepLinkHandler)
     }
     
     public func flush() {
