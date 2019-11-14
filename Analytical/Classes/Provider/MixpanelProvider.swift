@@ -74,7 +74,6 @@ public class MixpanelProvider : BaseProvider<MixpanelInstance>, AnalyticalProvid
     
     public func alias(userId: String, forId: String) {
         instance.createAlias(userId, distinctId: forId)
-        instance.identify(distinctId: forId)
     }
         
     public func set(properties: Properties) {
