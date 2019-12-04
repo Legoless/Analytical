@@ -9,6 +9,9 @@
 import FBSDKCoreKit
 
 open class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalProvider {
+    public static let ignoreCustomEvents = "FacebookIgnoreCustomEvents"
+    
+    public var ignoreCustomEvents = false
     
     //
     // MARK: Analytical
@@ -19,6 +22,10 @@ open class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalProvi
         
         if let application = properties?[Property.Launch.application.rawValue] as? UIApplication {
             instance.application(application, didFinishLaunchingWithOptions: properties?[Property.Launch.options.rawValue] as? [UIApplication.LaunchOptionsKey: Any])
+        }
+        
+        if let ignoreCustomEvents = properties?[FacebookProvider.ignoreCustomEvents] as? Bool {
+            self.ignoreCustomEvents = ignoreCustomEvents
         }
     }
     
@@ -115,9 +122,16 @@ open class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalProvi
         //
         // Update event name and properties based on Facebook's values
         //
+        var shouldIgnoreCurrentEvent = ignoreCustomEvents
         
         if let defaultName = DefaultEvent(rawValue: event.name), let updatedName = parse(name: defaultName) {
             event.name = updatedName
+            
+            shouldIgnoreCurrentEvent = false
+        }
+        
+        guard !shouldIgnoreCurrentEvent else {
+            return nil
         }
         
         event.properties = prepare(properties: mergeGlobal(properties: event.properties, overwrite: true))
