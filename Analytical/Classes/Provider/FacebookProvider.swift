@@ -8,7 +8,7 @@
 
 import FBSDKCoreKit
 
-open class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalProvider {
+public class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalProvider {
     public static let ignoreCustomEvents = "FacebookIgnoreCustomEvents"
     
     public var ignoreCustomEvents = false
@@ -43,7 +43,7 @@ open class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalProvi
         //
     }
     
-    open override func event(_ event: AnalyticalEvent) {
+    public override func event(_ event: AnalyticalEvent) {
         guard let event = update(event: event) else {
             return
         }
@@ -89,7 +89,7 @@ open class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalProvi
         //
     }
     
-    open func set(properties: Properties) {
+    public func set(properties: Properties) {
         guard let preparedProperties = prepare(properties: properties) else {
             return
         }
@@ -111,7 +111,7 @@ open class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalProvi
         AppEvents.logPushNotificationOpen(payload, action: event)
     }
     
-    open override func update(event: AnalyticalEvent) -> AnalyticalEvent? {
+    public override func update(event: AnalyticalEvent) -> AnalyticalEvent? {
         //
         // Ensure Super gets a chance to update event.
         //
@@ -196,7 +196,7 @@ open class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalProvi
         }
     }
     
-    open func prepare(properties: Properties?) -> Properties? {
+    public func prepare(properties: Properties?) -> Properties? {
         guard let properties = properties else {
             return nil
         }
