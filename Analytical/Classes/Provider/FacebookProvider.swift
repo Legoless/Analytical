@@ -3,12 +3,12 @@
 //  Analytical
 //
 //  Created by Dal Rupnik on 18/07/16.
-//  Copyright © 2018 Unified Sense. All rights reserved.
+//  Copyright © 2019 Unified Sense. All rights reserved.
 //
 
 import FBSDKCoreKit
 
-public class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalProvider {
+open class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalProvider {
     
     //
     // MARK: Analytical
@@ -36,7 +36,7 @@ public class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalPro
         //
     }
     
-    public override func event(_ event: AnalyticalEvent) {
+    open override func event(_ event: AnalyticalEvent) {
         guard let event = update(event: event) else {
             return
         }
@@ -82,7 +82,7 @@ public class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalPro
         //
     }
     
-    public func set(properties: Properties) {
+    open func set(properties: Properties) {
         guard let preparedProperties = prepare(properties: properties) else {
             return
         }
@@ -104,7 +104,7 @@ public class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalPro
         AppEvents.logPushNotificationOpen(payload, action: event)
     }
     
-    public override func update(event: AnalyticalEvent) -> AnalyticalEvent? {
+    open override func update(event: AnalyticalEvent) -> AnalyticalEvent? {
         //
         // Ensure Super gets a chance to update event.
         //
@@ -182,7 +182,7 @@ public class FacebookProvider : BaseProvider<ApplicationDelegate>, AnalyticalPro
         }
     }
     
-    private func prepare(properties: Properties?) -> Properties? {
+    open func prepare(properties: Properties?) -> Properties? {
         guard let properties = properties else {
             return nil
         }
