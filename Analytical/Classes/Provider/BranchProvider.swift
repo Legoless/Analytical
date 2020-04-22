@@ -134,8 +134,6 @@ public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
             return .viewItem
         case .viewItemList:
             return .viewItems
-        case .beginTutorial:
-            return nil
         case .invite:
             return .invite
         default:
