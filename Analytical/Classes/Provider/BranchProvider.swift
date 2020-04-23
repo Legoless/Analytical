@@ -102,6 +102,40 @@ public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
             return .addToCart
         case .spendCredits:
             return .spendCredits
+        case .purchase:
+            return .purchase
+        case .login:
+            return .login
+        case .share:
+            return .share
+        case .search:
+            return .search
+        case .achievedLevel:
+            return .achieveLevel
+        case .addedPaymentInfo:
+            return .addPaymentInfo
+        case .addedToWishlist:
+            return .addToWishlist
+        case .completedRegistration:
+            return .completeRegistration
+        case .completedTutorial:
+            return .completeTutorial
+        case .rating:
+            return .rate
+        case .unlockedAchievement:
+            return .unlockAchievement
+        case .subscribe:
+            return .subscribe
+        case .adImpression:
+            return .viewAd
+        case .adClick:
+            return .clickAd
+        case .viewItem:
+            return .viewItem
+        case .viewItemList:
+            return .viewItems
+        case .invite:
+            return .invite
         default:
             return nil
         }
