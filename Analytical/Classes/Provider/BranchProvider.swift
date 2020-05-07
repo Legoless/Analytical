@@ -31,7 +31,7 @@ public class BranchProvider : BaseProvider<Branch>, AnalyticalProvider {
         let isDebugEnabled = properties?[BranchProvider.IsDebugEnabled] as? Bool ?? false
         
         if isDebugEnabled {
-            instance.setDebug()
+            instance.enableLogging()
         }
         
         let shouldDelayStartSession = properties?[BranchProvider.ShouldDelayStartSession] as? Bool ?? false
