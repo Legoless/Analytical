@@ -30,9 +30,9 @@ PODS:
     - Analytics
   - Analytics (3.7.0)
   - AppsFlyerFramework (4.11.0)
-  - Branch (0.29.3):
-    - Branch/Core (= 0.29.3)
-  - Branch/Core (0.29.3)
+  - Branch (0.33.1):
+    - Branch/Core (= 0.33.1)
+  - Branch/Core (0.33.1)
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
@@ -154,7 +154,7 @@ SPEC CHECKSUMS:
   Analytical: f3dd78b2b79965443d3bcb13529c199156879aaa
   Analytics: 77fd5fb102a4a5eedafa2c2b0245ceb7b7c15e45
   AppsFlyerFramework: 7b95ec30d04db476e8834630048f4f44d9456eb7
-  Branch: 9d40910c3d7f8516376fd166cb73a31cc7f73fcf
+  Branch: 65d05ffb137ef504777cff6bd4fb6f770f17145a
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   FBSDKCoreKit: e7dcac0aabcfb09d0166998edd95fe3b05a0ce5d
@@ -175,4 +175,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 7012330a7c19e91ff217a69e2594aa60e7468a88
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1
