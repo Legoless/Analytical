@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "Analytical",
     platforms: [
-        .iOS(.v12),
+        .iOS(.v10),
         .macOS(.v10_12),
         .watchOS(.v5),
         .tvOS(.v9)
