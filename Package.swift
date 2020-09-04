@@ -13,11 +13,11 @@ let package = Package(
     products: [
         .library(
             name: "Analytical",
-            targets: ["Core"]),
+            targets: ["Analytical"]),
     ],
     targets: [
         .target(
-            name: "Core",
+            name: "Analytical",
             path: "Analytical/Classes/Core/")
     ]
 )
