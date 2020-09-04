@@ -7,7 +7,8 @@ let package = Package(
     platforms: [
         .iOS(.v12),
         .macOS(.v10_12),
-        .watchOS(.v5)
+        .watchOS(.v5),
+        .tvOS(.v9)
     ],
     products: [
         .library(
@@ -17,6 +18,6 @@ let package = Package(
     targets: [
         .target(
             name: "Core",
-            path: "Analytical/Classes/Core")
+            path: "Analytical/Classes/Core/")
     ]
 )

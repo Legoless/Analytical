@@ -7,7 +7,10 @@
 //
 
 import ObjectiveC
+import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
 
 ///
 /// Serves as a bounce wrapper for Analytics providers
@@ -30,11 +33,13 @@ open class Analytics : AnalyticalProvider {
             return id
         }
         
+        #if os(iOS) || os(tvOS)
         if let id = UIDevice.current.identifierForVendor?.uuidString {
             userDefaults.set(id, forKey: Analytics.DeviceKey)
             
             return id
         }
+        #endif
         
         let id = Analytics.randomId()
         
@@ -57,6 +62,7 @@ open class Analytics : AnalyticalProvider {
      - parameter application:   UIApplication instance
      - parameter launchOptions: launch options
      */
+    #if os(iOS)
     open func setup(with application: UIApplication?, launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         var properties : Properties = [:]
         
@@ -70,6 +76,7 @@ open class Analytics : AnalyticalProvider {
         
         setup(with: properties)
     }
+    #endif
     
     public func provider<T : AnalyticalProvider>(ofType type: T.Type) -> T? {
         return providers.filter { return ($0 is T) }.first as? T
