@@ -8,24 +8,24 @@
 
 import Foundation
 
-/*!
- *  Set provider delegate to modify certain analyics events on a single point of entry.
- */
+/// Set provider delegate to modify certain analyics events on a single point of entry.
 public protocol AnalyticalProviderDelegate : class {
-    /*!
-     *  This method will be called on the delegate, before the event is sent. If delegate returns nil, event will be discarded.
-     */
+
+    /// This method will be called on the delegate, before the event is sent.
+    /// If delegate returns nil, event will be discarded.
+    /// - Parameters:
+    ///   - provider: provider
+    ///   - event: event
     func analyticalProviderShouldSendEvent(_ provider: AnalyticalProvider, event: AnalyticalEvent) -> AnalyticalEvent?
     
-    /*!
-     *  Called when provider finishes sending an event.
-     */
+    /// Called when provider finishes sending an event.
+    /// - Parameters:
+    ///   - provider: provider.
+    ///   - event: event that was sent.
     func analyticalProviderDidSendEvent(_ provider: AnalyticalProvider, event: AnalyticalEvent)
 }
 
-/*!
- * Default implementation of delegate, to make both methods optional without Obj-C runtime.
- */
+/// Default implementation of delegate, to make both methods optional without Obj-C runtime.
 public extension AnalyticalProviderDelegate {
     func analyticalProviderShouldSendEvent(_ provider: AnalyticalProvider, event: AnalyticalEvent) -> AnalyticalEvent? {
         return event
@@ -35,9 +35,7 @@ public extension AnalyticalProviderDelegate {
     }
 }
 
-/*!
- *  Analytical provider protocol, that implements any
- */
+/// Analytical provider protocol
 public protocol AnalyticalProvider {
     //
     // MARK: Delegate
@@ -48,101 +46,74 @@ public protocol AnalyticalProvider {
     // MARK: Common Methods
     //
     
-    /*!
-     Prepares analytical provider with selected properities and initializes all systems.
-     
-     - parameter properties: properties of analytics.
-     */
+    /// Prepares analytical provider with selected properities and initializes all systems.
+    /// - Parameter properties: properties of analytics.
     func setup(with properties: Properties?)
     
-    /*!
-     Should be called when app is becomes active.
-     */
+    /// Should be called when app is becomes active.
     func activate()
     
-    /*!
-     Should be called when app resigns active.
-     */
+    /// Should be called when app resigns active.
     func resign()
     
-    /*!
-     Manually force the current loaded events to be dispatched.
-     */
+    /// Manually force the current loaded events to be dispatched.
     func flush()
     
-    /*!
-     Resets all user data.
-     */
+    /// Resets all user data.
     func reset()
     
     //
     // MARK: Tracking
     //
-    
-    /*!
-     Logs a specific event to analytics.
-     
-     - parameter event: event struct
-     */
+
+    /// Logs a specific event to analytics.
+    /// - Parameter event: event
     func event(_ event: AnalyticalEvent)
     
     //
     // MARK: User Tracking
     //
-    
-    /*!
-     Identify an user with analytics. Do this as soon as user is known.
      
-     - parameter userId:      user id
-     - parameter properties:  different traits and properties
-     */
+    /// Identify an user with analytics. Do this as soon as user is known.
+    /// - Parameters:
+    ///   - userId: user id
+    ///   - properties: different traits and properties
     func identify(userId: String, properties: Properties?)
     
-    /*!
-     Connect the existing anonymous user with the alias (for example, after user signs up),
-     and he was using the app anonymously before. This is used to connect the registered user
-     to the dynamically generated ID it was given before. Identify will be called automatically.
-     
-     - parameter userId: user
-     */
+    /// Connect the existing anonymous user with the alias (for example, after user signs up),
+    /// and he was using the app anonymously before.
+    /// This is used to connect the registered user to the dynamically generated ID
+    /// it was given before. Identify will be called automatically.
+    /// - Parameters:
+    ///   - userId: user
+    ///   - forId: anonymous id
     func alias(userId: String, forId: String)
     
-    /*!
-     Sets properties to currently identified user.
-     
-     - parameter properties: properties
-     */
+    /// Sets properties to currently identified user.
+    /// - Parameter properties: properties
     func set(properties: Properties)
     
-    /*!
-     Sets global properties to be sent on all events.
-     
-     - parameter properties: properties
-     - paramater overwrite:  if properties should be overwritten, if previously set.
-     */
+    /// Sets global properties to be sent on all events.
+    /// - Parameters:
+    ///   - properties: properties
+    ///   - overwrite: if properties should be overwritten, if previously set.
     func global(properties: Properties, overwrite: Bool)
     
-    /*!
-     Increments currently set property by a number.
-     
-     - parameter property: property to increment
-     - parameter number:   number to incrememt by
-     */
+
+    /// Increments currently set property by a number.
+    /// - Parameters:
+    ///   - property: property to increment
+    ///   - number: number to increment by
     func increment(property: String, by number: NSDecimalNumber)
     
-    /*!
-     Add device token to the provider for push notification support.
-     
-     - parameter token: token
-     */
+    /// Add device token to the provider for push notification support.
+    /// - Parameter token: token
     func addDevice(token: Data)
     
-    /*!
-     Log push notification to the provider.
-     
-     - parameter payload:   push notification payload
-     - parameter event:     action of the push
-     */
+    /// Log push notification to the provider.
+    /// - Parameters:
+    ///   - payload: push notification payload
+    ///   - event: action of the push
     func push(payload: [AnyHashable : Any], event: EventName?)
 }
 

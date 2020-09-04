@@ -55,14 +55,11 @@ open class Analytics : AnalyticalProvider {
     // MARK: Public Methods
     //
     
-    /*!
-     If one of your providers requires launch options and application reference, this method must be called,
-     or parameteres must manually be provided.
-     
-     - parameter application:   UIApplication instance
-     - parameter launchOptions: launch options
-     */
-    #if os(iOS)
+    #if os(iOS) || os(tvOS)
+    /// If one of your providers requires launch options and application reference, this method must be called, or parameteres must manually be provided.
+    /// - Parameters:
+    ///   - application: UIApplication instance
+    ///   - launchOptions: launch options
     open func setup(with application: UIApplication?, launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         var properties : Properties = [:]
         
@@ -146,13 +143,10 @@ open class Analytics : AnalyticalProvider {
     //
     // MARK: Private Methods
     //
-    
-    /*!
-     *  Returns advertising identifier if iAd.framework is linked. 
-     *
-     *  @note It uses Objective-C Runtime inspection, to detect,
-     *  so no direct dependency to iAd is created in Swift.
-     */
+
+    /// Returns advertising identifier if iAd.framework is linked.
+    /// - note: It uses Objective-C Runtime inspection, to detect,
+    ///         so no direct dependency to iAd is created in Swift.
     private var advertisingIdentifier : UUID? {
         guard let ASIdentifierManagerClass = NSClassFromString("ASIdentifierManager") else {
             return nil
