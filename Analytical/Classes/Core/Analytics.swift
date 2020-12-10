@@ -6,8 +6,12 @@
 //  Copyright © 2017 Unified Sense. All rights reserved.
 //
 
-import ObjectiveC
 import UIKit
+
+public enum IdentifierType {
+    case idfa
+    case idfv
+}
 
 ///
 /// Serves as a bounce wrapper for Analytics providers
@@ -22,7 +26,7 @@ open class Analytics : AnalyticalProvider {
     public private(set) var providers : [AnalyticalProvider] = []
     
     public var deviceId : String {
-        if let advertisingIdentifier = advertisingIdentifier?.uuidString {
+        if let advertisingIdentifier = identityProvider?(.idfa)?.uuidString {
             return advertisingIdentifier
         }
         
@@ -30,7 +34,7 @@ open class Analytics : AnalyticalProvider {
             return id
         }
         
-        if let id = UIDevice.current.identifierForVendor?.uuidString {
+        if let id = identityProvider?(.idfv)?.uuidString {
             userDefaults.set(id, forKey: Analytics.DeviceKey)
             
             return id
@@ -43,7 +47,13 @@ open class Analytics : AnalyticalProvider {
         return id
     }
     
-    public init () {
+    /*!
+     *  Set a block to be called when IDFA/IDFV identifier is needed.
+     */
+    public var identityProvider: ((IdentifierType) -> UUID?)?
+    
+    public init(identityProvider: ((IdentifierType) -> UUID?)? = nil) {
+        self.identityProvider = identityProvider
     }
     
     //
@@ -139,55 +149,6 @@ open class Analytics : AnalyticalProvider {
     //
     // MARK: Private Methods
     //
-    
-    /*!
-     *  Returns advertising identifier if iAd.framework is linked. 
-     *
-     *  @note It uses Objective-C Runtime inspection, to detect,
-     *  so no direct dependency to iAd is created in Swift.
-     */
-    private var advertisingIdentifier : UUID? {
-        guard let ASIdentifierManagerClass = NSClassFromString("ASIdentifierManager") else {
-            return nil
-        }
-        
-        let sharedManagerSelector = NSSelectorFromString("sharedManager")
-        
-        guard let sharedManagerIMP = ASIdentifierManagerClass.method(for: sharedManagerSelector) else {
-            return nil
-        }
-        
-        typealias sharedManagerFunc = @convention(c) (AnyObject, Selector) -> AnyObject?
-        let curriedImplementation = unsafeBitCast(sharedManagerIMP, to: sharedManagerFunc.self)
-        
-        guard let sharedManager = curriedImplementation(ASIdentifierManagerClass.self, sharedManagerSelector) else {
-            return nil
-        }
-        
-        let advertisingTrackingEnabledSelector = NSSelectorFromString("isAdvertisingTrackingEnabled")
-        
-        guard let isTrackingEnabledIMP = sharedManager.method(for: advertisingTrackingEnabledSelector) else {
-            return nil
-        }
-        
-        typealias isTrackingEnabledFunc = @convention(c) (AnyObject, Selector) -> Bool
-        let curriedImplementation2 = unsafeBitCast(isTrackingEnabledIMP, to: isTrackingEnabledFunc.self)
-        let isTrackingEnabled = curriedImplementation2(self, advertisingTrackingEnabledSelector)
-        
-        guard isTrackingEnabled else {
-            return nil
-        }
-        
-        let advertisingIdentifierSelector = NSSelectorFromString("advertisingIdentifier")
-        guard let advertisingIdentifierIMP = sharedManager.method(for: advertisingIdentifierSelector) else {
-            return nil
-        }
-        
-        typealias adIdentifierFunc = @convention(c) (AnyObject, Selector) -> UUID
-        let curriedImplementation3 = unsafeBitCast(advertisingIdentifierIMP, to: adIdentifierFunc.self)
-        
-        return curriedImplementation3(self, advertisingIdentifierSelector)
-    }
     
     private static func randomId(_ length: Int = 64) -> String {
         let charactersString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
