@@ -52,7 +52,7 @@ public enum Property : String {
         case virtualCurrency
     }
     
-    // Achievements, content, scores
+    /// Achievements, content, scores
     public enum Content : String {
         case identifier
         case type
@@ -86,9 +86,7 @@ public enum Property : String {
     }
 }
 
-/*!
- *  Values to be used for properties.
- */
+/// Values to be used for properties.
 public enum Value : String {
     case yes
     case no

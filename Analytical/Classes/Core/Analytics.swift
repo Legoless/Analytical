@@ -7,22 +7,29 @@
 //
 
 import ObjectiveC
+import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
 
-///
+public enum IdentifierType {
+    case idfa
+    case idfv
+    case random
+}
+
 /// Serves as a bounce wrapper for Analytics providers
-///
-open class Analytics : AnalyticalProvider {
+open class Analytics: AnalyticalProvider {
     private static let DeviceKey = "AnalyticsDeviceKey"
     
     private var userDefaults = UserDefaults.standard
     
-    public weak var delegate : AnalyticalProviderDelegate?
+    public weak var delegate: AnalyticalProviderDelegate?
     
-    public private(set) var providers : [AnalyticalProvider] = []
+    public private(set) var providers = [AnalyticalProvider]()
     
-    public var deviceId : String {
-        if let advertisingIdentifier = advertisingIdentifier?.uuidString {
+    public var deviceId: String {
+        if let advertisingIdentifier = identityProvider?(.idfa)?.uuidString {
             return advertisingIdentifier
         }
         
@@ -30,33 +37,33 @@ open class Analytics : AnalyticalProvider {
             return id
         }
         
-        if let id = UIDevice.current.identifierForVendor?.uuidString {
+        if let id = identityProvider?(.idfv)?.uuidString {
             userDefaults.set(id, forKey: Analytics.DeviceKey)
             
             return id
         }
         
-        let id = Analytics.randomId()
+        let id = identityProvider?(.random)?.uuidString ?? Analytics.randomId()
         
         userDefaults.set(id, forKey: Analytics.DeviceKey)
         
         return id
     }
     
-    public init () {
+    /// Set a block to be called when IDFA/IDFV identifier is needed.
+    public var identityProvider: ((IdentifierType) -> UUID?)?
+    
+    public init(identityProvider: ((IdentifierType) -> UUID?)?) {
+        self.identityProvider = identityProvider
     }
     
-    //
-    // MARK: Public Methods
-    //
+    // MARK: - Public Methods
     
-    /*!
-     If one of your providers requires launch options and application reference, this method must be called,
-     or parameteres must manually be provided.
-     
-     - parameter application:   UIApplication instance
-     - parameter launchOptions: launch options
-     */
+    #if os(iOS) || os(tvOS)
+    /// If one of your providers requires launch options and application reference, this method must be called, or parameters must manually be provided.
+    /// - Parameters:
+    ///   - application: UIApplication instance
+    ///   - launchOptions: launch options
     open func setup(with application: UIApplication?, launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         var properties : Properties = [:]
         
@@ -70,8 +77,9 @@ open class Analytics : AnalyticalProvider {
         
         setup(with: properties)
     }
+    #endif
     
-    public func provider<T : AnalyticalProvider>(ofType type: T.Type) -> T? {
+    public func provider<T: AnalyticalProvider>(ofType type: T.Type) -> T? {
         return providers.filter { return ($0 is T) }.first as? T
     }
     
@@ -79,9 +87,7 @@ open class Analytics : AnalyticalProvider {
         providers.append(provider)
     }
     
-    //
-    // MARK: Analytical
-    //
+    // MARK: - Analytical
     
     public func setup(with properties: Properties? = nil) {
         providers.forEach { $0.setup(with: properties) }
@@ -104,8 +110,7 @@ open class Analytics : AnalyticalProvider {
         // Ask delegate for event. If delegate returns nil, skip the event delivery.
         if let delegate = delegate, let updatedEvent = delegate.analyticalProviderShouldSendEvent(self, event: event) {
             event = updatedEvent
-        }
-        else if delegate != nil {
+        } else if delegate != nil {
             return
         }
         
@@ -132,66 +137,15 @@ open class Analytics : AnalyticalProvider {
     public func addDevice(token: Data) {
         providers.forEach { $0.addDevice(token: token) }
     }
-    public func push(payload: [AnyHashable : Any], event: EventName?) {
+    public func push(payload: [AnyHashable: Any], event: EventName?) {
         providers.forEach { $0.push(payload: payload, event: event) }
     }
     
-    //
-    // MARK: Private Methods
-    //
-    
-    /*!
-     *  Returns advertising identifier if iAd.framework is linked. 
-     *
-     *  @note It uses Objective-C Runtime inspection, to detect,
-     *  so no direct dependency to iAd is created in Swift.
-     */
-    private var advertisingIdentifier : UUID? {
-        guard let ASIdentifierManagerClass = NSClassFromString("ASIdentifierManager") else {
-            return nil
-        }
-        
-        let sharedManagerSelector = NSSelectorFromString("sharedManager")
-        
-        guard let sharedManagerIMP = ASIdentifierManagerClass.method(for: sharedManagerSelector) else {
-            return nil
-        }
-        
-        typealias sharedManagerFunc = @convention(c) (AnyObject, Selector) -> AnyObject?
-        let curriedImplementation = unsafeBitCast(sharedManagerIMP, to: sharedManagerFunc.self)
-        
-        guard let sharedManager = curriedImplementation(ASIdentifierManagerClass.self, sharedManagerSelector) else {
-            return nil
-        }
-        
-        let advertisingTrackingEnabledSelector = NSSelectorFromString("isAdvertisingTrackingEnabled")
-        
-        guard let isTrackingEnabledIMP = sharedManager.method(for: advertisingTrackingEnabledSelector) else {
-            return nil
-        }
-        
-        typealias isTrackingEnabledFunc = @convention(c) (AnyObject, Selector) -> Bool
-        let curriedImplementation2 = unsafeBitCast(isTrackingEnabledIMP, to: isTrackingEnabledFunc.self)
-        let isTrackingEnabled = curriedImplementation2(self, advertisingTrackingEnabledSelector)
-        
-        guard isTrackingEnabled else {
-            return nil
-        }
-        
-        let advertisingIdentifierSelector = NSSelectorFromString("advertisingIdentifier")
-        guard let advertisingIdentifierIMP = sharedManager.method(for: advertisingIdentifierSelector) else {
-            return nil
-        }
-        
-        typealias adIdentifierFunc = @convention(c) (AnyObject, Selector) -> UUID
-        let curriedImplementation3 = unsafeBitCast(advertisingIdentifierIMP, to: adIdentifierFunc.self)
-        
-        return curriedImplementation3(self, advertisingIdentifierSelector)
-    }
+    // MARK: - Private Methods
     
     private static func randomId(_ length: Int = 64) -> String {
         let charactersString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let charactersArray : [Character] = Array(charactersString)
+        let charactersArray: [Character] = Array(charactersString)
         
         let count = UInt32(charactersString.count)
         
@@ -207,13 +161,7 @@ open class Analytics : AnalyticalProvider {
     }
 }
 
-//
-// MARK: Convenience API
-//
-
-//
-// Analytics operator
-//
+// MARK: - Analytics operator
 
 precedencegroup AnalyticalPrecedence {
     associativity: left

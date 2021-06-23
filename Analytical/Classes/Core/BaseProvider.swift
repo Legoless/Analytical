@@ -58,9 +58,7 @@ open class BaseProvider <T> : NSObject {
                 properties![Property.time.rawValue] = time.timeIntervalSinceNow as AnyObject?
             }
         default:
-            //
             // A Generic Provider has no way to know how to send events.
-            //
             assert(false)
         }
     }
