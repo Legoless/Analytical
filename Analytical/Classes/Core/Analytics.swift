@@ -53,7 +53,7 @@ open class Analytics: AnalyticalProvider {
     /// Set a block to be called when IDFA/IDFV identifier is needed.
     public var identityProvider: ((IdentifierType) -> UUID?)?
     
-    public init(identityProvider: ((IdentifierType) -> UUID?)? = nil) {
+    public init(identityProvider: ((IdentifierType) -> UUID?)?) {
         self.identityProvider = identityProvider
     }
     
