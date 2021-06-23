@@ -15,6 +15,7 @@ import UIKit
 public enum IdentifierType {
     case idfa
     case idfv
+    case random
 }
 
 /// Serves as a bounce wrapper for Analytics providers
@@ -42,7 +43,7 @@ open class Analytics: AnalyticalProvider {
             return id
         }
         
-        let id = Analytics.randomId()
+        let id = identityProvider?(.random)?.uuidString ?? Analytics.randomId()
         
         userDefaults.set(id, forKey: Analytics.DeviceKey)
         
@@ -59,7 +60,7 @@ open class Analytics: AnalyticalProvider {
     // MARK: - Public Methods
     
     #if os(iOS) || os(tvOS)
-    /// If one of your providers requires launch options and application reference, this method must be called, or parameteres must manually be provided.
+    /// If one of your providers requires launch options and application reference, this method must be called, or parameters must manually be provided.
     /// - Parameters:
     ///   - application: UIApplication instance
     ///   - launchOptions: launch options

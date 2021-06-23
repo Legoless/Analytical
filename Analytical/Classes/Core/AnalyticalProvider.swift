@@ -8,8 +8,8 @@
 
 import Foundation
 
-/// Set provider delegate to modify certain analyics events on a single point of entry.
-public protocol AnalyticalProviderDelegate : class {
+/// Set provider delegate to modify certain analytics events on a single point of entry.
+public protocol AnalyticalProviderDelegate : AnyObject {
 
     /// This method will be called on the delegate, before the event is sent.
     /// If delegate returns nil, event will be discarded.
@@ -46,7 +46,7 @@ public protocol AnalyticalProvider {
     // MARK: Common Methods
     //
     
-    /// Prepares analytical provider with selected properities and initializes all systems.
+    /// Prepares analytical provider with selected properties and initializes all systems.
     /// - Parameter properties: properties of analytics.
     func setup(with properties: Properties?)
     
@@ -74,7 +74,7 @@ public protocol AnalyticalProvider {
     // MARK: User Tracking
     //
      
-    /// Identify an user with analytics. Do this as soon as user is known.
+    /// Identify a user with analytics. Do this as soon as user is known.
     /// - Parameters:
     ///   - userId: user id
     ///   - properties: different traits and properties
