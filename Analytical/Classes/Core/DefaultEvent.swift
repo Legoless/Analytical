@@ -16,7 +16,7 @@ import Foundation
 /// - SignUp:              Log a sign up
 public enum DefaultEvent : String {
     case activated              = "AnalyticalActivated"
-    
+        
     case purchase               = "AnalyticalEventPurchase"
     case screenView             = "AnalyticalEventScreenView"
     case pushNotification       = "AnalyticalEventPushNotification"
@@ -77,6 +77,9 @@ public enum DefaultEvent : String {
     // Common events from AppsFlyer SDK
     case invite                 = "AnalyticalEventInvite"
     case travelBooking          = "AnalyticalEventTravelBooking"
+    
+    // Common events from Embrace SDK
+    case startupComplete        = "AnalyticalStartupCompleted"
 }
 
 public extension DefaultEvent {
