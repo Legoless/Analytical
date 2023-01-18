@@ -8,15 +8,12 @@
 
 import Foundation
 
-/*!
- Some providers may not support logging certain events separately. Analytical still logs those events,
- using Analytical methods, but default event names are used instead and are tracked as normal events.
- 
- - Purchase:            Log a purchase
- - ScreenView:          Log a screen view
- - PushNotification:    Log a received push notification
- - SignUp:              Log a sign up
- */
+/// Some providers may not support logging certain events separately. Analytical still logs those events,
+/// using Analytical methods, but default event names are used instead and are tracked as normal events.
+/// - Purchase:            Log a purchase
+/// - ScreenView:          Log a screen view
+/// - PushNotification:    Log a received push notification
+/// - SignUp:              Log a sign up
 public enum DefaultEvent : String {
     case activated              = "AnalyticalActivated"
     

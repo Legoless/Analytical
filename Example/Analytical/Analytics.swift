@@ -21,8 +21,17 @@ public enum Track {
 }
 
 //let analytics = Analytics() <<~ GoogleProvider(trackingId: "<TRACKING-ID>") <<~ MixpanelProvider(token: "<MIXPANEL-ID>") <<~ FacebookProvider()
+//
+//func provider(type: IdentifierType) -> UUID? {
+//    switch type {
+//    case .idfv:
+//        return UIDevice.current.identifierForVendor
+//    case .idfa:
+//        return ASIdentifierManager.shared().isAdvertisingTrackingEnabled ? ASIdentifierManager.shared().advertisingIdentifier : nil
+//    }
+//}
 
-let analytics = Analytics() <<~ LogProvider()
+let analytics = Analytics(identityProvider: provider) <<~ LogProvider()
 
 extension AnalyticalProvider {
     func track(event: Track.Event, properties: Properties? = nil) {
