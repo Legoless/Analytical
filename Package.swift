@@ -5,10 +5,10 @@ import PackageDescription
 let package = Package(
     name: "Analytical",
     platforms: [
-        .iOS(.v10),
+        .iOS(.v13),
         .macOS(.v10_12),
         .watchOS(.v5),
-        .tvOS(.v9)
+        .tvOS(.v13)
     ],
     products: [
         .library(
