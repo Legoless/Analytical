@@ -57,7 +57,6 @@ public class FirebaseProvider: BaseProvider<Firebase.Analytics>, AnalyticalProvi
             case .default, .purchase:
                 Analytics.logEvent(event.name, parameters: mergeGlobal(properties: event.properties, overwrite: true))
             case .screen:
-                let screenClass = classForCoder.description()
                 Analytics.logEvent(AnalyticsEventScreenView,
                                    parameters: [AnalyticsParameterScreenName: event.name])
             case .finishTime:
