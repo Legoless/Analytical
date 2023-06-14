@@ -1,10 +1,11 @@
 //
 //  FirebaseProvider.swift
-//  SpeechBlubsPro
+//  Analytical
 //
-//  Created by Vid Vozelj on 08/06/2023.
-//  Copyright © 2023 Blub Blub Inc. All rights reserved.
+//  Created by Dal Rupnik on 30/05/17.
+//  Copyright © 2017 Unified Sense. All rights reserved.
 //
+
 
 import Firebase
 import Analytical
@@ -31,7 +32,7 @@ public class FirebaseProvider: BaseProvider<Firebase.Analytics>, AnalyticalProvi
     public static let ProjectID = "ProjectID"
     public static let GCMSenderId = "GCMSenderID"
     
-    public func setup(with properties: Analytical.Properties?) {
+    public func setup(with properties: Properties?) {
         
         guard let googleAppId = properties?[FirebaseProvider.GoogleAppId] as? String, let gcmSenderId = properties?[FirebaseProvider.GCMSenderId] as? String, let apiKey = properties?[FirebaseProvider.APIKey] as? String, let projectID = properties?[FirebaseProvider.ProjectID] as? String, let bundleId = properties?[FirebaseProvider.BundleId] as? String else {
             return
