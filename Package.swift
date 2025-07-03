@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:6.1
 
 import PackageDescription
 
@@ -6,8 +6,8 @@ let package = Package(
     name: "Analytical",
     platforms: [
         .iOS(.v13),
-        .macOS(.v10_12),
-        .watchOS(.v5),
+        .macOS(.v10_15),
+        .watchOS(.v6),
         .tvOS(.v13)
     ],
     products: [
