@@ -1,11 +1,11 @@
-// swift-tools-version:6.1
+// swift-tools-version:6.0
 
 import PackageDescription
 
 let package = Package(
     name: "Analytical",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v15),
         .macOS(.v10_15),
         .watchOS(.v6),
         .tvOS(.v13)
@@ -18,6 +18,9 @@ let package = Package(
     targets: [
         .target(
             name: "Analytical",
-            path: "Analytical/Classes/Core/")
+            path: "Analytical/Classes/Core/",
+            swiftSettings: [
+                .swiftLanguageMode(.v6),
+              ])
     ]
 )

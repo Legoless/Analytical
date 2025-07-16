@@ -19,7 +19,7 @@ public enum IdentifierType {
 }
 
 /// Serves as a bounce wrapper for Analytics providers
-open class Analytics: AnalyticalProvider {
+open class Analytics: AnalyticalProvider, @unchecked Sendable {
     private static let DeviceKey = "AnalyticsDeviceKey"
     
     private var userDefaults = UserDefaults.standard
