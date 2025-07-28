@@ -19,7 +19,15 @@ open class BaseProvider <T> : NSObject {
     private var globalProperties : Properties?
     
     // Delegate
-    public weak var delegate : AnalyticalProviderDelegate?
+    private var delegate: AnalyticalProviderDelegate?
+
+    public func getDelegate() async -> AnalyticalProviderDelegate? {
+        delegate
+    }
+
+    public func setDelegate(_ delegate: AnalyticalProviderDelegate?) async {
+        self.delegate = delegate
+    }
     
     open var events : [EventName : Date] = [:]
     open var properties : [EventName : Properties] = [:]
@@ -55,7 +63,7 @@ open class BaseProvider <T> : NSObject {
             }
             
             if let time = events[event.name] {
-                properties![Property.time.rawValue] = time.timeIntervalSinceNow as AnyObject?
+                properties![Property.time.rawValue] = SendableValue(time.timeIntervalSinceNow)
             }
         default:
             // A Generic Provider has no way to know how to send events.

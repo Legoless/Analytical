@@ -9,7 +9,7 @@
 import Foundation
 
 /// Set provider delegate to modify certain analytics events on a single point of entry.
-public protocol AnalyticalProviderDelegate : AnyObject {
+public protocol AnalyticalProviderDelegate: Sendable {
 
     /// This method will be called on the delegate, before the event is sent.
     /// If delegate returns nil, event will be discarded.
@@ -36,11 +36,13 @@ public extension AnalyticalProviderDelegate {
 }
 
 /// Analytical provider protocol
-public protocol AnalyticalProvider {
+public protocol AnalyticalProvider: Sendable {
     //
     // MARK: Delegate
     //
-    var delegate : AnalyticalProviderDelegate? { get set }
+    func getDelegate() async -> AnalyticalProviderDelegate?
+    
+    func setDelegate(_ delegate: AnalyticalProviderDelegate?) async
     
     //
     // MARK: Common Methods
@@ -48,19 +50,19 @@ public protocol AnalyticalProvider {
     
     /// Prepares analytical provider with selected properties and initializes all systems.
     /// - Parameter properties: properties of analytics.
-    func setup(with properties: Properties?)
+    func setup(with properties: Properties?) async
     
     /// Should be called when app is becomes active.
-    func activate()
+    func activate() async
     
     /// Should be called when app resigns active.
-    func resign()
+    func resign() async
     
     /// Manually force the current loaded events to be dispatched.
-    func flush()
+    func flush() async
     
     /// Resets all user data.
-    func reset()
+    func reset() async
     
     //
     // MARK: Tracking
@@ -68,7 +70,7 @@ public protocol AnalyticalProvider {
 
     /// Logs a specific event to analytics.
     /// - Parameter event: event
-    func event(_ event: AnalyticalEvent)
+    func event(_ event: AnalyticalEvent) async
     
     //
     // MARK: User Tracking
@@ -78,7 +80,7 @@ public protocol AnalyticalProvider {
     /// - Parameters:
     ///   - userId: user id
     ///   - properties: different traits and properties
-    func identify(userId: String, properties: Properties?)
+    func identify(userId: String, properties: Properties?) async
     
     /// Connect the existing anonymous user with the alias (for example, after user signs up),
     /// and he was using the app anonymously before.
@@ -87,53 +89,68 @@ public protocol AnalyticalProvider {
     /// - Parameters:
     ///   - userId: user
     ///   - forId: anonymous id
-    func alias(userId: String, forId: String)
+    func alias(userId: String, forId: String) async
     
     /// Sets properties to currently identified user.
     /// - Parameter properties: properties
-    func set(properties: Properties)
+    func set(properties: Properties) async
     
     /// Sets global properties to be sent on all events.
     /// - Parameters:
     ///   - properties: properties
     ///   - overwrite: if properties should be overwritten, if previously set.
-    func global(properties: Properties, overwrite: Bool)
+    func global(properties: Properties, overwrite: Bool) async
     
 
     /// Increments currently set property by a number.
     /// - Parameters:
     ///   - property: property to increment
     ///   - number: number to increment by
-    func increment(property: String, by number: NSDecimalNumber)
+    func increment(property: String, by number: NSDecimalNumber) async
     
     /// Add device token to the provider for push notification support.
     /// - Parameter token: token
-    func addDevice(token: Data)
+    func addDevice(token: Data) async
     
     /// Log push notification to the provider.
     /// - Parameters:
     ///   - payload: push notification payload
     ///   - event: action of the push
-    func push(payload: [AnyHashable : Any], event: EventName?)
+    func push(payload: Payload, event: EventName?) async
 }
 
 /*!
  *  Convenience extensions
  */
 public extension AnalyticalProvider {
-    func event(_ defaultEvent: DefaultEvent, properties: Properties? = nil) {
-        event(name: defaultEvent.rawValue, properties: properties)
+    func event(_ defaultEvent: DefaultEvent, properties: Properties? = nil) async {
+        await event(name: defaultEvent.rawValue, properties: properties)
     }
-    func event(name: EventName, properties: Properties? = nil) {
-        event(AnalyticalEvent(type: .default, name: name, properties: properties))
+    func event(name: EventName, properties: Properties? = nil) async {
+        await event(AnalyticalEvent(type: .default, name: name, properties: properties))
     }
-    func screen(name: EventName, properties: Properties? = nil) {
-        event(AnalyticalEvent(type: .screen, name: name, properties: properties))
+    func screen(name: EventName, properties: Properties? = nil) async {
+        await event(AnalyticalEvent(type: .screen, name: name, properties: properties))
     }
-    func time (name: EventName, properties: Properties? = nil) {
-        event(AnalyticalEvent(type: .time, name: name, properties: properties))
+    func time (name: EventName, properties: Properties? = nil) async {
+        await event(AnalyticalEvent(type: .time, name: name, properties: properties))
     }
-    func finish (name: EventName, properties: Properties? = nil) {
-        event(AnalyticalEvent(type: .finishTime, name: name, properties: properties))
+    func finish (name: EventName, properties: Properties? = nil) async {
+        await event(AnalyticalEvent(type: .finishTime, name: name, properties: properties))
     }
 }
+
+public extension AnalyticalProvider {
+    public func convertToProperties(_ dictionary: [String: Any]?) -> Analytical.Properties? {
+        guard let dictionary else {
+            return nil
+        }
+        var result = Analytical.Properties()
+        for (key, value) in dictionary {
+            result[key] = SendableValue(value)
+        }
+        return result
+    }
+}
+
+
