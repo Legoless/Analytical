@@ -27,16 +27,7 @@ public struct AnalyticalEvent: Sendable {
     public init(type: EventType, name: EventName, properties: Properties? = nil) {
         self.type = type
         self.name = name
-        if let props = properties {
-            // Convert [String: Any] to [String: SendableValue]
-            var converted = Properties()
-            for (key, value) in props {
-                converted[key] = SendableValue(value)
-            }
-            self.properties = converted
-        } else {
-            self.properties = nil
-        }
+        self.properties = properties
     }
 }
 
