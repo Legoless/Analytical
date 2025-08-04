@@ -1,6 +1,6 @@
 //
-//  Analytics.swift
-//  Analytical
+//  MultipleAnalyticsProvider.swift
+//  MultipleAnalyticsProvider
 //
 //  Created by Dal Rupnik on 18/07/16.
 //  Copyright © 2017 Unified Sense. All rights reserved.
@@ -12,18 +12,8 @@ import Foundation
 import UIKit
 #endif
 
-public enum IdentifierType {
-    case idfa
-    case idfv
-    case random
-}
-
 /// Serves as a bounce wrapper for Analytics providers
-public actor Analytics: AnalyticalProvider {
-    private static let DeviceKey = "AnalyticsDeviceKey"
-    
-    private var userDefaults = UserDefaults.standard
-    
+public actor MultipleAnalyticsProvider: AnalyticalProvider {
     private var delegate: AnalyticalProviderDelegate?
 
     public func getDelegate() async -> AnalyticalProviderDelegate? {
@@ -36,32 +26,7 @@ public actor Analytics: AnalyticalProvider {
     
     public private(set) var providers = [AnalyticalProvider]()
     
-    public func getDeviceId() -> String {
-        if let advertisingIdentifier = identityProvider?(.idfa)?.uuidString {
-            return advertisingIdentifier
-        }
-        
-        if let id = userDefaults.string(forKey: Analytics.DeviceKey) {
-            return id
-        }
-        
-        if let id = identityProvider?(.idfv)?.uuidString {
-            userDefaults.set(id, forKey: Analytics.DeviceKey)
-            return id
-        }
-        
-        let id = identityProvider?(.random)?.uuidString ?? Analytics.randomId()
-        userDefaults.set(id, forKey: Analytics.DeviceKey)
-        
-        return id
-    }
-    
-    /// Set a block to be called when IDFA/IDFV identifier is needed.
-    public var identityProvider: ((IdentifierType) -> UUID?)?
-    
-    public init(identityProvider: ((IdentifierType) -> UUID?)?) {
-        self.identityProvider = identityProvider
-    }
+    public init() { }
     
     // MARK: - Public Methods
     
@@ -94,7 +59,6 @@ public actor Analytics: AnalyticalProvider {
     }
     
     // MARK: - Analytical
-    @MainActor
     public func setup(with properties: Properties? = nil) async {
         for provider in  await providers {
                 await provider.setup(with: properties)
@@ -201,20 +165,4 @@ public actor Analytics: AnalyticalProvider {
         
         return string
     }
-}
-
-// MARK: - Analytics operator
-
-precedencegroup AnalyticalPrecedence {
-    associativity: left
-    higherThan: LogicalConjunctionPrecedence
-}
-
-
-infix operator <<~: AnalyticalPrecedence
-
-public func <<~ (left: Analytics, right: AnalyticalProvider) async -> Analytics {
-    await left.addProvider(provider: right)
-    
-    return left
 }

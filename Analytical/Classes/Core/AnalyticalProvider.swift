@@ -139,18 +139,3 @@ public extension AnalyticalProvider {
         await event(AnalyticalEvent(type: .finishTime, name: name, properties: properties))
     }
 }
-
-public extension AnalyticalProvider {
-    public func convertToProperties(_ dictionary: [String: Any]?) -> Analytical.Properties? {
-        guard let dictionary else {
-            return nil
-        }
-        var result = Analytical.Properties()
-        for (key, value) in dictionary {
-            result[key] = SendableValue(value)
-        }
-        return result
-    }
-}
-
-

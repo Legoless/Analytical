@@ -41,7 +41,7 @@ public struct AnalyticalEvent: Sendable {
 }
 
 
-public enum SendableValue: Sendable {
+public enum SendableValue: Sendable, Codable {
     case string(String)
     case int(Int)
     case double(Double)
@@ -130,3 +130,22 @@ public struct Payload: Sendable {
     }
 }
 
+public extension Dictionary where Key == String, Value == Any {
+    func toAnalyticalProperties() -> Analytical.Properties {
+        var result = Analytical.Properties()
+        for (key, value) in self {
+            result[key] = SendableValue(value)
+        }
+        return result
+    }
+}
+
+public extension Dictionary where Key == String, Value == SendableValue {
+    func unwrapped() -> [String: Any] {
+        var result: [String: Any] = [:]
+        for (key, value) in self {
+            result[key] = value.unwrapped
+        }
+        return result
+    }
+}
