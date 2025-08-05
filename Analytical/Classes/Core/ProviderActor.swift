@@ -1,53 +1,34 @@
 //
-//  BaseProvider.swift
+//  ProviderState.swift
 //  Analytical
 //
-//  Created by Dal Rupnik on 18/07/16.
-//  Copyright © 2016 Unified Sense. All rights reserved.
+//  Created by Vid Vozelj on 5. 8. 25.
 //
 
 import Foundation
 
-///
-/// Provider generic class
-///
-/// Analytics provider generic class provides some common analytics functionality.
-///
-@available(*, deprecated, message: "Use ProviderState instead")
-open class BaseProvider <T> : NSObject {
+public actor ProviderState {
+    public var globalProperties: Properties?
+    public var events: [EventName : Date] = [:]
+    public var properties: [EventName : Properties]  = [:]
+        
+    public init() { }
     
-    // Stores global properties
-    private var globalProperties : Properties?
+    public var delegate: (any AnalyticalProviderDelegate)?
     
-    // Delegate
-    private var delegate: AnalyticalProviderDelegate?
-
     public func getDelegate() async -> AnalyticalProviderDelegate? {
         delegate
     }
-
+    
     public func setDelegate(_ delegate: AnalyticalProviderDelegate?) async {
         self.delegate = delegate
     }
     
-    open var events : [EventName : Date] = [:]
-    open var properties : [EventName : Properties] = [:]
+    public func activate() async {}
     
-    open var instance : T! = nil
+    public func resign() async {}
     
-    public override init () {
-        super.init()
-    }
-    
-    open func activate() {
-        
-    }
-    
-    open func resign() {
-        
-    }
-    
-    open func event(_ event: AnalyticalEvent) {
+    public func event(_ event: AnalyticalEvent) async {
         switch event.type {
         case .time:
             events[event.name] = Date()
@@ -72,7 +53,7 @@ open class BaseProvider <T> : NSObject {
         }
     }
     
-    open func update(event: AnalyticalEvent) -> AnalyticalEvent? {
+    public func update(event: AnalyticalEvent) async -> AnalyticalEvent? {
         if let delegate = delegate, let selfProvider = self as? AnalyticalProvider {
             return delegate.analyticalProviderShouldSendEvent(selfProvider, event: event)
         }
@@ -81,24 +62,25 @@ open class BaseProvider <T> : NSObject {
         }
     }
     
-    open func global(properties: Properties, overwrite: Bool = true) {
-        globalProperties = mergeGlobal(properties: properties, overwrite: overwrite)
+    public func global(properties: Properties, overwrite: Bool) async {
+        globalProperties = await mergeGlobal(properties: properties, overwrite: overwrite)
     }
     
-    open func addDevice(token: Data) {
+    public func addDevice(token: Data) async {
         // No push feature
     }
-    open func push(payload: [AnyHashable : Any], event: EventName?) {
+    
+    public func push(payload: Properties, event: EventName?) async {
         // No push logging feature, so we log a default event
         
         let properties : Properties? = (payload as? Properties) ?? nil
         
         let defaultEvent = AnalyticalEvent(type: .default, name: DefaultEvent.pushNotification.rawValue, properties: properties)
         
-        self.event(defaultEvent)
+        await self.event(defaultEvent)
     }
     
-    public func mergeGlobal(properties: Properties?, overwrite: Bool) -> Properties {
+    public func mergeGlobal(properties: Properties?, overwrite: Bool) async -> Properties {
         var final : Properties = globalProperties ?? [:]
         
         if let properties = properties {
