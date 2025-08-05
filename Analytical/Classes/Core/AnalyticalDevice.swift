@@ -39,26 +39,9 @@ public final class AnalyticalDevice {
             return id
         }
         
-        let id = identityProvider?(.random)?.uuidString ?? randomId()
+        let id = identityProvider?(.random)?.uuidString ?? MultipleAnalyticsProvider.randomId()
         userDefaults.set(id, forKey: deviceKey)
         
         return id
-    }
-    
-    private func randomId(_ length: Int = 64) -> String {
-        let charactersString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let charactersArray: [Character] = Array(charactersString)
-        
-        let count = UInt32(charactersString.count)
-        
-        var string = ""
-        
-        for _ in 0..<length {
-            let rand = Int(arc4random_uniform(count))
-            
-            string.append(charactersArray[rand])
-        }
-        
-        return string
     }
 }

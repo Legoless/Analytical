@@ -147,22 +147,12 @@ public actor MultipleAnalyticsProvider: AnalyticalProvider {
         }
     }
     
-    // MARK: - Private Methods
     
-    private static func randomId(_ length: Int = 64) -> String {
-        let charactersString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let charactersArray: [Character] = Array(charactersString)
+    static func randomId(_ length: Int = 64) -> String {
+        let characters = Array("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
         
-        let count = UInt32(charactersString.count)
+        let result = (0..<length).compactMap { _ in characters.randomElement() }
         
-        var string = ""
-        
-        for _ in 0..<length {
-            let rand = Int(arc4random_uniform(count))
-            
-            string.append(charactersArray[rand])
-        }
-        
-        return string
+        return String(result)
     }
 }
