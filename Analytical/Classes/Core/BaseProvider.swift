@@ -13,7 +13,7 @@ import Foundation
 ///
 /// Analytics provider generic class provides some common analytics functionality.
 ///
-@available(*, deprecated, message: "Use ProviderActor instead")
+@available(*, deprecated, message: "Use ProviderState instead")
 open class BaseProvider <T> : NSObject {
     
     // Stores global properties

@@ -146,13 +146,4 @@ public actor MultipleAnalyticsProvider: AnalyticalProvider {
             await provider.push(payload: payload, event: event)
         }
     }
-    
-    
-    static func randomId(_ length: Int = 64) -> String {
-        let characters = Array("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
-        
-        let result = (0..<length).compactMap { _ in characters.randomElement() }
-        
-        return String(result)
-    }
 }

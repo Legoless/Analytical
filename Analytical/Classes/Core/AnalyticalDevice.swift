@@ -39,7 +39,7 @@ public final class AnalyticalDevice {
             return id
         }
         
-        let id = identityProvider?(.random)?.uuidString ?? MultipleAnalyticsProvider.randomId()
+        let id = identityProvider?(.random)?.uuidString ?? randomId()
         userDefaults.set(id, forKey: deviceKey)
         
         return id

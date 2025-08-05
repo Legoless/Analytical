@@ -1,5 +1,5 @@
 //
-//  ProviderActor.swift
+//  ProviderState.swift
 //  Analytical
 //
 //  Created by Vid Vozelj on 5. 8. 25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public actor ProviderActor {
+public actor ProviderState {
     public var globalProperties: Properties?
     public var events: [EventName : Date] = [:]
     public var properties: [EventName : Properties]  = [:]

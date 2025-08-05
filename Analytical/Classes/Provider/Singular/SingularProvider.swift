@@ -11,7 +11,7 @@ import Analytical
 import StoreKit
 
 final public class SingularProvider: NSObject, AnalyticalProvider, SKPaymentTransactionObserver {
-    public let actor = ProviderActor()
+    public let actor = ProviderState()
     
     public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
