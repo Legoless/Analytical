@@ -45,16 +45,15 @@ public enum SendableValue: Sendable, Codable {
 
     // Convenience init from Any? — safely maps allowed types to SendableValue
     public init(_ value: Any?) {
-        print("SendableValue init received:", type(of: value), "=", value ?? "nil")
-        var neki: Any?
+        var inputValue: Any?
         
         if let sendable = value as? SendableValue {
-            neki = (value as! SendableValue).unwrapped
+            inputValue = (value as! SendableValue).unwrapped
         }
         else {
-            neki = value
+            inputValue = value
         }
-        switch neki {
+        switch inputValue {
         case let string as String:
             self = .string(string)
             break
