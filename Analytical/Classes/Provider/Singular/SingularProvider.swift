@@ -28,7 +28,7 @@ final public class SingularProvider: NSObject, AnalyticalProvider, SKPaymentTran
     public static let ApiKey = "SingularApiKey"
     public static let Secret = "SingularSecret"
     public static let EspDomains = "SingularEspDomains"
-    
+    public static let DisableIAPTracking = "SingularDisableIAPTracking"    
 
     public func setup(with properties: Analytical.Properties?) async {
         let espDomains: [String] = (properties?[Self.EspDomains]?.unwrapped as? [String]) ?? []
@@ -40,10 +40,14 @@ final public class SingularProvider: NSObject, AnalyticalProvider, SKPaymentTran
         guard let config = buildConfig(key: key, secret: secret, espDomains: espDomains) else {
             return
         }
-                
+        
         Singular.start(config)
         
-        setupObserver()
+        let propertyIAPTracking = properties?[Self.DisableIAPTracking]?.unwrapped as? Bool ?? false
+        
+        if !propertyIAPTracking {
+            setupObserver()
+        }
     }
     
     public func event(_ event: AnalyticalEvent) {
