@@ -106,6 +106,35 @@ public enum SendableValue: Sendable, Codable {
     }
 }
 
+extension SendableValue: CustomDebugStringConvertible{
+
+    public var debugDescription: String {
+        switch self {
+        case .string(let string):
+            return "\"\(string)\""
+        case .int(let value):
+            return "\(value)"
+        case .double(let double):
+            return "\(double)"
+        case .bool(let bool):
+            return "\(bool)"
+        case .dictionary(let entries):
+            let stringEntries = entries.map { "\"\($0)\": \($1.debugDescription)" }.joined(separator: ", ")
+            return "{\(stringEntries)}"
+        case .array(let values):
+            let stringValues = values.map(\.debugDescription).joined(separator: ", ")
+            return "[\(stringValues)]"
+        case .url(let url):
+            return url.debugDescription
+        case .date(let date):
+            return date.debugDescription
+        case .null:
+            return "nil"
+        }
+    }
+    
+}
+
 public struct Payload: Sendable {
     public let data: [String: SendableValue]
 
